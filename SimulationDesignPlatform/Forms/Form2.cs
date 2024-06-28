@@ -36,8 +36,9 @@ namespace SimulationDesignPlatform.Forms
 		private UserControl17 ucd17;
 		private UserControl18 ucd18;
 		private UserControl19 ucd19;
+		private UserControl20 ucd20;
 
-		public Form2()
+        public Form2()
 		{
 			InitializeComponent();
 			showShouye();
@@ -122,7 +123,20 @@ namespace SimulationDesignPlatform.Forms
 					label2.Text = "流股参数配置数据加载完毕";
 					label3.Text = "流股参数配置";
 					break;
-				case "物性参数配置":
+				case "计算顺序":
+                    splitContainer4.Panel2.Controls.Clear();
+                    ucd20 = new UserControl20();
+                    ucd20.Dock = DockStyle.Fill;
+                    ucd20.Parent = this.splitContainer4.Panel2;
+                    splitContainer4.Panel2.Controls.Add(ucd20);
+                    comboBox1.Visible = false;
+                    button2.Visible = false;
+                    button1.Visible = false;
+                    button4.Visible = false;
+                    label2.Text = "计算顺序数据加载完毕";
+                    label3.Text = "计算顺序";
+                    break;
+                case "物性参数配置":
 					splitContainer4.Panel2.Controls.Clear();
 					ucd7 = new UserControl7();
 					ucd7.Dock = DockStyle.Fill;

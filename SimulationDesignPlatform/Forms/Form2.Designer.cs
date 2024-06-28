@@ -34,12 +34,14 @@
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("流股参数配置");
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("物性参数配置");
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("信号路由");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("计算顺序");
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("模型仿真", new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode3,
             treeNode4,
             treeNode5,
-            treeNode6});
+            treeNode6,
+            treeNode14});
             System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("部件仿真结果");
             System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("流股仿真结果");
             System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("仿真结果", new System.Windows.Forms.TreeNode[] {
@@ -172,6 +174,8 @@
             treeNode12.Text = "自动测试";
             treeNode13.Name = "节点0";
             treeNode13.Text = "氢液化仿真计算平台";
+            treeNode14.Name = "节点14";
+            treeNode14.Text = "计算顺序";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode13});
             this.treeView1.Size = new System.Drawing.Size(170, 620);

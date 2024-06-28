@@ -37,10 +37,12 @@ namespace SimulationDesignPlatform
 
     }
 
+    //计算顺序
     public class calSeqData
     {
-        public const int cal_seq_max = 30;
-        public int[] node_cal_seq = new int[cal_seq_max];
+        //public const int cal_seq_max = 30;
+        //public int[] node_cal_seq = new int[cal_seq_max];
+        public int part_name, calculate_type, cal_k;
     }
 
 
@@ -84,7 +86,7 @@ namespace SimulationDesignPlatform
     //一般参数，用于总调度
     public class Data
     {
-        public static int n_mat, n_node, n_line, n_case;//材料数  部件总数   流股总数   工况数
+        public static int n_mat, n_node, n_line, n_case, n_calSeq;//材料数  部件总数   流股总数   工况数    计算个数
         public static double gas_const, t_ref, p_ref;//气体常数	参考温度 参考压力
         public static string fzxt_name, user_name, user_password, case_name;//仿真系统名称, 用户登录用户名，密码, 指定目录文件夹名称
         public static bool multi_case;//多工况计算
@@ -131,7 +133,10 @@ namespace SimulationDesignPlatform
         public const int n_mat_max = 10;//物性参数
         public static MatData[] mat = new MatData[n_mat_max]; //全局变量，存储
 
-        public const int n_node_max = 20;//部件参数
+        public const int n_calSeq_max = 50;//计算顺序参数
+        public static calSeqData[] calSeq = new calSeqData[n_calSeq_max]; //全局变量，存储
+
+        public const int n_node_max = 50;//部件参数
         public static NodeData[] node = new NodeData[n_node_max]; //全局变量，存储
 
         public const int n_line_max = 50;//流股参数
@@ -144,14 +149,11 @@ namespace SimulationDesignPlatform
         public const int n_case_max = 10;//工况参数
         public static CaseData[] case_data = new CaseData[n_case_max]; //全局变量，存储
 
-        public const int n_nodepara_max = 20;//设备初值参数
+        public const int n_nodepara_max = 50;//设备初值参数
         public static nodeParaData[] nodepara = new nodeParaData[n_nodepara_max]; //全局变量，存储
 
         public static TreeNodeData rootNode_01 = new TreeNodeData("电解水制氢仿真测试");
         public static TreeNodeData rootNode_02 = new TreeNodeData("电解水制氢仿真系统");
-
-
-        public static calSeqData calSeq = new calSeqData(); //全局变量，存储
 
         public static string openFile, saveFile, fileName, filePath, exePath, casePath, caseUsePath, newFolderPath, newFolderName;  // 文件名，包含路径，用于存储文件
 
@@ -600,6 +602,15 @@ namespace SimulationDesignPlatform
                         Data.mat[i] = new MatData();    //物性
                     }
 
+                    //calSeq初始化
+                    for (int  i= 0; i<Data.n_calSeq_max; i++)
+                    {
+                        Data.calSeq[i] = new calSeqData();
+                        calSeq[i].part_name = -1;
+                        calSeq[i].calculate_type = -1;
+                        calSeq[i].cal_k = -1;
+                    }
+
 
                     //-------------------------物性参数------------------------
                     //读取csv文件
@@ -779,6 +790,8 @@ namespace SimulationDesignPlatform
                         Console.WriteLine("i = {0} , ip = {1}, eff = {2}, cal_i = {3}, cal_j = {4}, direction = {5}, name = {6}", i, Data.nodepara[i].ip, Data.nodepara[i].eff, Data.nodepara[i].cal_i, Data.nodepara[i].cal_j, Data.nodepara[i].direction, Data.nodepara[i].name);
                     }
 
+
+
                     ////-------------------------自动测试------------------------
                     //nextLine = sR1.ReadLine(); //# 自动测试
                     //nextLine = sR1.ReadLine(); //# 自动测试
@@ -842,6 +855,38 @@ namespace SimulationDesignPlatform
                     //    }
 
                     //}
+
+                    //-------------------------计算顺序------------------------
+                    nextLine = sR1.ReadLine(); //# 计算顺序
+                    nextLine = sR1.ReadLine(); //# 计算顺序
+                    nextLine = sR1.ReadLine(); //# 计算顺序
+                    nextLine = sR1.ReadLine(); //# 计算顺序
+                    nextLine = sR1.ReadLine(); 
+                    {
+                        string[] tmp = nextLine.Split(',');
+                        Data.n_calSeq = int.Parse(tmp[0] == "" ? "0" : tmp[0]);//计算个数
+                    }
+                    nextLine = sR1.ReadLine(); //# 计算顺序
+
+                    for(int i = 0; i < Data.n_calSeq; i++)
+                    {
+                        nextLine = sR1.ReadLine();
+                        string[] tmp = nextLine.Split(',');
+                        if (tmp.Length > 1)
+                        {
+                            Data.calSeq[i].part_name = int.TryParse(tmp[0], out int partNameResult) ? partNameResult : 0;
+                        }
+
+                        if (tmp.Length > 2)
+                        {
+                            Data.calSeq[i].calculate_type = int.TryParse(tmp[1], out int calculateTypeResult) ? calculateTypeResult : 0;
+                        }
+
+                        if (tmp.Length > 3)
+                        {
+                            Data.calSeq[i].cal_k = int.TryParse(tmp[2], out int calKResult) ? calKResult : 0;
+                        }
+                    }
 
                     sR1.Close();
                     MessageBox.Show("导入成功！");
@@ -930,6 +975,19 @@ namespace SimulationDesignPlatform
                 //        + Data.case_data[i].t_case.ToString() + ',' + Data.case_data[i].p_case.ToString() + ','
                 //        + Data.case_data[i].m_case.ToString() + ',');
                 //}
+                file.WriteLine("###########################,,,,,,,,,,,,,,,");
+                file.WriteLine("# 计算顺序,,,,,,,,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,,,,,,,,");
+                file.WriteLine("计算个数,,,,,,,,,,,,,,,,");
+                file.WriteLine(Data.n_calSeq.ToString() + ',');
+                file.WriteLine("部件名称,计算类型,cal_k,,,,,,,,,,,,,");
+                for (int i = 0; i < Data.n_calSeq; i++)
+                {
+                    string partName = Data.calSeq[i].part_name != -1 ? Data.calSeq[i].part_name.ToString() : "";
+                    string calculateType = Data.calSeq[i].calculate_type != -1 ? Data.calSeq[i].calculate_type.ToString() : "";
+                    string calK = Data.calSeq[i].cal_k != -1 ? Data.calSeq[i].cal_k.ToString() : "";
+                    file.WriteLine(partName + ',' + calculateType + ',' + calK + ',');
+                }
             }
         }
 
