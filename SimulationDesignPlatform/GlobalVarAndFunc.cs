@@ -130,26 +130,26 @@ namespace SimulationDesignPlatform
 
         public static string imagePath;
 
-        public const int n_mat_max = 10;//物性参数
+        public const int n_mat_max = 200;//物性参数
         public static MatData[] mat = new MatData[n_mat_max]; //全局变量，存储
 
-        public const int n_calSeq_max = 50;//计算顺序参数
+        public const int n_calSeq_max = 200;//计算顺序参数
         public static calSeqData[] calSeq = new calSeqData[n_calSeq_max]; //全局变量，存储
 
-        public const int n_node_max = 50;//部件参数
+        public const int n_node_max = 200;//部件参数
         public static NodeData[] node = new NodeData[n_node_max]; //全局变量，存储
 
-        public const int n_line_max = 50;//流股参数
+        public const int n_line_max = 200;//流股参数
         public static lineData[] line = new lineData[n_line_max]; //全局变量，存储
         public static lineData[] faultLine = new lineData[n_line_max]; //全局变量，存储
 
-        public const int n_fault_max = 50;//故障流股参数
+        public const int n_fault_max = 200;//故障流股参数
         public static FaultData[] fault = new FaultData[n_fault_max]; //全局变量，存储
 
-        public const int n_case_max = 10;//工况参数
+        public const int n_case_max = 200;//工况参数
         public static CaseData[] case_data = new CaseData[n_case_max]; //全局变量，存储
 
-        public const int n_nodepara_max = 50;//设备初值参数
+        public const int n_nodepara_max = 200;//设备初值参数
         public static nodeParaData[] nodepara = new nodeParaData[n_nodepara_max]; //全局变量，存储
 
         public static TreeNodeData rootNode_01 = new TreeNodeData("电解水制氢仿真测试");
