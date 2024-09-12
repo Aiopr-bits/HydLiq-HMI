@@ -34,27 +34,29 @@
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("流股参数配置");
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("物性参数配置");
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("信号路由");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("计算顺序");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("模型仿真", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("计算顺序");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("模型仿真", new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode3,
             treeNode4,
             treeNode5,
             treeNode6,
-            treeNode14});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("部件仿真结果");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("流股仿真结果");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("仿真结果", new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9});
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("变量清单");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("自动测试");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("氢液化仿真计算平台", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode7,
+            treeNode7});
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("部件仿真结果");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("流股仿真结果");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("换热器最小温差结果");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("仿真结果", new System.Windows.Forms.TreeNode[] {
+            treeNode9,
             treeNode10,
-            treeNode11,
-            treeNode12});
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("变量清单");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("自动测试");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("氢液化仿真计算平台", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode8,
+            treeNode12,
+            treeNode13,
+            treeNode14});
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -92,7 +94,6 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -104,9 +105,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1392, 674);
-            this.splitContainer1.SplitterDistance = 52;
-            this.splitContainer1.SplitterWidth = 2;
+            this.splitContainer1.Size = new System.Drawing.Size(2088, 1011);
+            this.splitContainer1.SplitterDistance = 78;
+            this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 0;
             // 
             // label1
@@ -114,10 +115,9 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(512, 6);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(768, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(278, 39);
+            this.label1.Size = new System.Drawing.Size(421, 58);
             this.label1.TabIndex = 1;
             this.label1.Text = "氢液化仿真计算平台";
             // 
@@ -125,7 +125,6 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -135,9 +134,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1392, 620);
-            this.splitContainer2.SplitterDistance = 170;
-            this.splitContainer2.SplitterWidth = 3;
+            this.splitContainer2.Size = new System.Drawing.Size(2088, 930);
+            this.splitContainer2.SplitterDistance = 255;
             this.splitContainer2.TabIndex = 0;
             // 
             // treeView1
@@ -145,7 +143,6 @@
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(2);
             this.treeView1.Name = "treeView1";
             treeNode1.Checked = true;
             treeNode1.Name = "节点1";
@@ -160,25 +157,27 @@
             treeNode5.Text = "物性参数配置";
             treeNode6.Name = "节点3";
             treeNode6.Text = "信号路由";
-            treeNode7.Name = "节点2";
-            treeNode7.Text = "模型仿真";
-            treeNode8.Name = "部件仿真结果";
-            treeNode8.Text = "部件仿真结果";
-            treeNode9.Name = "流股仿真结果";
-            treeNode9.Text = "流股仿真结果";
-            treeNode10.Name = "节点0";
-            treeNode10.Text = "仿真结果";
-            treeNode11.Name = "节点4";
-            treeNode11.Text = "变量清单";
-            treeNode12.Name = "节点6";
-            treeNode12.Text = "自动测试";
-            treeNode13.Name = "节点0";
-            treeNode13.Text = "氢液化仿真计算平台";
-            treeNode14.Name = "节点14";
-            treeNode14.Text = "计算顺序";
+            treeNode7.Name = "计算顺序";
+            treeNode7.Text = "计算顺序";
+            treeNode8.Name = "节点2";
+            treeNode8.Text = "模型仿真";
+            treeNode9.Name = "部件仿真结果";
+            treeNode9.Text = "部件仿真结果";
+            treeNode10.Name = "流股仿真结果";
+            treeNode10.Text = "流股仿真结果";
+            treeNode11.Name = "换热器最小温差结果";
+            treeNode11.Text = "换热器最小温差结果";
+            treeNode12.Name = "节点0";
+            treeNode12.Text = "仿真结果";
+            treeNode13.Name = "节点4";
+            treeNode13.Text = "变量清单";
+            treeNode14.Name = "节点6";
+            treeNode14.Text = "自动测试";
+            treeNode15.Name = "节点0";
+            treeNode15.Text = "氢液化仿真计算平台";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13});
-            this.treeView1.Size = new System.Drawing.Size(170, 620);
+            treeNode15});
+            this.treeView1.Size = new System.Drawing.Size(255, 930);
             this.treeView1.TabIndex = 1;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -186,7 +185,6 @@
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -199,9 +197,9 @@
             // 
             this.splitContainer3.Panel2.BackColor = System.Drawing.Color.SeaGreen;
             this.splitContainer3.Panel2.Controls.Add(this.label2);
-            this.splitContainer3.Size = new System.Drawing.Size(1219, 620);
-            this.splitContainer3.SplitterDistance = 591;
-            this.splitContainer3.SplitterWidth = 2;
+            this.splitContainer3.Size = new System.Drawing.Size(1829, 930);
+            this.splitContainer3.SplitterDistance = 886;
+            this.splitContainer3.SplitterWidth = 3;
             this.splitContainer3.TabIndex = 0;
             // 
             // splitContainer4
@@ -209,7 +207,6 @@
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer4.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer4.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer4.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer4.Name = "splitContainer4";
             this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -231,19 +228,18 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.splitContainer4.Size = new System.Drawing.Size(1219, 591);
+            this.splitContainer4.Size = new System.Drawing.Size(1829, 886);
             this.splitContainer4.SplitterDistance = 37;
-            this.splitContainer4.SplitterWidth = 2;
+            this.splitContainer4.SplitterWidth = 3;
             this.splitContainer4.TabIndex = 0;
             // 
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button3.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.button3.Location = new System.Drawing.Point(519, 6);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Location = new System.Drawing.Point(778, 9);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(130, 26);
+            this.button3.Size = new System.Drawing.Size(195, 39);
             this.button3.TabIndex = 12;
             this.button3.Text = "仿真结果曲线配置";
             this.button3.UseVisualStyleBackColor = true;
@@ -254,10 +250,9 @@
             // 
             this.button8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button8.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.button8.Location = new System.Drawing.Point(118, 6);
-            this.button8.Margin = new System.Windows.Forms.Padding(2);
+            this.button8.Location = new System.Drawing.Point(177, 9);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(113, 26);
+            this.button8.Size = new System.Drawing.Size(170, 39);
             this.button8.TabIndex = 11;
             this.button8.Text = "指定工作目录";
             this.button8.UseVisualStyleBackColor = true;
@@ -267,10 +262,9 @@
             // 
             this.button6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button6.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.button6.Location = new System.Drawing.Point(236, 6);
-            this.button6.Margin = new System.Windows.Forms.Padding(2);
+            this.button6.Location = new System.Drawing.Point(354, 9);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(70, 26);
+            this.button6.Size = new System.Drawing.Size(105, 39);
             this.button6.TabIndex = 9;
             this.button6.Text = "开始计算";
             this.button6.UseVisualStyleBackColor = true;
@@ -280,10 +274,9 @@
             // 
             this.button5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button5.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.button5.Location = new System.Drawing.Point(310, 6);
-            this.button5.Margin = new System.Windows.Forms.Padding(2);
+            this.button5.Location = new System.Drawing.Point(465, 9);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(101, 26);
+            this.button5.Size = new System.Drawing.Size(152, 39);
             this.button5.TabIndex = 8;
             this.button5.Text = "仿真参数导出";
             this.button5.UseVisualStyleBackColor = true;
@@ -292,10 +285,10 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button4.Location = new System.Drawing.Point(1020, 6);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button4.Location = new System.Drawing.Point(1530, 9);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(142, 26);
+            this.button4.Size = new System.Drawing.Size(213, 39);
             this.button4.TabIndex = 7;
             this.button4.Text = "数据回放曲线配置";
             this.button4.UseVisualStyleBackColor = true;
@@ -305,10 +298,10 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button2.Location = new System.Drawing.Point(873, 6);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button2.Location = new System.Drawing.Point(1310, 9);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(141, 26);
+            this.button2.Size = new System.Drawing.Size(212, 39);
             this.button2.TabIndex = 5;
             this.button2.Text = "趋势监控曲线配置";
             this.button2.UseVisualStyleBackColor = true;
@@ -323,10 +316,10 @@
             "3-图表",
             "4-图表",
             "6-图表"});
-            this.comboBox1.Location = new System.Drawing.Point(790, 8);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox1.Location = new System.Drawing.Point(1185, 12);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(79, 25);
+            this.comboBox1.Size = new System.Drawing.Size(116, 32);
             this.comboBox1.TabIndex = 4;
             this.comboBox1.Visible = false;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -335,10 +328,9 @@
             // 
             this.button1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button1.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.button1.Location = new System.Drawing.Point(655, 6);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Location = new System.Drawing.Point(982, 9);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 26);
+            this.button1.Size = new System.Drawing.Size(195, 39);
             this.button1.TabIndex = 2;
             this.button1.Text = "工艺流程曲线配置";
             this.button1.UseVisualStyleBackColor = true;
@@ -350,10 +342,9 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(10, 10);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(15, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 17);
+            this.label3.Size = new System.Drawing.Size(48, 25);
             this.label3.TabIndex = 0;
             this.label3.Text = "首页";
             // 
@@ -362,20 +353,18 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(5, 4);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(8, 6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 17);
+            this.label2.Size = new System.Drawing.Size(136, 24);
             this.label2.TabIndex = 3;
             this.label2.Text = "仿真模型初始化";
             // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1392, 674);
+            this.ClientSize = new System.Drawing.Size(2088, 1011);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form2";

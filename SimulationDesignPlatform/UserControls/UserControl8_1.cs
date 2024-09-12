@@ -139,6 +139,7 @@ namespace SimulationDesignPlatform.UserControls
                             }
                         }
                     }
+                }
                     dataGridView1.AllowUserToAddRows = false;
 
                     if (Data.data15.Count > 0)
@@ -185,7 +186,7 @@ namespace SimulationDesignPlatform.UserControls
                     {
                         dataGridView1.Rows.Add(Data.data15[i].ToArray());
                     }
-                }
+                
             }
             else
             {

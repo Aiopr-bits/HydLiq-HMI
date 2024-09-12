@@ -265,5 +265,5 @@ namespace SimulationDesignPlatform.UserControls
 			//重置窗口布局
 			ReWinformLayout();
 		}
-	}
+    }
 }

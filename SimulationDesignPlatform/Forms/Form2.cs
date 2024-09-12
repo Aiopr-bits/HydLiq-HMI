@@ -25,7 +25,8 @@ namespace SimulationDesignPlatform.Forms
 		private UserControl7 ucd7;
 		private UserControl8_1 ucd8_1;
 		private UserControl8_2 ucd8_2;
-		private UserControl9 ucd9;
+        private UserControl8_3 ucd8_3;
+        private UserControl9 ucd9;
 		private UserControl10 ucd10;
 		private UserControl11 ucd11;
 		private UserControl12 ucd12;
@@ -160,8 +161,8 @@ namespace SimulationDesignPlatform.Forms
 					button1.Visible = false;
 					button3.Visible = true;
 					button4.Visible = false;
-					label2.Text = "仿真结果图表数据加载完毕";
-					label3.Text = "仿真结果";
+					label2.Text = "部件仿真结果图表数据加载完毕";
+					label3.Text = "部件仿真结果";
 					break;
 				case "流股仿真结果":
 					splitContainer4.Panel2.Controls.Clear();
@@ -174,10 +175,24 @@ namespace SimulationDesignPlatform.Forms
 					button1.Visible = false;
 					button3.Visible = true;
 					button4.Visible = false;
-					label2.Text = "仿真结果图表数据加载完毕";
-					label3.Text = "仿真结果";
+					label2.Text = "流股仿真结果图表数据加载完毕";
+					label3.Text = "流股仿真结果";
 					break;
-				case "信号路由":
+                case "换热器最小温差结果":
+                    splitContainer4.Panel2.Controls.Clear();
+                    ucd8_3 = new UserControl8_3();
+                    ucd8_3.Dock = DockStyle.Fill;
+                    ucd8_3.Parent = this.splitContainer4.Panel2;
+                    splitContainer4.Panel2.Controls.Add(ucd8_3);
+                    comboBox1.Visible = false;
+                    button2.Visible = false;
+                    button1.Visible = false;
+                    button3.Visible = true;
+                    button4.Visible = false;
+                    label2.Text = "换热器最小温差结果数据加载完毕";
+                    label3.Text = "换热器最小温差结果";
+                    break;
+                case "信号路由":
 					splitContainer4.Panel2.Controls.Clear();
 					ucd9 = new UserControl9();
 					ucd9.Dock = DockStyle.Fill;

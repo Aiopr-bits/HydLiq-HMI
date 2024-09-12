@@ -40,8 +40,6 @@ namespace SimulationDesignPlatform
     //计算顺序
     public class calSeqData
     {
-        //public const int cal_seq_max = 30;
-        //public int[] node_cal_seq = new int[cal_seq_max];
         public int part_name, calculate_type, cal_k;
     }
 
@@ -111,6 +109,7 @@ namespace SimulationDesignPlatform
         public static List<List<string>> data14 = new List<List<string>>();//数据回放-数据列表 
         public static List<List<string>> data15 = new List<List<string>>();//部件仿真结果数据查看 
         public static List<List<string>> data16 = new List<List<string>>();//流股仿真结果数据查看 
+        public static List<List<string>> data17 = new List<List<string>>();//换热器最小温差结果数据查看 
 
         public static string[] data1_check;//趋势监控-图表1  列勾选情况
         public static string[] data2_check;//趋势监控-图表2  列勾选情况
@@ -127,6 +126,7 @@ namespace SimulationDesignPlatform
         public static string[] data13_check;//数据回放-图表-3  列勾选情况
         public static string[] data15_check;//部件仿真结果  列勾选情况
         public static string[] data16_check;//流股仿真结果  列勾选情况
+        public static string[] data17_check;//换热器最小温差结果  列勾选情况
 
         public static string imagePath;
 
