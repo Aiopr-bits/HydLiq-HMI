@@ -38,6 +38,8 @@ namespace SimulationDesignPlatform.Forms
 		private UserControl18 ucd18;
 		private UserControl19 ucd19;
 		private UserControl20 ucd20;
+		private UserControl21 ucd21;
+        private UserControl22 ucd22;
 
         public Form2()
 		{
@@ -256,7 +258,33 @@ namespace SimulationDesignPlatform.Forms
 					label2.Text = "数据列表数据加载完毕";
 					label3.Text = "数据列表";
 					break;
-			}
+				case "自动测试结果":
+					splitContainer4.Panel2.Controls.Clear();
+                    ucd21 = new UserControl21();
+                    ucd21.Dock = DockStyle.Fill;
+                    ucd21.Parent = this.splitContainer4.Panel2;
+                    splitContainer4.Panel2.Controls.Add(ucd21);
+                    comboBox1.Visible = false;
+                    button2.Visible = false;
+                    button1.Visible = false;
+                    button4.Visible = false;
+                    label2.Text = "自动测试结果数据加载完毕";
+                    label3.Text = "自动测试结果";
+                    break;
+                case "优化模型结果":
+                    splitContainer4.Panel2.Controls.Clear();
+                    ucd22 = new UserControl22();
+                    ucd22.Dock = DockStyle.Fill;
+                    ucd22.Parent = this.splitContainer4.Panel2;
+                    splitContainer4.Panel2.Controls.Add(ucd22);
+                    comboBox1.Visible = false;
+                    button2.Visible = false;
+                    button1.Visible = false;
+                    button4.Visible = false;
+                    label2.Text = "优化模型结果数据加载完毕";
+                    label3.Text = "优化模型结果";
+                    break;
+            }
 			RemoveDataGridViewColumnHeaders(this);
             DisableDataGridViewSorting(this);
         }
@@ -532,8 +560,18 @@ namespace SimulationDesignPlatform.Forms
 			{
 				string fileContent = File.ReadAllText(datainput_path);
 				Data.CSV2Data(fileContent);
-			}
-			catch(Exception myException)
+               
+                string autoTest_path = Path.Combine(Path.GetDirectoryName(datainput_path), "output.data", "autoTest.csv");
+                fileContent = File.ReadAllText(autoTest_path);
+				Data.CSVOutputdataAutoTest(fileContent);
+
+                string optimResult_path = Path.Combine(Path.GetDirectoryName(datainput_path), "output.data", "optimResult.csv");
+                fileContent = File.ReadAllText(optimResult_path);
+                Data.CSVOutputdataOptimResult(fileContent);
+
+                MessageBox.Show("导入成功！");
+            }
+            catch (Exception myException)
 			{
 				MessageBox.Show("请检查工况文件是否为打开状态或不存在！", "提示" );
 			}

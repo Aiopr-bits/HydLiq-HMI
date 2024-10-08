@@ -89,6 +89,20 @@ namespace SimulationDesignPlatform
         public string name;
     }
 
+    //自动测试结果(34)
+    public class autoTestResult
+    {
+        public int nrow;
+        public double[][] auto_test_result;
+    }
+
+    //优化模型结果(7)
+    public class optModelResult
+    {
+        public int nrow;
+        public double[][] opt_model_result;
+    }
+
     //一般参数，用于总调度
     public class Data
     {
@@ -138,29 +152,33 @@ namespace SimulationDesignPlatform
 
         public static string imagePath;
 
-        public const int n_mat_max = 200;//物性参数
+        public const int n_mat_max = 500;//物性参数
         public static MatData[] mat = new MatData[n_mat_max]; //全局变量，存储
 
-        public const int n_calSeq_max = 200;//计算顺序参数
+        public const int n_calSeq_max = 500;//计算顺序参数
         public static calSeqData[] calSeq = new calSeqData[n_calSeq_max]; //全局变量，存储
   
         public static autoTestData autoTest = new autoTestData();//自动测试参数
 
-        public const int n_node_max = 200;//部件参数
+        public const int n_node_max = 500;//部件参数
         public static NodeData[] node = new NodeData[n_node_max]; //全局变量，存储
 
-        public const int n_line_max = 200;//流股参数
+        public const int n_line_max = 500;//流股参数
         public static lineData[] line = new lineData[n_line_max]; //全局变量，存储
         public static lineData[] faultLine = new lineData[n_line_max]; //全局变量，存储
 
-        public const int n_fault_max = 200;//故障流股参数
+        public const int n_fault_max = 500;//故障流股参数
         public static FaultData[] fault = new FaultData[n_fault_max]; //全局变量，存储
 
-        public const int n_case_max = 200;//工况参数
+        public const int n_case_max = 500;//工况参数
         public static CaseData[] case_data = new CaseData[n_case_max]; //全局变量，存储
 
-        public const int n_nodepara_max = 200;//设备初值参数
+        public const int n_nodepara_max = 500;//设备初值参数
         public static nodeParaData[] nodepara = new nodeParaData[n_nodepara_max]; //全局变量，存储
+
+        public static autoTestResult autoTest_result = new autoTestResult(); //全局变量，存储
+
+        public static optModelResult optModel_result = new optModelResult(); //全局变量，存储
 
         public static TreeNodeData rootNode_01 = new TreeNodeData("电解水制氢仿真测试");
         public static TreeNodeData rootNode_02 = new TreeNodeData("电解水制氢仿真系统");
@@ -483,7 +501,65 @@ namespace SimulationDesignPlatform
                         Data.autoTest.n_h2_line = int.Parse(tmp[1] == "" ? "0" : tmp[1]);
                     }
                     sR1.Close();
-                    MessageBox.Show("导入成功！");
+                }
+            }
+        }
+
+        public static void CSVOutputdataAutoTest(string fn)
+        {
+            Data.autoTest_result.auto_test_result = new double[500][];
+
+            using (MemoryStream ms = new MemoryStream(Encoding.Default.GetBytes(fn)))
+            {
+                using (StreamReader sR1 = new StreamReader(ms, Encoding.Default))
+                {
+                    string nextLine = "";
+                    nextLine = sR1.ReadLine();
+                    nextLine = sR1.ReadLine();
+
+                    Data.autoTest_result.nrow = 0;
+                    for (int i=0; nextLine != null; i++)
+                    {           
+                        string[] tmp = nextLine.Split(',');
+                        Data.autoTest_result.nrow++;
+                        Data.autoTest_result.auto_test_result[i] = new double[34];
+                        for (int j = 0; j < 34; j++)
+                        {
+                            Data.autoTest_result.auto_test_result[i][j] = double.Parse(tmp[j] == "" ? "0" : tmp[j]);
+                        }
+
+                        nextLine = sR1.ReadLine();
+                    }
+                    sR1.Close();
+                }
+            }
+        }
+
+        public static void CSVOutputdataOptimResult(string fn)
+        {
+            Data.optModel_result.opt_model_result = new double[500][];
+
+            using (MemoryStream ms = new MemoryStream(Encoding.Default.GetBytes(fn)))
+            {
+                using (StreamReader sR1 = new StreamReader(ms, Encoding.Default))
+                {
+                    string nextLine = "";
+                    nextLine = sR1.ReadLine();
+                    nextLine = sR1.ReadLine();
+                    Data.optModel_result.nrow = 0;
+                    for (int i = 0; nextLine != null; i++)
+                    {
+                        string[] tmp = nextLine.Split(',');
+                        Data.optModel_result.nrow++;
+                        Data.optModel_result.opt_model_result[i] = new double[7];
+                        for (int j = 0; j < 7; j++)
+                        {
+                            Data.optModel_result.opt_model_result[i][j] = double.Parse(tmp[j] == "" ? "0" : tmp[j]);
+                        }
+
+                        nextLine = sR1.ReadLine();
+                    }
+                    sR1.Close();
                 }
             }
         }

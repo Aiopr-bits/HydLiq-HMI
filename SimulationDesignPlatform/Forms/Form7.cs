@@ -108,7 +108,6 @@ namespace SimulationDesignPlatform.Forms
         // csv文件 转为 dp.input
         private void CSV2Data(string fn)
         {
-
             bool flag = true;
             //string str1;
 

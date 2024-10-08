@@ -331,3 +331,5 @@ C:\Data\kaisihaopeng\项目资料\2氢液化\SimulationDesignPlatform-0912\Simul
 C:\Data\kaisihaopeng\项目资料\2氢液化\SimulationDesignPlatform-0912\SimulationDesignPlatform.pdb
 C:\Data\kaisihaopeng\项目资料\2氢液化\SimulationDesignPlatform-0912\SimulationDesignPlatform\obj\Debug\SimulationDesignPlatform.UserControls.UserControl8_3.resources
 C:\Data\kaisihaopeng\项目资料\2氢液化\SimulationDesignPlatform-0912\SimulationDesignPlatform\obj\Debug\SimulationDesignPlatform.Forms.Form8_3.resources
+C:\Data\kaisihaopeng\项目资料\2氢液化\SimulationDesignPlatform-0912\SimulationDesignPlatform\obj\Debug\SimulationDesignPlatform.UserControls.UserControl22.resources
+C:\Data\kaisihaopeng\项目资料\2氢液化\SimulationDesignPlatform-0912\SimulationDesignPlatform\obj\Debug\SimulationDesignPlatform.UserControls.UserControl21.resources

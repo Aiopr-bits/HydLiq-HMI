@@ -149,6 +149,18 @@
     <Compile Include="UserControls\UserControl11.Designer.cs">
       <DependentUpon>UserControl11.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UserControl22.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControl22.Designer.cs">
+      <DependentUpon>UserControl22.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserControl21.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UserControl21.Designer.cs">
+      <DependentUpon>UserControl21.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\UserControl12.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -306,6 +318,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControl11.resx">
       <DependentUpon>UserControl11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControl22.resx">
+      <DependentUpon>UserControl22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UserControl21.resx">
+      <DependentUpon>UserControl21.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControl12.resx">
       <DependentUpon>UserControl12.cs</DependentUpon>

@@ -52,13 +52,15 @@
             treeNode10,
             treeNode11});
             System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("变量清单");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("自动测试");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("自动测试结果");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("优化模型结果");
             System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("氢液化仿真计算平台", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode8,
             treeNode12,
             treeNode13,
-            treeNode14});
+            treeNode14,
+            treeNode17});
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -180,10 +182,12 @@
             treeNode12.Text = "仿真结果";
             treeNode13.Name = "节点4";
             treeNode13.Text = "变量清单";
-            treeNode14.Name = "节点6";
-            treeNode14.Text = "自动测试";
+            treeNode14.Name = "自动测试结果";
+            treeNode14.Text = "自动测试结果";
             treeNode15.Name = "节点0";
             treeNode15.Text = "氢液化仿真计算平台";
+            treeNode17.Name = "优化模型结果";
+            treeNode17.Text = "优化模型结果";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode15});
             this.treeView1.Size = new System.Drawing.Size(196, 746);
