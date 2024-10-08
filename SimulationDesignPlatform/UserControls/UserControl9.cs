@@ -26,6 +26,9 @@ namespace SimulationDesignPlatform.UserControls
             y = Height;
             setTag(this);
             #endregion
+
+            treeView1.ExpandAll();
+            treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
         }
 
         private void setTag(Control cons)
