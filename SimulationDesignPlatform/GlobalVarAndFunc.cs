@@ -575,7 +575,7 @@ namespace SimulationDesignPlatform
                 file.WriteLine("###########################,,,,,,,,");
                 file.WriteLine("计算流股参数个数,计算部件参数个数,,,,,,,");
                 file.WriteLine(Data.autoTest.n_line.ToString() + ',' + Data.autoTest.n_node.ToString() + ',');
-                file.WriteLine("流股,起始温度,结束温度,计算点数,计算点数,,,,");
+                file.WriteLine("流股,起始温度,结束温度,计算点数,,,,");
                 for (int i = 0; i < Data.autoTest.n_line; i++)
                 {
                     file.Write(Data.autoTest.line[i][0].ToString() + ',');
@@ -585,7 +585,7 @@ namespace SimulationDesignPlatform
                     }
                     file.WriteLine();
                 }
-                file.WriteLine("部件,起始效率,结束效率,计算点数,计算点数,,,,");
+                file.WriteLine("部件,起始效率,结束效率,计算点数,,,,");
                 for (int i = 0; i < Data.autoTest.n_node; i++)
                 {
                     file.Write(Data.autoTest.node[i][0].ToString() + ',');

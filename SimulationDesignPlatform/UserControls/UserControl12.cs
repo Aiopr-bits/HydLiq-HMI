@@ -111,7 +111,22 @@ namespace SimulationDesignPlatform.UserControls
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //dataGridView1.AllowUserToAddRows = true;
+            //int id = dataGridView1.NewRowIndex;
+            //Data.n_case = id;
 
+            //for (int i = 0; i < id; i++)
+            //{
+            //    Data.case_data[i].icase = (int)dataGridView1.Rows[i].Cells[0].Value;
+            //    Data.case_data[i].line_case = (int)dataGridView1.Rows[i].Cells[1].Value;
+            //    Data.case_data[i].t_case = (double)dataGridView1.Rows[i].Cells[2].Value;
+            //    Data.case_data[i].p_case = (double)dataGridView1.Rows[i].Cells[3].Value;
+            //    Data.case_data[i].m_case = (double)dataGridView1.Rows[i].Cells[4].Value;
+            //}
+            Data.saveFile = Path.Combine(Data.exePath, Data.case_name, "data_input.csv");
+            Data.GUI2CSV(@Data.saveFile);
+            GetDatabase();
+            MessageBox.Show("保存成功！");
         }
     }
 }
