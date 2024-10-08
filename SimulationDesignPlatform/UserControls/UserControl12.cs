@@ -18,6 +18,7 @@ namespace SimulationDesignPlatform.UserControls
         public UserControl12()
         {
             InitializeComponent();
+            tableLayoutPanel1.SetColumnSpan(button1, 2); 
             GetDatabase();
             #region  初始化控件缩放
             x = Width;
@@ -68,107 +69,49 @@ namespace SimulationDesignPlatform.UserControls
 
         private void UserControl12_Resize(object sender, EventArgs e)
         {
-            //重置窗口布局
             ReWinformLayout();
         }
 
         private void GetDatabase()
         {
-            if(Data.multi_case == true)
+            DataTable dataTable01 = new DataTable();
+            dataTable01.Columns.Add("计算流股参数个数");
+            dataTable01.Columns.Add("计算部件参数个数");
+            dataTable01.Rows.Add(Data.autoTest.n_line, Data.autoTest.n_node);
+            dataGridView1.DataSource = dataTable01;
+
+            DataTable dataTable02 = new DataTable();
+            dataTable02.Columns.Add("流股", typeof(string));
+            dataTable02.Columns.Add("起始温度", typeof(double));
+            dataTable02.Columns.Add("结束温度", typeof(double));
+            dataTable02.Columns.Add("计算点数", typeof(int));
+            for (int i = 0; i < Data.autoTest.n_line; i++)
             {
-                DataTable dataTable01 = new DataTable();
-
-                dataTable01.Columns.Add("icase", typeof(int));
-                dataTable01.Columns.Add("line_case", typeof(int));
-                dataTable01.Columns.Add("t_case", typeof(double));
-                dataTable01.Columns.Add("p_case", typeof(double));
-                dataTable01.Columns.Add("m_case", typeof(double));
-
-                // 设置DataGridView的DataSource  
-                dataGridView1.DataSource = dataTable01;
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-                // 设置列名  
-                dataGridView1.Columns["icase"].HeaderText = "工况";
-                dataGridView1.Columns["line_case"].HeaderText = "流股";
-                dataGridView1.Columns["t_case"].HeaderText = "温度";
-                dataGridView1.Columns["p_case"].HeaderText = "压力";
-                dataGridView1.Columns["m_case"].HeaderText = "流量";
-
-                for (int i = 0; i < Data.n_case; i++)
-                {
-                    //添加行数据
-                    DataRow row = dataTable01.NewRow();
-                    row["icase"] = Data.case_data[i].icase;
-                    row["line_case"] = Data.case_data[i].line_case;
-                    row["t_case"] = Data.case_data[i].t_case;
-                    row["p_case"] = Data.case_data[i].p_case;
-                    row["m_case"] = Data.case_data[i].m_case;
-
-                    dataTable01.Rows.Add(row);
-                }
+                dataTable02.Rows.Add(Data.autoTest.line[i][0], Data.autoTest.line[i][1], Data.autoTest.line[i][2], Data.autoTest.line[i][3]);
             }
-            
+            dataGridView2.DataSource = dataTable02;
+
+            DataTable dataTable03 = new DataTable();
+            dataTable03.Columns.Add("部件", typeof(string));
+            dataTable03.Columns.Add("起始效率", typeof(double));
+            dataTable03.Columns.Add("结束效率", typeof(double));
+            dataTable03.Columns.Add("计算点数", typeof(int));
+            for (int i = 0; i < Data.autoTest.n_node; i++)
+            {
+                dataTable03.Rows.Add(Data.autoTest.node[i][0], Data.autoTest.node[i][1], Data.autoTest.node[i][2], Data.autoTest.node[i][3]);
+            }
+            dataGridView3.DataSource = dataTable03;
+
+            DataTable dataTable04 = new DataTable();
+            dataTable04.Columns.Add("氢流量部件", typeof(string));
+            dataTable04.Columns.Add("氢流量流股", typeof(string));
+            dataTable04.Rows.Add(Data.autoTest.n_h2_node, Data.autoTest.n_line);
+            dataGridView4.DataSource = dataTable04;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dataGridView1.AllowUserToAddRows = true;
-            int id = dataGridView1.NewRowIndex;
-            Data.n_case = id;
 
-            for (int i = 0; i < id; i++)
-            {
-                Data.case_data[i].icase = (int)dataGridView1.Rows[i].Cells[0].Value;
-                Data.case_data[i].line_case = (int)dataGridView1.Rows[i].Cells[1].Value;
-                Data.case_data[i].t_case = (double)dataGridView1.Rows[i].Cells[2].Value;
-                Data.case_data[i].p_case = (double)dataGridView1.Rows[i].Cells[3].Value;
-                Data.case_data[i].m_case = (double)dataGridView1.Rows[i].Cells[4].Value;
-            }
-            Data.saveFile = Path.Combine(Data.exePath, Data.case_name, "data_input.csv");
-            Data.GUI2CSV(@Data.saveFile);
-            GetDatabase();
-            Task.Run(() =>
-            {
-                MessageBox.Show("保存成功！");
-            });
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            dataGridView1.AllowUserToDeleteRows = true;
-            
-            DialogResult dr = MessageBox.Show("确定要删除吗？", "Deleting", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dr == DialogResult.Yes)
-            {
-                int a = dataGridView1.CurrentCell.RowIndex;
-                DataGridViewRow row = dataGridView1.Rows[a];
-                dataGridView1.Rows.Remove(row);
-                Console.WriteLine("a = {0} ", a);
-
-                CaseData[] case2 = new CaseData[Data.n_case_max - 1];
-                int index = 0;
-                for (int i = 0; i < Data.n_case; i++)
-                {
-                    if (i != a)
-                    {
-                        case2[index] = Data.case_data[i];
-                        index++;
-                    }
-                }
-                Data.case_data = case2;
-                Data.n_case = Data.n_case - 1;
-                GetDatabase();
-                Task.Run(() =>
-                {
-                    MessageBox.Show("删除成功！");
-                });
-            }
-            else
-            {
-                MessageBox.Show("取消删除");
-            }
-            
         }
     }
 }

@@ -35,13 +35,15 @@
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("物性参数配置");
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("信号路由");
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("计算顺序");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("自动测试");
             System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("模型仿真", new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode3,
             treeNode4,
             treeNode5,
             treeNode6,
-            treeNode7});
+            treeNode7,
+            treeNode16});
             System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("部件仿真结果");
             System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("流股仿真结果");
             System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("换热器最小温差结果");
@@ -164,6 +166,8 @@
             treeNode6.Text = "信号路由";
             treeNode7.Name = "计算顺序";
             treeNode7.Text = "计算顺序";
+            treeNode16.Name = "自动测试";
+            treeNode16.Text = "自动测试";
             treeNode8.Name = "节点2";
             treeNode8.Text = "模型仿真";
             treeNode9.Name = "部件仿真结果";

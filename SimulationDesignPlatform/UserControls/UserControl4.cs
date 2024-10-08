@@ -23,11 +23,11 @@ namespace SimulationDesignPlatform.UserControls
             GetDatabase01();
             GetDatabase02();
             GetDatabase03();
-            Rectangle ScreenArea = Screen.GetWorkingArea(this);
-            if(ScreenArea.Height < this.Height)
-            {
-                this.Height = ScreenArea.Height;
-            }
+            //Rectangle ScreenArea = Screen.GetWorkingArea(this);
+            //if(ScreenArea.Height < this.Height)
+            //{
+            //    this.Height = ScreenArea.Height;
+            //}
             #region  初始化控件缩放
             x = Width;
             y = Height;
