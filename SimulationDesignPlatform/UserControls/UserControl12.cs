@@ -105,8 +105,8 @@ namespace SimulationDesignPlatform.UserControls
 
             DataTable dataTable04 = new DataTable();
             dataTable04.Columns.Add("氢流量部件", typeof(string));
-            dataTable04.Columns.Add("氢流量流股", typeof(string));
-            dataTable04.Rows.Add(Data.autoTest.n_h2_node, Data.autoTest.n_line);
+            dataTable04.Columns.Add("氢流量流股", typeof(string)); 
+            dataTable04.Rows.Add(Data.autoTest.n_h2_node, Data.autoTest.n_h2_line);
             dataGridView4.DataSource = dataTable04;
 
             DataTable dataTable05 = new DataTable();
@@ -119,18 +119,60 @@ namespace SimulationDesignPlatform.UserControls
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //dataGridView1.AllowUserToAddRows = true;
-            //int id = dataGridView1.NewRowIndex;
-            //Data.n_case = id;
+            // 更新 Data.autoTest.n_line 和 Data.autoTest.n_node
+            if (dataGridView1.Rows.Count > 0)
+            {
+                Data.autoTest.n_line = Convert.ToInt32(dataGridView1.Rows[0].Cells[0].Value);
+                Data.autoTest.n_node = Convert.ToInt32(dataGridView1.Rows[0].Cells[1].Value);
+            }
 
-            //for (int i = 0; i < id; i++)
-            //{
-            //    Data.case_data[i].icase = (int)dataGridView1.Rows[i].Cells[0].Value;
-            //    Data.case_data[i].line_case = (int)dataGridView1.Rows[i].Cells[1].Value;
-            //    Data.case_data[i].t_case = (double)dataGridView1.Rows[i].Cells[2].Value;
-            //    Data.case_data[i].p_case = (double)dataGridView1.Rows[i].Cells[3].Value;
-            //    Data.case_data[i].m_case = (double)dataGridView1.Rows[i].Cells[4].Value;
-            //}
+            // 初始化 Data.autoTest.line 和 Data.autoTest.node 数组
+            Data.autoTest.line = new double[Data.autoTest.n_line][];
+            for (int i = 0; i < Data.autoTest.n_line; i++)
+            {
+                Data.autoTest.line[i] = new double[4];
+            }
+
+            Data.autoTest.node = new double[Data.autoTest.n_node][];
+            for (int i = 0; i < Data.autoTest.n_node; i++)
+            {
+                Data.autoTest.node[i] = new double[4];
+            }
+
+            // 更新 Data.autoTest.line
+            for (int i = 0; i < dataGridView2.Rows.Count; i++)
+            {
+                Data.autoTest.line[i][0] = Convert.ToDouble(dataGridView2.Rows[i].Cells[0].Value);
+                Data.autoTest.line[i][1] = Convert.ToDouble(dataGridView2.Rows[i].Cells[1].Value);
+                Data.autoTest.line[i][2] = Convert.ToDouble(dataGridView2.Rows[i].Cells[2].Value);
+                Data.autoTest.line[i][3] = Convert.ToInt32(dataGridView2.Rows[i].Cells[3].Value);
+            }
+
+            // 更新 Data.autoTest.node
+            for (int i = 0; i < dataGridView3.Rows.Count; i++)
+            {
+                Data.autoTest.node[i][0] = Convert.ToDouble(dataGridView3.Rows[i].Cells[0].Value);
+                Data.autoTest.node[i][1] = Convert.ToDouble(dataGridView3.Rows[i].Cells[1].Value);
+                Data.autoTest.node[i][2] = Convert.ToDouble(dataGridView3.Rows[i].Cells[2].Value);
+                Data.autoTest.node[i][3] = Convert.ToInt32(dataGridView3.Rows[i].Cells[3].Value);
+            }
+
+            // 更新 Data.autoTest.n_h2_node 和 Data.autoTest.n_h2_line
+            if (dataGridView4.Rows.Count > 0)
+            {
+                Data.autoTest.n_h2_node = Convert.ToInt32(dataGridView4.Rows[0].Cells[0].Value);
+                Data.autoTest.n_h2_line = Convert.ToInt32(dataGridView4.Rows[0].Cells[1].Value);
+            }
+
+            // 更新 Data.multi_case, Data.cal_min_temp_diff 和 Data.opt_model_cal
+            if (dataGridView5.Rows.Count > 0)
+            {
+                Data.multi_case = Convert.ToBoolean(dataGridView5.Rows[0].Cells[0].Value);
+                Data.cal_min_temp_diff = Convert.ToBoolean(dataGridView5.Rows[0].Cells[1].Value);
+                Data.opt_model_cal = Convert.ToBoolean(dataGridView5.Rows[0].Cells[2].Value);
+            }
+
+            // 保存数据到 CSV 文件
             Data.saveFile = Path.Combine(Data.exePath, Data.case_name, "data_input.csv");
             Data.GUI2CSV(@Data.saveFile);
             GetDatabase();

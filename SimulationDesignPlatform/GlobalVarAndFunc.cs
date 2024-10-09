@@ -571,37 +571,37 @@ namespace SimulationDesignPlatform
             // output gui.input
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(fn, false, Encoding.Default))
             {
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("# 控制参数,,,,,,,,,,,,,,,");
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("# 控制参数,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
                 file.WriteLine("自动测试,计算最小温差,优化模型计算,,,,,,");
-                file.WriteLine(Data.multi_case.ToString() + ',' + Data.cal_min_temp_diff.ToString() + ',' + Data.opt_model_cal.ToString() + ',');
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("# 物性参数,,,,,,,,,,,,,,,");
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("气体常数,参考温度,参考压力,,,,,,,,,,,,,,,,");
-                file.WriteLine(Data.gas_const.ToString() + ',' + Data.t_ref.ToString() + ',' + Data.p_ref.ToString() + ',');
-                file.WriteLine("材料数,,,,,,,,,,,,,,,,,,");
-                file.WriteLine(Data.n_mat.ToString() + ',');
-                file.WriteLine("介质编号,名称,分子量,备注,,,,,,,,,,,,,,,,,");
+                file.WriteLine(Data.multi_case.ToString() + ',' + Data.cal_min_temp_diff.ToString() + ',' + Data.opt_model_cal.ToString() + ",,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("# 物性参数,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("气体常数,参考温度,参考压力,,,,,,");
+                file.WriteLine(Data.gas_const.ToString() + ',' + Data.t_ref.ToString() + ',' + Data.p_ref.ToString() + ",,,,,,");
+                file.WriteLine("材料数,,,,,,,,");
+                file.WriteLine(Data.n_mat.ToString() + ",,,,,,,,");
+                file.WriteLine("介质编号,名称,分子量,备注,,,,,");
                 for (int i = 0; i < Data.n_mat; i++)
                 {
                     file.WriteLine(Data.mat[i].id.ToString() + ',' + Data.mat[i].name.ToString() + ','
-                                   + Data.mat[i].mol.ToString() + ',' + Data.mat[i].notes.ToString() + ',');
+                                   + Data.mat[i].mol.ToString() + ',' + Data.mat[i].notes.ToString() + ",,,,,");
                 }
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("# 路由参数,,,,,,,,,,,,,,,");
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("部件总数,流股总数,,,,,,,,,,,,,,,,,,");
-                file.WriteLine(Data.n_node.ToString() + ',' + Data.n_line.ToString() + ',');
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("# 路由参数,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("部件总数,流股总数,,,,,,,");
+                file.WriteLine(Data.n_node.ToString() + ',' + Data.n_line.ToString() + ",,,,,,,");
                 for (int i = 0; i < Data.n_node; i++)
                 {
-                    file.WriteLine("### 部件" + Data.node[i].id + ",,,,,,,,,,,,,,,,");
-                    file.WriteLine("name,type,流股数,计算类型,含氮换热器,,,,,,,,,,,,,,,,");
+                    file.WriteLine("### 部件" + Data.node[i].id + ",,,,,,,,");
+                    file.WriteLine("name,type,流股数,计算类型,非纯氢换热器,,计算流量,,");
                     file.WriteLine(Data.node[i].name.ToString() + ',' + Data.node[i].type.ToString() + ','
                                    + Data.node[i].n.ToString() + ',' + Data.node[i].cal_type.ToString() + ','
-                                   + Data.node[i].n2_heat.ToString() + ',');
-                    file.WriteLine("输入流股,,,,,,,,,,,,,,,");
+                                   + Data.node[i].n2_heat.ToString() + ",,,,");
+                    file.WriteLine("输入流股,,,,,,,,");
                     string tmp = "";
                     string tmp2 = "";
                     for (int j = 0; j < Data.node[i].n; j++)
@@ -609,38 +609,38 @@ namespace SimulationDesignPlatform
                         tmp = tmp + Data.node[i].i[j].ToString() + ",";
                         tmp2 = tmp2 + Data.node[i].o[j].ToString() + ",";
                     }
-                    file.WriteLine(tmp);
-                    file.WriteLine("输出流股,,,,,,,,,,,,,,,");
-                    file.WriteLine(tmp2);
+                    file.WriteLine(tmp+ ",,,,,");
+                    file.WriteLine("输出流股,,,,,,,,");
+                    file.WriteLine(tmp2+ ",,,,,");
                 }
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("# 流股初值,,,,,,,,,,,,,,,");
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("流股,名称,温度,压力,流量,仲氢浓度,液氮比例,工质,循环氢,,,,,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("# 流股初值,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("流股,名称,温度,压力,流量,仲氢浓度,液氮比例,工质,纯氢");
                 for (int i = 0; i < Data.n_line; i++)
                 {
                     file.WriteLine(Data.line[i].ip.ToString() + ',' + Data.line[i].name + ','
                                    + Data.line[i].t.ToString() + ','
                                    + Data.line[i].p.ToString() + ',' + Data.line[i].m.ToString() + ','
                                    + Data.line[i].para.ToString() + ',' + Data.line[i].n2.ToString() + ','
-                                   + Data.line[i].mat.ToString() + ',' + Data.line[i].h2_type.ToString() + ',');
+                                   + Data.line[i].mat.ToString() + ',' + Data.line[i].h2_type.ToString() );
                 }
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("# 设备初值,,,,,,,,,,,,,,,");
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("设备,eff,cal_i,cal_j,膨胀机方向,设备名称,,,,,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("# 设备初值,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("设备,eff,cal_i,cal_j,膨胀机方向,设备名称,,,");
                 for (int i = 0; i < Data.n_node; i++)
                 {
                     file.WriteLine(Data.nodepara[i].ip.ToString() + ',' + Data.nodepara[i].eff.ToString() + ','
                                    + Data.nodepara[i].cal_i.ToString() + ',' + Data.nodepara[i].cal_j.ToString() + ','
-                                   + Data.nodepara[i].direction.ToString() + ',' + Data.nodepara[i].name + ',');
+                                   + Data.nodepara[i].direction.ToString() + ',' + Data.nodepara[i].name + ",,,");
                 }
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("# 计算顺序,,,,,,,,,,,,,,,");
-                file.WriteLine("###########################,,,,,,,,,,,,,,,");
-                file.WriteLine("计算个数,,,,,,,,,,,,,,,,");
-                file.WriteLine(Data.n_calSeq.ToString() + ',');
-                file.WriteLine("部件名称,计算类型,cal_k,,,,,,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("# 计算顺序,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("计算个数,,,,,,,,");
+                file.WriteLine(Data.n_calSeq.ToString() + ",,,,,,,,");
+                file.WriteLine("部件名称,计算类型,cal_i,cal_j,,,,,");
                 for (int i = 0; i < Data.n_calSeq; i++)
                 {
                     string partName = Data.calSeq[i].part_name != -1 ? Data.calSeq[i].part_name.ToString() : "";
@@ -652,7 +652,7 @@ namespace SimulationDesignPlatform
                 file.WriteLine("# 自动测试,,,,,,,,");
                 file.WriteLine("###########################,,,,,,,,");
                 file.WriteLine("计算流股参数个数,计算部件参数个数,,,,,,,");
-                file.WriteLine(Data.autoTest.n_line.ToString() + ',' + Data.autoTest.n_node.ToString() + ',');
+                file.WriteLine(Data.autoTest.n_line.ToString() + ',' + Data.autoTest.n_node.ToString() + ",,,,,,,");
                 file.WriteLine("流股,起始温度,结束温度,计算点数,,,,");
                 for (int i = 0; i < Data.autoTest.n_line; i++)
                 {
@@ -674,7 +674,7 @@ namespace SimulationDesignPlatform
                     file.WriteLine();
                 }
                 file.WriteLine("氢流量部件,氢流量流股,,,,,,,");
-                file.WriteLine(Data.autoTest.n_h2_node.ToString() + ',' + Data.autoTest.n_h2_line.ToString() + ',');
+                file.WriteLine(Data.autoTest.n_h2_node.ToString() + ',' + Data.autoTest.n_h2_line.ToString() + ",,,,,,,");
             }
         }
 
