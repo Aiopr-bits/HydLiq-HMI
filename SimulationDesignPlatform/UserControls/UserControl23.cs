@@ -18,7 +18,6 @@ namespace SimulationDesignPlatform.UserControls
         public UserControl23()
         {
             InitializeComponent();
-            GetDatabase();
             #region  初始化控件缩放
             x = Width;
             y = Height;
@@ -69,16 +68,6 @@ namespace SimulationDesignPlatform.UserControls
         private void UserControl23_Resize(object sender, EventArgs e)
         {
             ReWinformLayout();
-        }
-
-        private void GetDatabase()
-        {
-            DataTable dataTable01 = new DataTable();
-            dataTable01.Columns.Add("自动测试");
-            dataTable01.Columns.Add("计算最小温差");
-            dataTable01.Columns.Add("优化模型计算");
-            dataTable01.Rows.Add(Data.multi_case, Data.cal_min_temp_diff, Data.opt_model_cal);
-            dataGridView1.DataSource = dataTable01;
         }
     }
 }

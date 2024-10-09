@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -430,33 +431,173 @@ namespace SimulationDesignPlatform.Forms
 			Application.Exit();
 		}
 
-		private void button6_Click(object sender, EventArgs e)
-		{
-			if (Data.caseUsePath == "" || Data.caseUsePath == null)
-			{
-				MessageBox.Show("请先指定工作目录！");
-				return;
-			}
+        private void readFiles()
+        {
+            // 运行用户加载上次成功载入的工作目录路径（20240311，由M添加）
+            string selectedFolder = string.Empty;
+            // 检查历史工作路径是否存在
+            string historypath = Path.Combine(Data.exePath, "history.csv");
+            if (File.Exists(historypath))
+            {
+                selectedFolder = File.ReadAllText(historypath);
+            }
 
-			Process proc = null;
-			try
-			{
-				proc = new Process();
-				proc.StartInfo.WorkingDirectory = Data.exePath;
-				proc.StartInfo.FileName = "hydLiq.exe";
-				proc.StartInfo.CreateNoWindow = true;
-				proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-				proc.Start();
-				proc.WaitForExit();
-				MessageBox.Show("计算完成！");
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.StackTrace.ToString());
-			}
-		}
+            string case_name;
+            string datainput_path = Path.Combine(selectedFolder, "data_input.csv");
+            if (Directory.Exists(selectedFolder))
+            {
+                // 获取case1文件夹的绝对路径
+                string case1Path = selectedFolder;
+                int lastBackslashIndex = case1Path.LastIndexOf('\\');
+                if (lastBackslashIndex != -1)
+                {
+                    case1Path = case1Path.Substring(lastBackslashIndex + 1);
+                }
 
-		private void button8_Click(object sender, EventArgs e)
+                // 将绝对路径写入文件
+                string filePath = Path.Combine(Data.exePath, "case_path.csv");
+                File.WriteAllText(filePath, case1Path);
+                case_name = case1Path;
+                Data.case_name = case1Path;
+                Data.caseUsePath = selectedFolder;
+                //判断选中的工况文件夹下面是否有data_input文件
+                string targetFileName = "data_input.csv";
+
+                // 获取case1文件夹下的所有文件路径
+                string[] files = Directory.GetFiles(selectedFolder);
+
+                // 遍历所有文件，检查是否存在目标文件
+                bool fileExists = false;
+                foreach (string file in files)
+                {
+                    if (Path.GetFileName(file) == targetFileName)
+                    {
+                        fileExists = true;
+                        break;
+                    }
+                }
+
+                if (fileExists)
+                {
+                    // 储存为历史工作路径，方便下次启动（20240311，由M添加）
+                    File.WriteAllText(historypath, selectedFolder);
+                }
+                else
+                {
+                    string selectedPath = selectedFolder;
+                    // 判断是否包含中文
+                    bool containsChinese = Regex.IsMatch(selectedPath, @"[\u4e00-\u9fa5]");
+                    if (containsChinese == true)
+                    {
+                        MessageBox.Show("文件夹路径不能包含中文！");
+                        return;
+                    }
+
+                    // 判断是否包含空格
+                    bool containsSpace = selectedPath.Contains(" ");
+                    if (containsSpace == true)
+                    {
+                        MessageBox.Show("文件夹路径不能包含空格！");
+                        return;
+                    }
+
+                    // 拷贝文件夹
+                    string sourceFolderPath = Data.casePath;
+                    string destinationFolderPath = selectedPath;
+                    CopyFolder(sourceFolderPath, destinationFolderPath);
+                }
+            }
+            else
+            {
+                MessageBox.Show("文件夹路径不存在！");
+                return;
+            }
+
+            // 导入仿真参数数据  
+            Data.fzxt_name = case_name;
+            // 读取data_input.csv文件的内容
+
+            try
+            {
+                string fileContent = File.ReadAllText(datainput_path);
+                Data.CSV2Data(fileContent);
+
+                string autoTest_path = Path.Combine(Path.GetDirectoryName(datainput_path), "output.data", "autoTest.csv");
+                fileContent = File.ReadAllText(autoTest_path);
+                Data.CSVOutputdataAutoTest(fileContent);
+
+                string optimResult_path = Path.Combine(Path.GetDirectoryName(datainput_path), "output.data", "optimResult.csv");
+                fileContent = File.ReadAllText(optimResult_path);
+                Data.CSVOutputdataOptimResult(fileContent);
+            }
+            catch (Exception myException)
+            {
+                MessageBox.Show("请检查工况文件是否为打开状态或不存在！", "提示");
+            }
+        }
+
+        private async void button6_Click(object sender, EventArgs e)
+        {
+            if (Data.caseUsePath == "" || Data.caseUsePath == null)
+            {
+                MessageBox.Show("请先指定工作目录！");
+                return;
+            }
+
+            Process proc = null;
+            try
+            {
+                splitContainer4.Panel2.Controls.Clear();
+                UserControl23 ucd23 = new UserControl23();
+                ucd23.Dock = DockStyle.Fill;
+                ucd23.Parent = this.splitContainer4.Panel2;
+                splitContainer4.Panel2.Controls.Add(ucd23);
+                ucd23.richTextBox1.ReadOnly = true; // 设置为只读
+                ucd23.richTextBox1.Font = new Font(ucd23.richTextBox1.Font.FontFamily, 10); // 设置字体大小
+                comboBox1.Visible = false;
+                button2.Visible = false;
+                button1.Visible = false;
+                button4.Visible = false;
+                label2.Text = "求解计算";
+                label3.Text = "求解计算";
+
+                proc = new Process();
+                proc.StartInfo.WorkingDirectory = Data.exePath;
+                proc.StartInfo.FileName = "hydLiq.exe";
+                proc.StartInfo.CreateNoWindow = true;
+                proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                proc.StartInfo.RedirectStandardOutput = true;
+                proc.StartInfo.UseShellExecute = false;
+
+                // 获取当前的同步上下文
+                var context = SynchronizationContext.Current;
+
+                proc.OutputDataReceived += (s, args) =>
+                {
+                    if (args.Data != null)
+                    {
+                        // 使用同步上下文在 UI 线程中执行更新操作
+                        context.Post(_ =>
+                        {
+                            ucd23.richTextBox1.AppendText(args.Data + Environment.NewLine);
+                        }, null);
+                    }
+                };
+
+                proc.Start();
+                proc.BeginOutputReadLine();
+                await Task.Run(() => proc.WaitForExit());
+				readFiles();
+                MessageBox.Show("计算完成！");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace.ToString());
+            }
+        }
+
+
+        private void button8_Click(object sender, EventArgs e)
 		{
 			// 运行用户加载上次成功载入的工作目录路径（20240311，由M添加）
 			string selectedFolder = string.Empty;
@@ -575,6 +716,8 @@ namespace SimulationDesignPlatform.Forms
 			{
 				MessageBox.Show("请检查工况文件是否为打开状态或不存在！", "提示" );
 			}
+
+            File.WriteAllText(historypath, selectedFolder);
 
             treeView1.ExpandAll();
 			treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
