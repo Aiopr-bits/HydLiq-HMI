@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("主页面");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("多工况计算");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("仿真模型信息汇总");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("部件参数配置");
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("流股参数配置");
@@ -57,7 +56,6 @@
             System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("优化模型结果");
             System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("氢液化仿真计算平台", new System.Windows.Forms.TreeNode[] {
             treeNode1,
-            treeNode18,
             treeNode8,
             treeNode12,
             treeNode13,
@@ -158,8 +156,6 @@
             treeNode1.Checked = true;
             treeNode1.Name = "节点1";
             treeNode1.Text = "主页面";
-            treeNode18.Name = "多工况计算";
-            treeNode18.Text = "多工况计算";
             treeNode2.Name = "节点10";
             treeNode2.Text = "仿真模型信息汇总";
             treeNode3.Name = "节点11";

@@ -18,7 +18,8 @@ namespace SimulationDesignPlatform.UserControls
         public UserControl12()
         {
             InitializeComponent();
-            tableLayoutPanel1.SetColumnSpan(button1, 2); 
+            tableLayoutPanel1.SetColumnSpan(button1, 2);
+            tableLayoutPanel1.SetColumnSpan(dataGridView5, 2);
             GetDatabase();
             #region  初始化控件缩放
             x = Width;
@@ -107,6 +108,13 @@ namespace SimulationDesignPlatform.UserControls
             dataTable04.Columns.Add("氢流量流股", typeof(string));
             dataTable04.Rows.Add(Data.autoTest.n_h2_node, Data.autoTest.n_line);
             dataGridView4.DataSource = dataTable04;
+
+            DataTable dataTable05 = new DataTable();
+            dataTable05.Columns.Add("自动测试");
+            dataTable05.Columns.Add("计算最小温差");
+            dataTable05.Columns.Add("优化模型计算");
+            dataTable05.Rows.Add(Data.multi_case, Data.cal_min_temp_diff, Data.opt_model_cal);
+            dataGridView5.DataSource = dataTable05;
         }
 
         private void button1_Click(object sender, EventArgs e)
