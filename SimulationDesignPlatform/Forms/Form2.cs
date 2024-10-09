@@ -40,6 +40,7 @@ namespace SimulationDesignPlatform.Forms
 		private UserControl20 ucd20;
 		private UserControl21 ucd21;
         private UserControl22 ucd22;
+		private UserControl23 ucd23;
 
         public Form2()
 		{
@@ -86,7 +87,20 @@ namespace SimulationDesignPlatform.Forms
 					label2.Text = "主页面图表数据加载完毕";
 					label3.Text = "主页面";
 					break;
-				case "仿真模型信息汇总":
+				case "多工况计算":
+                    splitContainer4.Panel2.Controls.Clear();
+                    ucd23 = new UserControl23();
+                    ucd23.Dock = DockStyle.Fill;
+                    ucd23.Parent = this.splitContainer4.Panel2;
+                    splitContainer4.Panel2.Controls.Add(ucd23);
+                    comboBox1.Visible = false;
+                    button2.Visible = false;
+                    button1.Visible = false;
+                    button4.Visible = false;
+                    label2.Text = "多工况计算数据加载完毕";
+                    label3.Text = "多工况计算";
+                    break;
+                case "仿真模型信息汇总":
 					splitContainer4.Panel2.Controls.Clear();
 					ucd4 = new UserControl4();
 					ucd4.Dock = DockStyle.Fill;
@@ -577,7 +591,7 @@ namespace SimulationDesignPlatform.Forms
 			}
 
             treeView1.ExpandAll();
-			treeView1.SelectedNode = treeView1.Nodes[0].Nodes[1].Nodes[0];
+			treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
 
         }
 

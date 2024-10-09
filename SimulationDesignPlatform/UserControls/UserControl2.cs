@@ -127,7 +127,9 @@ namespace SimulationDesignPlatform.UserControls
             nextLine = sR1.ReadLine(); //# 控制参数
             {
                 string[] tmp = nextLine.Split(',');
-                flag = flag && bool.TryParse(tmp[0], out Data.multi_case);    //多工况计算
+                flag = flag && bool.TryParse(tmp[0], out Data.multi_case);    //自动测试
+                flag = flag && bool.TryParse(tmp[1], out Data.cal_min_temp_diff);    //最小温差
+                flag = flag && bool.TryParse(tmp[2], out Data.opt_model_cal);    //优化模型计算
             }
             nextLine = sR1.ReadLine(); //# 物性参数
             nextLine = sR1.ReadLine(); //# 物性参数
