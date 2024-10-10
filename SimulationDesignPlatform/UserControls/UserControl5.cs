@@ -311,6 +311,9 @@ namespace SimulationDesignPlatform.UserControls
                 row["direction"] = Data.nodepara[i].direction;
                 dataTable02.Rows.Add(row);
             }
+
+            //隐藏第二列
+            this.dataGridView2.Columns[1].Visible = false;
         }
 
 		private void button1_Click(object sender, EventArgs e)

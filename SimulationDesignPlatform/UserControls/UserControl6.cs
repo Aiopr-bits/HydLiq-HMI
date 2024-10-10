@@ -168,9 +168,9 @@ namespace SimulationDesignPlatform.UserControls
 
 				dataTable01.Rows.Add(row);
 			}
-		}
+        }
 
-		private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
 		{
 			dataGridView1.AllowUserToDeleteRows = true;
 
