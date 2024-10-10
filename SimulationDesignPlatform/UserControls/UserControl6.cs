@@ -147,17 +147,6 @@ namespace SimulationDesignPlatform.UserControls
 			dataTable01.Columns.Add("medium", typeof(string));
 			dataTable01.Columns.Add("h2_type", typeof(bool));
 
-			// 设置列名  
-			//dataGridView1.Columns["id"].HeaderText = "流股序号";
-			//dataGridView1.Columns["name"].HeaderText = "流股名称";
-			//dataGridView1.Columns["temperature"].HeaderText = "温度(K)";
-			//dataGridView1.Columns["pressure"].HeaderText = "压力(Mpa)";
-			//dataGridView1.Columns["flow"].HeaderText = "流量(Kg/s)";
-			//dataGridView1.Columns["s_h_con"].HeaderText = "仲氢浓度";
-			//dataGridView1.Columns["l_n_ratio"].HeaderText = "液氮比例";
-			//dataGridView1.Columns["medium"].HeaderText = "工质";
-			//dataGridView1.Columns["h2_type"].HeaderText = "循环氢";
-
 			dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			CheckMedium();
 

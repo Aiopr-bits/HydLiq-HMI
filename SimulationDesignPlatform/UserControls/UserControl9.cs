@@ -78,35 +78,14 @@ namespace SimulationDesignPlatform.UserControls
 
             for (int i = 0; i < Data.n_node; i++)
             {
-                //tn1.Nodes.Add(Data.node[i].id + Data.node[i].name);
                 tn1.Nodes.Add(Data.node[i].name);
             }
         }
 
         private void treeView1_AfterSelect_1(object sender, TreeViewEventArgs e)
         {
-            TreeNode sn1 = treeView1.SelectedNode; // 获取选中的节点
-            /*                                      
-           string node_text = sn1.Text;
-           if (node_text == "")
-           {
-               return;
-           }
-           bool startsWithNumber = Regex.IsMatch(node_text, @"^*\d*$");
-           if (startsWithNumber == true)
-           {
-               int node_id = treeView1.SelectedNode.Index;
-               int node_id = int.Parse(node_text.Substring(0, 1));
-               Show_NodeData(node_id);
-           }
-           else
-           {
-               MessageBox.Show("所选节点格式有误！");
-           }
-            */
+            TreeNode sn1 = treeView1.SelectedNode; 
 
-
-            //zhangax修改
             if (treeView1.SelectedNode.Text.Trim().ToLower() ==string.Empty|| treeView1.SelectedNode.Text.Trim().ToLower() == Data.fzxt_name.Trim().ToLower())
                 return;
             else
@@ -138,19 +117,6 @@ namespace SimulationDesignPlatform.UserControls
             dataGridView1.Columns["out_id"].HeaderText = "输出流股序号";
             dataGridView1.Columns["out_name"].HeaderText = "输出流股名称";
 
-            /*
-            for (int i = 0; i < Data.node[id - 1].n; i++)
-            {
-                //添加行数据
-                DataRow row = dataTable01.NewRow();
-                row["in_id"] = Data.node[id - 1].i[i];
-                row["out_id"] = Data.node[id - 1].o[i];
-
-                dataTable01.Rows.Add(row);
-            }*/
-
-
-            //zhangax修改
             if (id > 0)
             {
                 for (int i = 0; i < Data.node[id - 1].n; i++)
@@ -184,7 +150,6 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-
         private void dataGridView1_CurrentCellChanged(object sender, EventArgs e)
         {
            if( this.dataGridView1.CurrentRow==null)
@@ -215,20 +180,36 @@ namespace SimulationDesignPlatform.UserControls
                 }
             }
             this.dataGridView1.Rows[this.dataGridView1.CurrentRow.Index].Cells[3].Value = lineName;
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TreeNode sn1 = treeView1.SelectedNode; // 获取选中的节点
-            string node_text = sn1.Text;
-            int id = int.Parse(node_text.Substring(0, 1));
-            for (int i = 0; i < Data.node[id-1].n; i++)
+            // 获取当前选中的节点
+            TreeNode selectedNode = treeView1.SelectedNode;
+            if (selectedNode == null || selectedNode.Parent == null)
             {
-                Data.node[id - 1].i[i] = (int)dataGridView1.Rows[i].Cells[0].Value;
-                Data.node[id - 1].o[i] = (int)dataGridView1.Rows[i].Cells[1].Value;
+                MessageBox.Show("请选择一个有效的节点。");
+                return;
             }
 
+            // 获取节点ID
+            int node_id = selectedNode.Index + 1;
+
+            // 更新 Data.node 对象
+            if (node_id > 0 && node_id <= Data.node.Length)
+            {
+                var currentNode = Data.node[node_id - 1];
+                currentNode.i = new int[dataGridView1.Rows.Count];
+                currentNode.o = new int[dataGridView1.Rows.Count];
+
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    currentNode.i[i] = Convert.ToInt32(dataGridView1.Rows[i].Cells["in_id"].Value);
+                    currentNode.o[i] = Convert.ToInt32(dataGridView1.Rows[i].Cells["out_id"].Value);
+                }
+            }
+
+            // 保存数据到 CSV 文件
             Data.saveFile = Path.Combine(Data.exePath, Data.case_name, "data_input.csv");
             Data.GUI2CSV(@Data.saveFile);
 
@@ -243,7 +224,5 @@ namespace SimulationDesignPlatform.UserControls
             //重置窗口布局
             ReWinformLayout();
         }
-
-
     }
 }

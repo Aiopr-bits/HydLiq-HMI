@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace SimulationDesignPlatform.UserControls
 {
@@ -115,8 +116,8 @@ namespace SimulationDesignPlatform.UserControls
 			});
 			((DataGridViewComboBoxColumn)this.dataGridView1.Columns["type"]).Items.AddRange(
 				new object[] { "1-正仲转换器", "2-换热器", "3-压缩机", "4-膨胀机", "5-混合器",
-					"6-氢气节流阀", "7-泵", "8-汽液分离器", "9-冷却器", "10-储罐" });
-			this.dataGridView1.Columns.Add(new DataGridViewTextBoxColumn()
+					"6-氢气节流阀", "7-泵", "8-汽液分离器", "9-冷却器", "10-储罐" , "11-分流", "12-合流"});
+            this.dataGridView1.Columns.Add(new DataGridViewTextBoxColumn()
 			{
 				Name = "n_num",
 				HeaderText = "流股数",
@@ -130,8 +131,8 @@ namespace SimulationDesignPlatform.UserControls
 				DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing,
 			});
 			((DataGridViewComboBoxColumn)this.dataGridView1.Columns["cal_type"]).Items.AddRange(
-				new object[] { "求解温度", "求解流量" });
-			this.dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn()
+				new object[] { "计算温度", "计算流量", "赋值浓度", "反向赋值浓度", "赋值流量", "赋值温度", "正向计算流量", "反向计算流量","其他类型" });
+            this.dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn()
 			{
 				Name = "n2_heat",
 				HeaderText = "含氮换热器",
@@ -187,19 +188,42 @@ namespace SimulationDesignPlatform.UserControls
 					case 10:
 						row["type"] = "10-储罐";
 						break;
+					case 11:
+						row["type"] = "11-分流";
+						break;
+					case 12:
+						row["type"] = "12-合流";
+						break;
 				}
 
 				row["n_num"] = Data.node[i].n;
-				switch (Data.node[i].cal_type)
+                var calTypeDescriptions = new Dictionary<(int, int), string>
 				{
-					case 0:
-						row["cal_type"] = "求解温度";
-						break;
-					case 1:
-						row["cal_type"] = "求解流量";
-						break;
-				}
-				if (Data.node[i].type == 2)
+					{(1, 1), "计算温度"},
+					{(1, 2), "计算流量"},
+					{(2, 1), "计算温度"},
+					{(2, 2), "计算流量"},
+					{(2, 3), "赋值浓度"},
+					{(2, 4), "反向赋值浓度"},
+					{(4, 1), "计算温度"},
+					{(4, 2), "赋值流量"},
+					{(11, 1), "赋值温度"},
+					{(11, 2), "正向计算流量"},
+					{(11, 3), "反向计算流量"},
+					{(12, 1), "赋值温度"},
+					{(12, 2), "正向计算流量"},
+					{(12, 3), "反向计算流量"}
+				};
+                if (calTypeDescriptions.TryGetValue((Data.node[i].type, Data.node[i].cal_type), out string description))
+                {
+                    row["cal_type"] = description;
+                }
+                else
+                {
+                    row["cal_type"] = "其他类型";
+                }
+
+                if (Data.node[i].type == 2)
 					row["n2_heat"] = Data.node[i].n2_heat;
 				else
 					row["n2_heat"] = false;
@@ -210,7 +234,6 @@ namespace SimulationDesignPlatform.UserControls
 
         private void GetDatabase02()
         {
-
             // 20240313，由M添加
             dataTable02 = new DataTable();
             this.dataGridView2.DataSource = dataTable02;
@@ -292,20 +315,42 @@ namespace SimulationDesignPlatform.UserControls
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+            int id = dataGridView1.Rows.Count;
+            Data.n_node = id;
 
-			int id = dataGridView1.NewRowIndex;
-			Data.n_node = id;
-
-			for (int i = 0; i < id; i++)
+            var calTypeDescriptions = new Dictionary<(int, int), string>
 			{
-				// 修改界面按钮：取消设备初值区域的保存及删除按钮，将功能并入部件参数区域的相应按钮中。20240318，由M修改
-				// 部件参数
-				Data.node[i].id = dataGridView1.Rows[i].Cells[0].Value== null ? 0 : (int)dataGridView1.Rows[i].Cells[0].Value;
-				Data.node[i].name = dataGridView1.Rows[i].Cells[1].Value == null ? string.Empty : (string)dataGridView1.Rows[i].Cells[1].Value;
-				Data.node[i].type = dataGridView1.Rows[i].Cells[2].Value == null ?0: Convert.ToInt32(((string)dataGridView1.Rows[i].Cells[2].Value).Split('-')[0]);
-				Data.node[i].n = dataGridView1.Rows[i].Cells[3].Value == null ? 0 : (int)dataGridView1.Rows[i].Cells[3].Value;
-				Data.node[i].cal_type = dataGridView1.Rows[i].Cells[4].Value.ToString().Trim() == "求解流量" ? 1 : 0;
-				Data.node[i].n2_heat = dataGridView1.Rows[i].Cells[5].Value.ToString() == String.Empty? false : Convert.ToBoolean(dataGridView1.Rows[i].Cells[5].Value.ToString());
+				{(1, 1), "计算温度"},
+				{(1, 2), "计算流量"},
+				{(2, 1), "计算温度"},
+				{(2, 2), "计算流量"},
+				{(2, 3), "赋值浓度"},
+				{(2, 4), "反向赋值浓度"},
+				{(4, 1), "计算温度"},
+				{(4, 2), "赋值流量"},
+				{(11, 1), "赋值温度"},
+				{(11, 2), "正向计算流量"},
+				{(11, 3), "反向计算流量"},
+				{(12, 1), "赋值温度"},
+				{(12, 2), "正向计算流量"},
+				{(12, 3), "反向计算流量"}
+			};
+
+            for (int i = 0; i < id; i++)
+			{
+				Data.node[i].id =(int)dataGridView1.Rows[i].Cells[0].Value;
+				Data.node[i].name = (string)dataGridView1.Rows[i].Cells[1].Value;
+				Data.node[i].type =  Convert.ToInt32(((string)dataGridView1.Rows[i].Cells[2].Value).Split('-')[0]);
+				Data.node[i].n =  (int)dataGridView1.Rows[i].Cells[3].Value;
+
+                string calTypeDescription = (string)dataGridView1.Rows[i].Cells[4].Value;
+                var calTypeEntry = calTypeDescriptions.FirstOrDefault(entry => entry.Value == calTypeDescription);
+                if (!calTypeEntry.Equals(default(KeyValuePair<(int, int), string>)))
+                {
+                    Data.node[i].cal_type = calTypeEntry.Key.Item2;
+                }
+
+                Data.node[i].n2_heat =  Convert.ToBoolean(dataGridView1.Rows[i].Cells[5].Value.ToString());
 			}
 
 			if (dataTable02.Rows.Count < dataTable01.Rows.Count)
@@ -333,7 +378,7 @@ namespace SimulationDesignPlatform.UserControls
 			}
             Data.saveFile = Path.Combine(Data.exePath, Data.case_name, "data_input.csv");
             Data.GUI2CSV(@Data.saveFile);
-            GetDatabase01();
+            //GetDatabase01();
           
             Task.Run(() =>
 			{
@@ -398,22 +443,34 @@ namespace SimulationDesignPlatform.UserControls
         private void button3_Click(object sender, EventArgs e)
         {
 
-            int id = dataGridView1.NewRowIndex;
+			int id = dataGridView2.Rows.Count;
             Data.n_node = id;
 
-            for (int i = 0; i < id; i++)
-            {
-                // 修改界面按钮：取消设备初值区域的保存及删除按钮，将功能并入部件参数区域的相应按钮中。20240318，由M修改
-                // 设备初值
-                Data.nodepara[i].ip = (int)dataGridView2.Rows[i].Cells[0].Value;
-                Data.nodepara[i].name = (string)dataGridView2.Rows[i].Cells[1].Value;
-                Data.nodepara[i].eff = (double)dataGridView2.Rows[i].Cells[2].Value;
-                Data.nodepara[i].cal_i = (int)dataGridView2.Rows[i].Cells[3].Value;
-                Data.nodepara[i].cal_j = dataGridView2.Rows[i].Cells[4].Value.ToString().Trim() == "输入端" ? 1 : 2;
+			for (int i = 0; i < id; i++)
+			{
+				// 修改界面按钮：取消设备初值区域的保存及删除按钮，将功能并入部件参数区域的相应按钮中。20240318，由M修改
+				// 设备初值
+				Data.nodepara[i].ip = (int)dataGridView2.Rows[i].Cells[0].Value;
+				Data.nodepara[i].name = (string)dataGridView2.Rows[i].Cells[1].Value;
+				Data.nodepara[i].eff = (double)dataGridView2.Rows[i].Cells[2].Value;
+				Data.nodepara[i].cal_i = (int)dataGridView2.Rows[i].Cells[3].Value;
+                string cellValue = dataGridView2.Rows[i].Cells[4].Value.ToString().Trim();
+                if (cellValue == "输入端")
+                {
+                    Data.nodepara[i].cal_j = 1;
+                }
+                else if (cellValue == "输出端")
+                {
+                    Data.nodepara[i].cal_j = 2;
+                }
+                else
+                {
+                    Data.nodepara[i].cal_j = 0;
+                }
                 Data.nodepara[i].direction = (int)dataGridView2.Rows[i].Cells[5].Value;
-            }
+			}
 
-            Data.saveFile = Path.Combine(Data.exePath, Data.case_name, "data_input.csv");
+			Data.saveFile = Path.Combine(Data.exePath, Data.case_name, "data_input.csv");
             Data.GUI2CSV(@Data.saveFile);
             GetDatabase02();
 
@@ -510,191 +567,191 @@ namespace SimulationDesignPlatform.UserControls
 
 		private void UpdateCellStyle()
 		{
-			// 设置更新各单元格的显示状态。20240315，由M修改添加
-			for (int i = 0; i < dataGridView1.Rows.Count; i++)
-			{
-				// dataGridView1 部件信息
-				DataGridViewRow row1 = dataGridView1.Rows[i];
-				if (row1.Cells["type"].Value == null || row1.Cells["type"].Value == DBNull.Value) continue;
-				int type = Convert.ToInt32(((string)row1.Cells["type"].Value).Split('-')[0]);
-				foreach (DataGridViewCell cell in row1.Cells)
-				{
-					switch (cell.ColumnIndex)
-					{
-						/* 只有node[i].type=2或node[i].type=5时，允许修改流股数，
-						 * 其他情况下流股数等于1，且不允许用户修改。
-						 */
-						case 3:
-							if (type == 2 || type == 5)
-								cell.Style = sDefault;
-							else
-								cell.Style = sReadOnly;
-							break;
-						/* 计算类型，不同的部件类型也不一样
-						 * node[i].type=1，正仲转换器：
-						 * node[i].cal_type=0：求解温度；node[i].cal_type=1：求解流量
-						 * node[i].type=2，换热器：
-						 * node[i].cal_type=0：求解温度；node[i].cal_type=1：求解流量
-						 * 其他部件，值为0，此处为灰色，不允许修改，显示为空
-						 */
-						case 4:
-							if (type == 1 || type == 2)
-								cell.Style = sDefault;
-							else
-								cell.Style = sIgnore;
-							break;
-						/* 含氮换热器
-						 * 仅针对换热器node(i).type=2，其他类型不允许修改
-						 */
-						case 5:
-							if (type == 2)
-								cell.Style = sDefault;
-							else
-								cell.Style = sReadOnly;
-							break;
-						default:
-							cell.Style = sDefault;
-							break;
-					}
-				}
+			//// 设置更新各单元格的显示状态。20240315，由M修改添加
+			//for (int i = 0; i < dataGridView1.Rows.Count; i++)
+			//{
+			//	// dataGridView1 部件信息
+			//	DataGridViewRow row1 = dataGridView1.Rows[i];
+			//	if (row1.Cells["type"].Value == null || row1.Cells["type"].Value == DBNull.Value) continue;
+			//	int type = Convert.ToInt32(((string)row1.Cells["type"].Value).Split('-')[0]);
+			//	foreach (DataGridViewCell cell in row1.Cells)
+			//	{
+			//		switch (cell.ColumnIndex)
+			//		{
+			//			/* 只有node[i].type=2或node[i].type=5时，允许修改流股数，
+			//			 * 其他情况下流股数等于1，且不允许用户修改。
+			//			 */
+			//			case 3:
+			//				if (type == 2 || type == 5)
+			//					cell.Style = sDefault;
+			//				else
+			//					cell.Style = sReadOnly;
+			//				break;
+			//			/* 计算类型，不同的部件类型也不一样
+			//			 * node[i].type=1，正仲转换器：
+			//			 * node[i].cal_type=0：求解温度；node[i].cal_type=1：求解流量
+			//			 * node[i].type=2，换热器：
+			//			 * node[i].cal_type=0：求解温度；node[i].cal_type=1：求解流量
+			//			 * 其他部件，值为0，此处为灰色，不允许修改，显示为空
+			//			 */
+			//			case 4:
+			//				if (type == 1 || type == 2)
+			//					cell.Style = sDefault;
+			//				else
+			//					cell.Style = sIgnore;
+			//				break;
+			//			/* 含氮换热器
+			//			 * 仅针对换热器node(i).type=2，其他类型不允许修改
+			//			 */
+			//			case 5:
+			//				if (type == 2)
+			//					cell.Style = sDefault;
+			//				else
+			//					cell.Style = sReadOnly;
+			//				break;
+			//			default:
+			//				cell.Style = sDefault;
+			//				break;
+			//		}
+			//	}
 
-			}
+			//}
 
 
-            // dataGridView2 设备初值。20240318，由M添加
-            //zhangax修改
-            for (int i = 0; i < dataGridView2.Rows.Count; i++)
-            {
-				if (i <= dataGridView1.RowCount)
-				{
-					DataGridViewRow row1 = dataGridView1.Rows[i];
-					if (row1.Cells["type"].Value == null || row1.Cells["type"].Value == DBNull.Value) continue;
-					int type = Convert.ToInt32(((string)row1.Cells["type"].Value).Split('-')[0]);
-					DataGridViewRow row2 = dataGridView2.Rows[i];
-					foreach (DataGridViewCell cell in row2.Cells)
-					{
-						switch (cell.ColumnIndex)
-						{
-							// 序号和设备名默认由dataGridView1决定，此处不可修改
-							case 0:
-							case 1:
-								cell.Style = sReadOnly;
-								break;
-							// 效率eff，仅针对压缩机和膨胀机node[i].type = 3或node[i].type = 4
-							case 2:
-								if (type == 3 || type == 4)
-									cell.Style = sDefault;
-								else
-									cell.Style = sIgnore;
-								break;
-							// cal_i，仅针对换热器node[i].type = 2，第几个流股有未知数
-							case 3:
-							// cal_j，仅针对换热器node[i].type = 2，1：输入端为未知数，2：输出端为未知数
-							case 4:
-								if (type == 2)
-									cell.Style = sDefault;
-								else
-									cell.Style = sIgnore;
-								break;
-							// 膨胀机方向，仅针对膨胀机node[i].type = 4
-							case 5:
-								if (type == 4)
-									cell.Style = sDefault;
-								else
-									cell.Style = sIgnore;
-								break;
-						}
-					}
-				}
-			}
+   //         // dataGridView2 设备初值。20240318，由M添加
+   //         //zhangax修改
+   //         for (int i = 0; i < dataGridView2.Rows.Count; i++)
+   //         {
+			//	if (i <= dataGridView1.RowCount)
+			//	{
+			//		DataGridViewRow row1 = dataGridView1.Rows[i];
+			//		if (row1.Cells["type"].Value == null || row1.Cells["type"].Value == DBNull.Value) continue;
+			//		int type = Convert.ToInt32(((string)row1.Cells["type"].Value).Split('-')[0]);
+			//		DataGridViewRow row2 = dataGridView2.Rows[i];
+			//		foreach (DataGridViewCell cell in row2.Cells)
+			//		{
+			//			switch (cell.ColumnIndex)
+			//			{
+			//				// 序号和设备名默认由dataGridView1决定，此处不可修改
+			//				case 0:
+			//				case 1:
+			//					cell.Style = sReadOnly;
+			//					break;
+			//				// 效率eff，仅针对压缩机和膨胀机node[i].type = 3或node[i].type = 4
+			//				case 2:
+			//					if (type == 3 || type == 4)
+			//						cell.Style = sDefault;
+			//					else
+			//						cell.Style = sIgnore;
+			//					break;
+			//				// cal_i，仅针对换热器node[i].type = 2，第几个流股有未知数
+			//				case 3:
+			//				// cal_j，仅针对换热器node[i].type = 2，1：输入端为未知数，2：输出端为未知数
+			//				case 4:
+			//					if (type == 2)
+			//						cell.Style = sDefault;
+			//					else
+			//						cell.Style = sIgnore;
+			//					break;
+			//				// 膨胀机方向，仅针对膨胀机node[i].type = 4
+			//				case 5:
+			//					if (type == 4)
+			//						cell.Style = sDefault;
+			//					else
+			//						cell.Style = sIgnore;
+			//					break;
+			//			}
+			//		}
+			//	}
+			//}
 		}
 		private void UpdateData()
 		{
 
-			// 更新各数据依赖的单元格的值。20240315，由M修改添加
-			for (int i = 0; i < dataGridView1.RowCount; i++)
-			{
-				// dataGridView1 部件信息
-				DataGridViewRow row1 = dataGridView1.Rows[i];
-				if (row1.Cells["type"].Value == null || row1.Cells["type"].Value == DBNull.Value) continue;
-				int type = Convert.ToInt32(((string)row1.Cells["type"].Value).Split('-')[0]);
-				foreach (DataGridViewCell cell in row1.Cells)
-				{
-					switch (cell.ColumnIndex)
-					{
-						/* 只有node[i].type=2或node[i].type=5时，允许修改流股数，
-						 * 其他情况下流股数等于1，且不允许用户修改。
-						 */
-						case 3:
-							if (type != 2 && type != 5)
-								cell.Value = 1;
-							break;
-						/* 计算类型，不同的部件类型也不一样
-						 * node[i].type=1，正仲转换器：
-						 * node[i].cal_type=0：求解温度；node[i].cal_type=1：求解流量
-						 * node[i].type=2，换热器：
-						 * node[i].cal_type=0：求解温度；node[i].cal_type=1：求解流量
-						 * 其他部件，值为0，此处为灰色，不允许修改，显示为空
-						 */
-						case 4:
-							if (type != 1 && type != 2)
-								cell.Value = null;
-							break;
-						/* 含氮换热器
-						 * 仅针对换热器node(i).type=2，其他类型不允许修改
-						 */
-						case 5:
-							if (type != 2)
-								cell.Value = false;
-							break;
-						default:
-							break;
-					}
-				}
-			}
+			//// 更新各数据依赖的单元格的值。20240315，由M修改添加
+			//for (int i = 0; i < dataGridView1.RowCount; i++)
+			//{
+			//	// dataGridView1 部件信息
+			//	DataGridViewRow row1 = dataGridView1.Rows[i];
+			//	if (row1.Cells["type"].Value == null || row1.Cells["type"].Value == DBNull.Value) continue;
+			//	int type = Convert.ToInt32(((string)row1.Cells["type"].Value).Split('-')[0]);
+			//	foreach (DataGridViewCell cell in row1.Cells)
+			//	{
+			//		switch (cell.ColumnIndex)
+			//		{
+			//			/* 只有node[i].type=2或node[i].type=5时，允许修改流股数，
+			//			 * 其他情况下流股数等于1，且不允许用户修改。
+			//			 */
+			//			case 3:
+			//				if (type != 2 && type != 5)
+			//					cell.Value = 1;
+			//				break;
+			//			/* 计算类型，不同的部件类型也不一样
+			//			 * node[i].type=1，正仲转换器：
+			//			 * node[i].cal_type=0：求解温度；node[i].cal_type=1：求解流量
+			//			 * node[i].type=2，换热器：
+			//			 * node[i].cal_type=0：求解温度；node[i].cal_type=1：求解流量
+			//			 * 其他部件，值为0，此处为灰色，不允许修改，显示为空
+			//			 */
+			//			case 4:
+			//				if (type != 1 && type != 2)
+			//					cell.Value = null;
+			//				break;
+			//			/* 含氮换热器
+			//			 * 仅针对换热器node(i).type=2，其他类型不允许修改
+			//			 */
+			//			case 5:
+			//				if (type != 2)
+			//					cell.Value = false;
+			//				break;
+			//			default:
+			//				break;
+			//		}
+			//	}
+			//}
 
-            for (int i = 0; i < dataGridView2.Rows.Count; i++)
-			{
-				DataGridViewRow row1 = dataGridView1.Rows[i];
-				if (row1.Cells["type"].Value == null || row1.Cells["type"].Value == DBNull.Value) continue;
-				int type = Convert.ToInt32(((string)row1.Cells["type"].Value).Split('-')[0]);
+   //         for (int i = 0; i < dataGridView2.Rows.Count; i++)
+			//{
+			//	DataGridViewRow row1 = dataGridView1.Rows[i];
+			//	if (row1.Cells["type"].Value == null || row1.Cells["type"].Value == DBNull.Value) continue;
+			//	int type = Convert.ToInt32(((string)row1.Cells["type"].Value).Split('-')[0]);
 
-				DataGridViewRow row2 = dataGridView2.Rows[i];
-				foreach (DataGridViewCell cell in row2.Cells)
-				{
-					switch (cell.ColumnIndex)
-					{
-						// 序号和设备名默认由dataGridView1决定，此处不可修改
-						case 0:
-							cell.Value = dataGridView1["id", cell.RowIndex].Value;
-							break;
-						case 1:
-							cell.Value = dataGridView1["type", cell.RowIndex].Value.ToString().Split('-')[1];
-							break;
-						// 效率eff，仅针对压缩机和膨胀机node[i].type = 3或node[i].type = 4
-						case 2:
-							if (type != 3 && type != 4)
-								cell.Value = 0;
-							break;
-						// cal_i，仅针对换热器node[i].type = 2，第几个流股有未知数
-						case 3:
-							if (type != 2)
-								cell.Value = 0;
-							break;
-						// cal_j，仅针对换热器node[i].type = 2，1：输入端为未知数，2：输出端为未知数
-						case 4:
-							if (type != 2)
-								cell.Value = null;
-							break;
-						// 膨胀机方向，仅针对膨胀机node[i].type = 4
-						case 5:
-							if (type != 4)
-								cell.Value = 0;
-							break;
-					}
-				}
+			//	DataGridViewRow row2 = dataGridView2.Rows[i];
+			//	foreach (DataGridViewCell cell in row2.Cells)
+			//	{
+			//		switch (cell.ColumnIndex)
+			//		{
+			//			// 序号和设备名默认由dataGridView1决定，此处不可修改
+			//			case 0:
+			//				cell.Value = dataGridView1["id", cell.RowIndex].Value;
+			//				break;
+			//			case 1:
+			//				cell.Value = dataGridView1["type", cell.RowIndex].Value.ToString().Split('-')[1];
+			//				break;
+			//			// 效率eff，仅针对压缩机和膨胀机node[i].type = 3或node[i].type = 4
+			//			case 2:
+			//				if (type != 3 && type != 4)
+			//					cell.Value = 0;
+			//				break;
+			//			// cal_i，仅针对换热器node[i].type = 2，第几个流股有未知数
+			//			case 3:
+			//				if (type != 2)
+			//					cell.Value = 0;
+			//				break;
+			//			// cal_j，仅针对换热器node[i].type = 2，1：输入端为未知数，2：输出端为未知数
+			//			case 4:
+			//				if (type != 2)
+			//					cell.Value = null;
+			//				break;
+			//			// 膨胀机方向，仅针对膨胀机node[i].type = 4
+			//			case 5:
+			//				if (type != 4)
+			//					cell.Value = 0;
+			//				break;
+			//		}
+			//	}
 
-			}
+			//}
 		}
     }
 }
