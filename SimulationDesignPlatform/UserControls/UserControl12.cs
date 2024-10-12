@@ -110,10 +110,9 @@ namespace SimulationDesignPlatform.UserControls
             dataGridView4.DataSource = dataTable04;
 
             DataTable dataTable05 = new DataTable();
-            dataTable05.Columns.Add("自动测试");
-            dataTable05.Columns.Add("计算最小温差");
             dataTable05.Columns.Add("优化模型计算");
-            dataTable05.Rows.Add(Data.multi_case, Data.cal_min_temp_diff, Data.opt_model_cal);
+            dataTable05.Columns.Add("计算最小温差");            
+            dataTable05.Rows.Add(Data.opt_model_cal,Data.cal_min_temp_diff );
             dataGridView5.DataSource = dataTable05;
         }
 
@@ -167,9 +166,8 @@ namespace SimulationDesignPlatform.UserControls
             // 更新 Data.multi_case, Data.cal_min_temp_diff 和 Data.opt_model_cal
             if (dataGridView5.Rows.Count > 0)
             {
-                Data.multi_case = Convert.ToBoolean(dataGridView5.Rows[0].Cells[0].Value);
-                Data.cal_min_temp_diff = Convert.ToBoolean(dataGridView5.Rows[0].Cells[1].Value);
-                Data.opt_model_cal = Convert.ToBoolean(dataGridView5.Rows[0].Cells[2].Value);
+                Data.opt_model_cal = Convert.ToBoolean(dataGridView5.Rows[0].Cells[0].Value);
+                Data.cal_min_temp_diff = Convert.ToBoolean(dataGridView5.Rows[0].Cells[1].Value);               
             }
 
             // 保存数据到 CSV 文件
