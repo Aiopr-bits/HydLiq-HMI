@@ -86,23 +86,27 @@ namespace SimulationDesignPlatform.UserControls
 			DataTable dataTable03 = new DataTable();
 			dataTable03.Columns.Add("part_name", typeof(int));
 			dataTable03.Columns.Add("calculate_type", typeof(int));
-			dataTable03.Columns.Add("cal_k", typeof(int));
+			dataTable03.Columns.Add("cal_i", typeof(int));
+            dataTable03.Columns.Add("cal_j", typeof(int));
 
-			dataGridView3.DataSource = dataTable03;
+            dataGridView3.DataSource = dataTable03;
 			dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			// 设置列名  
 			dataGridView3.Columns["part_name"].HeaderText = "部件名称";
 			dataGridView3.Columns["calculate_type"].HeaderText = "计算类型";
-			dataGridView3.Columns["cal_k"].HeaderText = "cal_k";
+			dataGridView3.Columns["cal_i"].HeaderText = "cal_i";
+            dataGridView3.Columns["cal_j"].HeaderText = "cal_j";
 
-			for (int i = 0; i < Data.n_calSeq; i++)
+            for (int i = 0; i < Data.n_calSeq; i++)
 			{
 				//添加行数据
 				DataRow row3 = dataTable03.NewRow();
 				if (Data.calSeq[i].part_name != -1) row3["part_name"] = Data.calSeq[i].part_name;
 				if(Data.calSeq[i].calculate_type != -1) row3["calculate_type"] = Data.calSeq[i].calculate_type;
-                if (Data.calSeq[i].cal_k != -1) row3["cal_k"] = Data.calSeq[i].cal_k;
-				dataTable03.Rows.Add(row3);
+                if (Data.calSeq[i].cal_i != -1) row3["cal_i"] = Data.calSeq[i].cal_i;
+                if (Data.calSeq[i].cal_j != -1) row3["cal_j"] = Data.calSeq[i].cal_j;
+
+                dataTable03.Rows.Add(row3);
 			}
 		}
 
@@ -119,8 +123,10 @@ namespace SimulationDesignPlatform.UserControls
                 value = dataGridView3.Rows[i].Cells[1].Value;
                 Data.calSeq[i].calculate_type = value == null || value == DBNull.Value ? -1 : (int)value;
                 value = dataGridView3.Rows[i].Cells[2].Value;
-                Data.calSeq[i].cal_k = value == null || value == DBNull.Value ? -1 : (int)value;
-			}
+                Data.calSeq[i].cal_i = value == null || value == DBNull.Value ? -1 : (int)value;
+                value = dataGridView3.Rows[i].Cells[3].Value;
+                Data.calSeq[i].cal_j = value == null || value == DBNull.Value ? -1 : (int)value;
+            }
             Data.saveFile = Path.Combine(Data.exePath, Data.case_name, "data_input.csv");
             Data.GUI2CSV(@Data.saveFile);
             GetDatabase();

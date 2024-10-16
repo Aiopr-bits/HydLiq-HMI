@@ -41,7 +41,7 @@ namespace SimulationDesignPlatform
     //计算顺序
     public class calSeqData
     {
-        public int part_name, calculate_type, cal_k;
+        public int part_name, calculate_type, cal_i, cal_j;
     }
 
     //自动测试
@@ -244,7 +244,8 @@ namespace SimulationDesignPlatform
                         Data.calSeq[i] = new calSeqData();
                         calSeq[i].part_name = -1;
                         calSeq[i].calculate_type = -1;
-                        calSeq[i].cal_k = -1;
+                        calSeq[i].cal_i= -1;
+                        calSeq[i].cal_j = -1;
                     }
 
 
@@ -455,7 +456,12 @@ namespace SimulationDesignPlatform
 
                         if (tmp.Length > 3)
                         {
-                            Data.calSeq[i].cal_k = int.TryParse(tmp[2], out int calKResult) ? calKResult : 0;
+                            Data.calSeq[i].cal_i = int.TryParse(tmp[2], out int calIResult) ? calIResult : 0;
+                        }
+
+                        if (tmp.Length > 4)
+                        {
+                            Data.calSeq[i].cal_j = int.TryParse(tmp[3], out int calJResult) ? calJResult : 0;
                         }
                     }
 
@@ -644,8 +650,9 @@ namespace SimulationDesignPlatform
                 {
                     string partName = Data.calSeq[i].part_name != -1 ? Data.calSeq[i].part_name.ToString() : "";
                     string calculateType = Data.calSeq[i].calculate_type != -1 ? Data.calSeq[i].calculate_type.ToString() : "";
-                    string calK = Data.calSeq[i].cal_k != -1 ? Data.calSeq[i].cal_k.ToString() : "";
-                    file.WriteLine(partName + ',' + calculateType + ',' + calK + ',');
+                    string calI = Data.calSeq[i].cal_i != -1 ? Data.calSeq[i].cal_i.ToString() : "";
+                    string calJ = Data.calSeq[i].cal_j != -1 ? Data.calSeq[i].cal_j.ToString() : "";
+                    file.WriteLine(partName + ',' + calculateType + ',' + calI + ',' + calJ + ",,,,");
                 }
                 file.WriteLine("###########################,,,,,,,,");
                 file.WriteLine("# 自动测试,,,,,,,,");
