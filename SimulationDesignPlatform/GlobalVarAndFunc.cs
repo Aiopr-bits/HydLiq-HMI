@@ -52,6 +52,13 @@ namespace SimulationDesignPlatform
         public int n_h2_node, n_h2_line;
     }
 
+    //优化模型
+    public class optModelData
+    {
+        public int n_line, n_node;
+        public double[] line, node, initialValue;
+    }
+
     //流股参数
     public class lineData
     {
@@ -159,6 +166,8 @@ namespace SimulationDesignPlatform
         public static calSeqData[] calSeq = new calSeqData[n_calSeq_max]; //全局变量，存储
   
         public static autoTestData autoTest = new autoTestData();//自动测试参数
+
+        public static optModelData optModel = new optModelData();//优化模型参数
 
         public const int n_node_max = 500;//部件参数
         public static NodeData[] node = new NodeData[n_node_max]; //全局变量，存储
@@ -510,6 +519,49 @@ namespace SimulationDesignPlatform
                         Data.autoTest.n_h2_node = int.Parse(tmp[0] == "" ? "0" : tmp[0]);
                         Data.autoTest.n_h2_line = int.Parse(tmp[1] == "" ? "0" : tmp[1]);
                     }
+
+                    //-------------------------优化模型------------------------//
+                    nextLine = sR1.ReadLine(); //# 优化模型
+                    nextLine = sR1.ReadLine(); //# 优化模型
+                    nextLine = sR1.ReadLine(); //# 优化模型
+                    nextLine = sR1.ReadLine(); //# 优化模型
+                    nextLine = sR1.ReadLine();
+                    {
+                        string[] tmp = nextLine.Split(',');
+                        Data.optModel.n_line = int.Parse(tmp[0] == "" ? "0" : tmp[0]);
+                        Data.optModel.n_node = int.Parse(tmp[1] == "" ? "0" : tmp[1]);
+                    }
+                    Data.optModel.line = new double[Data.optModel.n_line];
+                    Data.optModel.node = new double[Data.optModel.n_node];
+                    nextLine = sR1.ReadLine();
+                    nextLine = sR1.ReadLine();
+                    {
+                        for(int i = 0; i< Data.optModel.n_line; i++)
+                        {
+                            string[] tmp = nextLine.Split(',');
+                            Data.optModel.line[i] = double.Parse(tmp[i] == "" ? "0" : tmp[i]);
+                        }
+                    }
+                    nextLine = sR1.ReadLine();
+                    nextLine = sR1.ReadLine();
+                    {
+                        for (int i = 0; i < Data.optModel.n_node; i++)
+                        {
+                            string[] tmp = nextLine.Split(',');
+                            Data.optModel.node[i] = double.Parse(tmp[i] == "" ? "0" : tmp[i]);
+                        }
+                    }
+                    nextLine = sR1.ReadLine();
+                    nextLine = sR1.ReadLine();
+                    {
+                        string[] tmp = nextLine.Split(',');
+                        Data.optModel.initialValue = new double[tmp.Length];
+                        for (int i = 0; i < Data.optModel.n_line + Data.optModel.n_node; i++)
+                        {
+                            Data.optModel.initialValue[i] = double.Parse(tmp[i] == "" ? "0" : tmp[i]);
+                        }
+                    }
+
                     sR1.Close();
                 }
             }

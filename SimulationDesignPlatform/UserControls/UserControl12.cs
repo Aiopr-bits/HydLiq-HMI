@@ -18,8 +18,16 @@ namespace SimulationDesignPlatform.UserControls
         public UserControl12()
         {
             InitializeComponent();
-            tableLayoutPanel1.SetColumnSpan(button1, 2);
-            tableLayoutPanel1.SetColumnSpan(dataGridView5, 2);
+            this.label1.BackColor = Color.FromArgb(46, 139, 87);
+            this.label1.ForeColor = Color.White;
+            this.label1.Font = new Font(this.label1.Font, FontStyle.Bold);
+            this.label2.BackColor = Color.FromArgb(46, 139, 87);
+            this.label2.ForeColor = Color.White;
+            this.label2.Font = new Font(this.label2.Font, FontStyle.Bold);
+
+            tableLayoutPanel3.SetColumnSpan(dataGridView6, 3);
+
+
             GetDatabase();
             #region  初始化控件缩放
             x = Width;
@@ -114,6 +122,39 @@ namespace SimulationDesignPlatform.UserControls
             dataTable05.Columns.Add("优化模型计算");
             dataTable05.Rows.Add(Data.auto_test, Data.cal_min_temp_diff, Data.opt_model_cal);
             dataGridView5.DataSource = dataTable05;
+
+            DataTable dataTable06 = new DataTable();
+            dataTable06.Columns.Add("计算流股参数个数", typeof(string));
+            dataTable06.Columns.Add("计算部件参数个数", typeof(string));
+            dataTable06.Rows.Add(Data.optModel.n_line, Data.optModel.n_node);
+            dataGridView6.DataSource = dataTable06;
+
+            DataTable dataTable07 = new DataTable();
+            dataTable07.Columns.Add("流股", typeof(string));
+            for (int i = 0; i < Data.optModel.n_line; i++)
+            {
+                dataTable07.Rows.Add(Data.optModel.line[i]);
+            }
+            dataGridView7.DataSource = dataTable07;
+
+            DataTable dataTable08 = new DataTable();
+            dataTable08.Columns.Add("部件", typeof(string));
+            for (int i = 0; i < Data.optModel.n_node; i++)
+            {
+                dataTable08.Rows.Add(Data.optModel.node[i]);
+            }
+            dataGridView8.DataSource = dataTable08;
+
+            DataTable dataTable09 = new DataTable();
+            dataTable09.Columns.Add("初值", typeof(string));
+            for (int i = 0; i < Data.optModel.n_line+ Data.optModel.n_node; i++)
+            {
+                dataTable09.Rows.Add(Data.optModel.initialValue[i]);
+            }
+            dataGridView9.DataSource = dataTable09;
+
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -169,6 +210,43 @@ namespace SimulationDesignPlatform.UserControls
                 Data.auto_test = Convert.ToBoolean(dataGridView5.Rows[0].Cells[0].Value);
                 Data.cal_min_temp_diff = Convert.ToBoolean(dataGridView5.Rows[0].Cells[1].Value);
                 Data.opt_model_cal = Convert.ToBoolean(dataGridView5.Rows[0].Cells[2].Value);           
+            }
+
+            // 更新 Data.optModel.n_line 和 Data.optModel.n_node
+            if (dataGridView6.Rows.Count > 0)
+            {
+                Data.optModel.n_line = Convert.ToInt32(dataGridView6.Rows[0].Cells[0].Value);
+                Data.optModel.n_node = Convert.ToInt32(dataGridView6.Rows[0].Cells[1].Value);
+            }
+
+            // 更新Data.optModel.line数组
+            Data.optModel.line = new double[Data.optModel.n_line];
+            if (dataGridView7.Rows.Count > 0)
+            {
+                for (int i = 0; i < Data.optModel.n_line; i++)
+                {
+                    Data.optModel.line[i] = Convert.ToDouble(dataGridView7.Rows[i].Cells[0].Value);
+                }
+            }
+
+            // 更新Data.optModel.node数组
+            Data.optModel.node = new double[Data.optModel.n_node];
+            if (dataGridView8.Rows.Count > 0)
+            {
+                for (int i = 0; i < Data.optModel.n_node; i++)
+                {
+                    Data.optModel.node[i] = Convert.ToDouble(dataGridView8.Rows[i].Cells[0].Value);
+                }
+            }
+
+            // 更新Data.optModel.initialValue数组
+            Data.optModel.initialValue = new double[Data.optModel.n_line + Data.optModel.n_node];
+            if (dataGridView9.Rows.Count > 0)
+            {
+                for (int i = 0; i < Data.optModel.n_line + Data.optModel.n_node; i++)
+                {
+                    Data.optModel.initialValue[i] = Convert.ToDouble(dataGridView9.Rows[i].Cells[0].Value);
+                }
             }
 
             // 保存数据到 CSV 文件

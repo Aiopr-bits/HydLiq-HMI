@@ -220,7 +220,7 @@ namespace SimulationDesignPlatform.Forms
 					label2.Text = "变量清单数据加载完毕";
 					label3.Text = "变量清单";
 					break;
-				case "自动测试":
+				case "自动测试&优化模型":
 					splitContainer4.Panel2.Controls.Clear();
 					ucd12 = new UserControl12();
 					ucd12.Dock = DockStyle.Fill;
@@ -230,9 +230,9 @@ namespace SimulationDesignPlatform.Forms
 					button2.Visible = false;
 					button1.Visible = false;
 					button4.Visible = false;
-					label2.Text = "自动测试数据加载完毕";
-					label3.Text = "自动测试";
-					break;
+                    label2.Text = "自动测试&&优化模型数据加载完毕";
+                    label3.Text = "自动测试&&优化模型";
+                    break;
 				case "工艺流程":
 					splitContainer4.Panel2.Controls.Clear();
 					ucd13 = new UserControl13();
