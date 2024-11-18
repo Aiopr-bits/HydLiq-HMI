@@ -736,6 +736,31 @@ namespace SimulationDesignPlatform
                 }
                 file.WriteLine("氢流量部件,氢流量流股,,,,,,,");
                 file.WriteLine(Data.autoTest.n_h2_node.ToString() + ',' + Data.autoTest.n_h2_line.ToString() + ",,,,,,,");
+
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("# 优化模型,,,,,,,,");
+                file.WriteLine("###########################,,,,,,,,");
+                file.WriteLine("计算流股参数个数,计算部件参数个数,,,,,,,");
+                file.WriteLine(Data.optModel.n_line.ToString() + ',' + Data.optModel.n_node.ToString() + ",,,,,,,");
+                file.WriteLine("流股,,,,");
+                for (int i = 0; i < Data.optModel.n_line; i++)
+                {
+                    file.Write(Data.optModel.line[i].ToString() + ',');
+                }
+                file.WriteLine();
+                file.WriteLine("部件,,,,");
+                for (int i = 0; i < Data.optModel.n_node; i++)
+                {
+                    file.Write(Data.optModel.node[i].ToString() + ',');
+                }
+                file.WriteLine();
+                file.WriteLine("初值,,,,");
+                for (int i = 0; i < Data.optModel.n_line + Data.optModel.n_node; i++)
+                {
+                    file.Write(Data.optModel.initialValue[i].ToString() + ',');
+                }
+                file.WriteLine();
+
             }
         }
 
