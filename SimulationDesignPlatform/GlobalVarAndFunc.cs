@@ -613,8 +613,8 @@ namespace SimulationDesignPlatform
                     {
                         string[] tmp = nextLine.Split(',');
                         Data.optModel_result.nrow++;
-                        Data.optModel_result.opt_model_result[i] = new double[7];
-                        for (int j = 0; j < 7; j++)
+                        Data.optModel_result.opt_model_result[i] = new double[8];
+                        for (int j = 0; j < 8; j++)
                         {
                             Data.optModel_result.opt_model_result[i][j] = double.Parse(tmp[j] == "" ? "0" : tmp[j]);
                         }

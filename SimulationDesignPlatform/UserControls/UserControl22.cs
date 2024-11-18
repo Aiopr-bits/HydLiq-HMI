@@ -74,13 +74,15 @@ namespace SimulationDesignPlatform.UserControls
         private void GetDatabase()
         {
             DataTable dataTable01 = new DataTable();
-            dataTable01.Columns.Add("icase");
-            dataTable01.Columns.Add("T_1");
-            dataTable01.Columns.Add("T_2");
-            dataTable01.Columns.Add("T_3");
-            dataTable01.Columns.Add("Eff_1");
-            dataTable01.Columns.Add("Eff_2");
-            dataTable01.Columns.Add("SEC");
+            dataTable01.Columns.Add("迭代数");
+            dataTable01.Columns.Add("变量1");
+            dataTable01.Columns.Add("变量2");
+            dataTable01.Columns.Add("变量3");
+            dataTable01.Columns.Add("变量4");
+            dataTable01.Columns.Add("变量5");
+            dataTable01.Columns.Add("能耗");
+            dataTable01.Columns.Add("误差");
+
             for (int i = 0; i < Data.optModel_result.nrow; i++)
             {
                 dataTable01.Rows.Add(
@@ -90,7 +92,8 @@ namespace SimulationDesignPlatform.UserControls
                     Data.optModel_result.opt_model_result[i][3],
                     Data.optModel_result.opt_model_result[i][4],
                     Data.optModel_result.opt_model_result[i][5],
-                    Data.optModel_result.opt_model_result[i][6]
+                    Data.optModel_result.opt_model_result[i][6],
+                    Data.optModel_result.opt_model_result[i][7]
                     );
 
             }
