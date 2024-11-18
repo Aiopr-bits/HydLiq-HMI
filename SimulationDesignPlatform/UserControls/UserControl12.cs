@@ -108,11 +108,11 @@ namespace SimulationDesignPlatform.UserControls
             dataTable04.Columns.Add("氢流量流股", typeof(string)); 
             dataTable04.Rows.Add(Data.autoTest.n_h2_node, Data.autoTest.n_h2_line);
             dataGridView4.DataSource = dataTable04;
-
             DataTable dataTable05 = new DataTable();
+            dataTable05.Columns.Add("自动测试");
+            dataTable05.Columns.Add("计算最小温差");
             dataTable05.Columns.Add("优化模型计算");
-            dataTable05.Columns.Add("计算最小温差");            
-            dataTable05.Rows.Add(Data.opt_model_cal,Data.cal_min_temp_diff );
+            dataTable05.Rows.Add(Data.auto_test, Data.cal_min_temp_diff, Data.opt_model_cal);
             dataGridView5.DataSource = dataTable05;
         }
 
@@ -163,11 +163,12 @@ namespace SimulationDesignPlatform.UserControls
                 Data.autoTest.n_h2_line = Convert.ToInt32(dataGridView4.Rows[0].Cells[1].Value);
             }
 
-            // 更新 Data.multi_case, Data.cal_min_temp_diff 和 Data.opt_model_cal
+            //auto_test, cal_min_temp_diff, opt_model_cal;
             if (dataGridView5.Rows.Count > 0)
             {
-                Data.opt_model_cal = Convert.ToBoolean(dataGridView5.Rows[0].Cells[0].Value);
-                Data.cal_min_temp_diff = Convert.ToBoolean(dataGridView5.Rows[0].Cells[1].Value);               
+                Data.auto_test = Convert.ToBoolean(dataGridView5.Rows[0].Cells[0].Value);
+                Data.cal_min_temp_diff = Convert.ToBoolean(dataGridView5.Rows[0].Cells[1].Value);
+                Data.opt_model_cal = Convert.ToBoolean(dataGridView5.Rows[0].Cells[2].Value);           
             }
 
             // 保存数据到 CSV 文件

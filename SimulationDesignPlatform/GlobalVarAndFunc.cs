@@ -109,7 +109,7 @@ namespace SimulationDesignPlatform
         public static int n_mat, n_node, n_line, n_case, n_calSeq;//材料数  部件总数   流股总数   工况数    计算个数
         public static double gas_const, t_ref, p_ref;//气体常数	参考温度 参考压力
         public static string fzxt_name, user_name, user_password, case_name;//仿真系统名称, 用户登录用户名，密码, 指定目录文件夹名称
-        public static bool opt_model_cal,cal_min_temp_diff;//优化模型计算,计算最小温差
+        public static bool auto_test, cal_min_temp_diff, opt_model_cal;//自动测试,计算最小温差,优化模型计算
 
         public static DateTime start_time = new DateTime(2024, 1, 17, 10, 00, 00);
         public static DateTime[] check_time = new DateTime[13];
@@ -261,8 +261,11 @@ namespace SimulationDesignPlatform
                     nextLine = sR1.ReadLine(); //# 控制参数
                     {
                         string[] tmp = nextLine.Split(',');
-                        flag = flag && bool.TryParse(tmp[0], out Data.opt_model_cal);    //优化模型计算
-                        flag = flag && bool.TryParse(tmp[1], out Data.cal_min_temp_diff);    //最小温差
+                        flag = flag && bool.TryParse(tmp[0], out Data.auto_test);           //自动测试
+                        flag = flag && bool.TryParse(tmp[1], out Data.cal_min_temp_diff);       //优化模型计算
+                        flag = flag && bool.TryParse(tmp[2], out Data.opt_model_cal);           //最小温差
+
+
                     }
 
                     nextLine = sR1.ReadLine(); //# 物性参数
@@ -579,8 +582,8 @@ namespace SimulationDesignPlatform
                 file.WriteLine("###########################,,,,,,,,");
                 file.WriteLine("# 控制参数,,,,,,,,");
                 file.WriteLine("###########################,,,,,,,,");
-                file.WriteLine("优化模型计算,计算最小温差,,,,,,");
-                file.WriteLine(Data.opt_model_cal.ToString() + ',' + Data.cal_min_temp_diff.ToString() + ",,,,,,");
+                file.WriteLine("自动测试,计算最小温差,优化模型计算,,,,,,");
+                file.WriteLine(Data.auto_test.ToString() + ',' + Data.cal_min_temp_diff.ToString() + ',' + Data.opt_model_cal.ToString() + ",,,,,,");
                 file.WriteLine("###########################,,,,,,,,");
                 file.WriteLine("# 物性参数,,,,,,,,");
                 file.WriteLine("###########################,,,,,,,,");
