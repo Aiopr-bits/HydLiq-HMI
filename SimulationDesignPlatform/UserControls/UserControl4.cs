@@ -14,8 +14,8 @@ namespace SimulationDesignPlatform.UserControls
 
     public partial class UserControl4 : UserControl
     {
-        private readonly float x;//定义当前窗体的宽度
-        private readonly float y;//定义当前窗体的高度
+        public readonly float x;//定义当前窗体的宽度
+        public readonly float y;//定义当前窗体的高度
         public UserControl4()
         {
             InitializeComponent();
@@ -35,7 +35,7 @@ namespace SimulationDesignPlatform.UserControls
             #endregion
         }
 
-        private void setTag(Control cons)
+        public void setTag(Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -43,7 +43,7 @@ namespace SimulationDesignPlatform.UserControls
                 if (con.Controls.Count > 0) setTag(con);
             }
         }
-        private void GetDatabase01()
+        public void GetDatabase01()
         {
             
             DataTable dataTable01 = new DataTable();
@@ -82,7 +82,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void GetDatabase02()
+        public void GetDatabase02()
         {
             // -------表1--------
             DataTable dataTable01 = new DataTable();
@@ -145,7 +145,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void GetDatabase03()
+        public void GetDatabase03()
         {
 
             DataTable dataTable01 = new DataTable();
@@ -190,18 +190,18 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void UserControl4_Resize(object sender, EventArgs e)
+        public void UserControl4_Resize(object sender, EventArgs e)
         {
             //重置窗口布局
             ReWinformLayout();
         }
-        private void ReWinformLayout()
+        public void ReWinformLayout()
         {
             var newx = Width / x;
             var newy = Height / y;
             setControls(newx, newy, this);
         }
-        private void setControls(float newx, float newy, Control cons)
+        public void setControls(float newx, float newy, Control cons)
         {
             foreach (Control con in cons.Controls)
             {

@@ -18,29 +18,29 @@ namespace SimulationDesignPlatform.Forms
 {
     public partial class Form2 : Form
     {
-        private UserControl1 ucd;
-        private UserControl2 ucd2;
-        private UserControl4 ucd4;
-        private UserControl5 ucd5;
-        private UserControl6 ucd6;
-        private UserControl7 ucd7;
-        private UserControl8_1 ucd8_1;
-        private UserControl8_2 ucd8_2;
-        private UserControl8_3 ucd8_3;
-        private UserControl9 ucd9;
-        private UserControl10 ucd10;
-        private UserControl11 ucd11;
-        private UserControl12 ucd12;
-        private UserControl13 ucd13;
-        private UserControl14 ucd14;
-        private UserControl15 ucd15;
-        private UserControl16 ucd16;
-        private UserControl17 ucd17;
-        private UserControl18 ucd18;
-        private UserControl19 ucd19;
-        private UserControl20 ucd20;
-        private UserControl21 ucd21;
-        private UserControl22 ucd22;
+        public UserControl1 ucd;
+        public UserControl2 ucd2;
+        public UserControl4 ucd4;
+        public UserControl5 ucd5;
+        public UserControl6 ucd6;
+        public UserControl7 ucd7;
+        public UserControl8_1 ucd8_1;
+        public UserControl8_2 ucd8_2;
+        public UserControl8_3 ucd8_3;
+        public UserControl9 ucd9;
+        public UserControl10 ucd10;
+        public UserControl11 ucd11;
+        public UserControl12 ucd12;
+        public UserControl13 ucd13;
+        public UserControl14 ucd14;
+        public UserControl15 ucd15;
+        public UserControl16 ucd16;
+        public UserControl17 ucd17;
+        public UserControl18 ucd18;
+        public UserControl19 ucd19;
+        public UserControl20 ucd20;
+        public UserControl21 ucd21;
+        public UserControl22 ucd22;
 
         public Form2()
         {
@@ -53,7 +53,7 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void showShouye()
+        public void showShouye()
         {
 
             splitContainer4.Panel2.Controls.Clear();
@@ -69,7 +69,7 @@ namespace SimulationDesignPlatform.Forms
             label3.Text = "主页面";
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        public void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
             switch (treeView1.SelectedNode.Text)
@@ -290,7 +290,7 @@ namespace SimulationDesignPlatform.Forms
             DisableDataGridViewSorting(this);
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // 获取选择的选项
             string selectedOption = comboBox1.SelectedItem.ToString();
@@ -335,7 +335,7 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        public void button2_Click(object sender, EventArgs e)
         {
             using (Form4 fs = new Form4())
             {
@@ -357,7 +357,7 @@ namespace SimulationDesignPlatform.Forms
             button4.Visible = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             using (Form5 fs = new Form5())
             {
@@ -379,7 +379,7 @@ namespace SimulationDesignPlatform.Forms
             button4.Visible = false;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        public void button4_Click(object sender, EventArgs e)
         {
             using (Form6 fs = new Form6())
             {
@@ -401,7 +401,7 @@ namespace SimulationDesignPlatform.Forms
             button4.Visible = true;
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        public void button5_Click(object sender, EventArgs e)
         {
             if (Data.caseUsePath == "" || Data.caseUsePath == null)
             {
@@ -426,12 +426,12 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        public void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
-        private void readFiles()
+        public void readFiles()
         {
             // 运行用户加载上次成功载入的工作目录路径（20240311，由M添加）
             string selectedFolder = string.Empty;
@@ -529,6 +529,22 @@ namespace SimulationDesignPlatform.Forms
                 string optimResult_path = Path.Combine(Path.GetDirectoryName(datainput_path), "output.data", "optim.csv");
                 fileContent = File.ReadAllText(optimResult_path);
                 Data.CSVOutputdataOptimResult(fileContent);
+
+                using (Form8_1 fs = new Form8_1())
+                {
+                    this.refresh8_1();
+                }
+
+                using (Form8_2 fs = new Form8_2())
+                {
+                    this.refresh8_2();
+                }
+
+                using (Form8_3 fs = new Form8_3())
+                {
+                    this.refresh8_3();
+                }
+
             }
             catch (Exception myException)
             {
@@ -536,7 +552,7 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private async void button6_Click(object sender, EventArgs e)
+        public async void button6_Click(object sender, EventArgs e)
         {
             if (Data.caseUsePath == "" || Data.caseUsePath == null)
             {
@@ -596,8 +612,7 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-
-        private void button8_Click(object sender, EventArgs e)
+        public void button8_Click(object sender, EventArgs e)
         {
             // 运行用户加载上次成功载入的工作目录路径（20240311，由M添加）
             string selectedFolder = string.Empty;
@@ -742,7 +757,7 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void DisableDataGridViewSorting(Control parent)
+        public void DisableDataGridViewSorting(Control parent)
         {
             foreach (Control control in parent.Controls)
             {
@@ -760,7 +775,7 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void CopyFolder(string sourceFolder, string destFolder)
+        public void CopyFolder(string sourceFolder, string destFolder)
         {
             if (!Directory.Exists(destFolder))
             {
@@ -791,13 +806,13 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void Form2_Resize(object sender, EventArgs e)
+        public void Form2_Resize(object sender, EventArgs e)
         {
             label1.Parent = splitContainer1.Panel1;
             label1.Location = new Point((splitContainer1.Panel1.Width - label1.Width) / 2, (splitContainer1.Panel1.Height - label1.Height) / 2);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        public void button3_Click(object sender, EventArgs e)
         {
             if (treeView1.SelectedNode.Text == "部件仿真结果")
             {
@@ -813,6 +828,14 @@ namespace SimulationDesignPlatform.Forms
                 {
                     fs.ShowDialog();
                     this.refresh8_2();
+                }
+            }
+            if (treeView1.SelectedNode.Text == "换热器最小温差结果")
+            {
+                using (Form8_3 fs = new Form8_3())
+                {
+                    fs.ShowDialog();
+                    this.refresh8_3();
                 }
             }
         }
@@ -837,6 +860,20 @@ namespace SimulationDesignPlatform.Forms
             ucd8_2.Dock = DockStyle.Fill;
             ucd8_2.Parent = this.splitContainer4.Panel2;
             splitContainer4.Panel2.Controls.Add(ucd8_2);
+            comboBox1.Visible = false;
+            button2.Visible = false;
+            button1.Visible = false;
+            button3.Visible = true;
+            button4.Visible = false;
+        }
+
+        public void refresh8_3()
+        {
+            splitContainer4.Panel2.Controls.Clear();
+            ucd8_3 = new UserControl8_3();
+            ucd8_3.Dock = DockStyle.Fill;
+            ucd8_3.Parent = this.splitContainer4.Panel2;
+            splitContainer4.Panel2.Controls.Add(ucd8_3);
             comboBox1.Visible = false;
             button2.Visible = false;
             button1.Visible = false;

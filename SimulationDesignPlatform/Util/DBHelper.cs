@@ -13,10 +13,10 @@ namespace BookstoreManagement
   public class DBHelper
     {
         //// 数据库连接字符串
-        //private string connString = @"Database=bookdb;Data Source=127.0.0.1;User Id=root;Password=root;pooling=false;CharSet=utf8;port=3306";
+        //public string connString = @"Database=bookdb;Data Source=127.0.0.1;User Id=root;Password=root;pooling=false;CharSet=utf8;port=3306";
 
         //// 数据库连接 Connection 对象
-        //private MySqlConnection connection;
+        //public MySqlConnection connection;
 
         ///// <summary>
         ///// Connection对象

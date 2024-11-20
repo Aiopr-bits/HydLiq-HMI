@@ -15,8 +15,8 @@ namespace SimulationDesignPlatform.UserControls
 {
     public partial class UserControl15 : UserControl
     {
-        private readonly float x;//定义当前窗体的宽度
-        private readonly float y;//定义当前窗体的高度
+        public readonly float x;//定义当前窗体的宽度
+        public readonly float y;//定义当前窗体的高度
         public UserControl15()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace SimulationDesignPlatform.UserControls
             #endregion
         }
 
-        private void setTag(Control cons)
+        public void setTag(Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -37,7 +37,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void setControls(float newx, float newy, Control cons)
+        public void setControls(float newx, float newy, Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -61,14 +61,14 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void ReWinformLayout()
+        public void ReWinformLayout()
         {
             var newx = Width / x;
             var newy = Height / y;
             setControls(newx, newy, this);
         }
 
-        private void Show_Chart()
+        public void Show_Chart()
         {
             string filepath = Path.Combine(Data.exePath, Data.case_name, "output.data", "case_0.csv");
             if (File.Exists(filepath)) // 添加一重文件路径检测（20240311，M修改）
@@ -105,7 +105,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void UserControl15_Resize(object sender, EventArgs e)
+        public void UserControl15_Resize(object sender, EventArgs e)
         {
             //重置窗口布局
             ReWinformLayout();

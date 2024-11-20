@@ -13,10 +13,10 @@ namespace SimulationDesignPlatform.UserControls
 {
     public partial class UserControl11 : UserControl
     {
-        private readonly float x;//定义当前窗体的宽度
-        private readonly float y;//定义当前窗体的高度
-        private TabControl tabControl; // 创建一个 TabControl 控件来管理多个标签页
-        private int fault_id = 0;
+        public readonly float x;//定义当前窗体的宽度
+        public readonly float y;//定义当前窗体的高度
+        public TabControl tabControl; // 创建一个 TabControl 控件来管理多个标签页
+        public int fault_id = 0;
         public UserControl11()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace SimulationDesignPlatform.UserControls
             #endregion
         }
 
-        private void setTag(Control cons)
+        public void setTag(Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -37,7 +37,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void setControls(float newx, float newy, Control cons)
+        public void setControls(float newx, float newy, Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -61,14 +61,14 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void ReWinformLayout()
+        public void ReWinformLayout()
         {
             var newx = Width / x;
             var newy = Height / y;
             setControls(newx, newy, this);
         }
 
-        private void GetDatabase()
+        public void GetDatabase()
         {
             dataGridView1.AllowUserToAddRows = false;
             DataTable dataTable01 = new DataTable();
@@ -146,7 +146,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        public void button2_Click(object sender, EventArgs e)
         {
             dataGridView1.AllowUserToAddRows = false;
 
@@ -199,7 +199,7 @@ namespace SimulationDesignPlatform.UserControls
             });
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             dataGridView2.AllowUserToAddRows = false;
 
@@ -227,7 +227,7 @@ namespace SimulationDesignPlatform.UserControls
             });
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        public void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedIndex == 1)
             {
@@ -235,7 +235,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void GetDatabase2()
+        public void GetDatabase2()
         {
             dataGridView2.AllowUserToAddRows = false;
             DataTable dataTable01 = new DataTable();
@@ -283,7 +283,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void UserControl11_Resize(object sender, EventArgs e)
+        public void UserControl11_Resize(object sender, EventArgs e)
         {
             //重置窗口布局
             ReWinformLayout();

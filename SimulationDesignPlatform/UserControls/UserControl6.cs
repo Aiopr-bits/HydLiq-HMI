@@ -15,12 +15,12 @@ namespace SimulationDesignPlatform.UserControls
 {
 	public partial class UserControl6 : UserControl
 	{
-		private readonly float x;//定义当前窗体的宽度
-		private readonly float y;//定义当前窗体的高度
+		public readonly float x;//定义当前窗体的宽度
+		public readonly float y;//定义当前窗体的高度
 
 		// 一些可能用到的单元格样式
-		private readonly DataGridViewCellStyle sDefault = new DataGridViewCellStyle();    // 默认单元格样式
-		private readonly DataGridViewCellStyle sToBeSolved = new DataGridViewCellStyle()
+		public readonly DataGridViewCellStyle sDefault = new DataGridViewCellStyle();    // 默认单元格样式
+		public readonly DataGridViewCellStyle sToBeSolved = new DataGridViewCellStyle()
 		{
 			BackColor = Color.PaleGreen,
 		};	// 表示该单元格值待求解
@@ -36,7 +36,7 @@ namespace SimulationDesignPlatform.UserControls
 			#endregion
 		}
 
-		private void setTag(Control cons)
+		public void setTag(Control cons)
 		{
 			foreach (Control con in cons.Controls)
 			{
@@ -45,7 +45,7 @@ namespace SimulationDesignPlatform.UserControls
 			}
 		}
 
-		private void setControls(float newx, float newy, Control cons)
+		public void setControls(float newx, float newy, Control cons)
 		{
 			foreach (Control con in cons.Controls)
 			{
@@ -69,14 +69,14 @@ namespace SimulationDesignPlatform.UserControls
 			}
 		}
 
-		private void ReWinformLayout()
+		public void ReWinformLayout()
 		{
 			var newx = Width / x;
 			var newy = Height / y;
 			setControls(newx, newy, this);
 		}
 
-		private void GetDatabase()
+		public void GetDatabase()
 		{
 			DataTable dataTable01 = new DataTable();
 
@@ -170,7 +170,7 @@ namespace SimulationDesignPlatform.UserControls
 			}
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        public void button2_Click(object sender, EventArgs e)
 		{
 			dataGridView1.AllowUserToDeleteRows = true;
 
@@ -206,7 +206,7 @@ namespace SimulationDesignPlatform.UserControls
 			}
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		public void button1_Click(object sender, EventArgs e)
 		{
 			// 取得当前单元格内容 
 			//Console.WriteLine(dataGridView1.CurrentCell.Value);
@@ -242,13 +242,13 @@ namespace SimulationDesignPlatform.UserControls
 			});
 		}
 
-		private void UserControl6_Resize(object sender, EventArgs e)
+		public void UserControl6_Resize(object sender, EventArgs e)
 		{
 			//重置窗口布局
 			ReWinformLayout();
 		}
 
-		private void CheckMedium()
+		public void CheckMedium()
 		{
 			// 根据材料表重新生成介质下拉菜单。20240318，由M添加
 			DataGridViewComboBoxCell.ObjectCollection items =
@@ -258,7 +258,7 @@ namespace SimulationDesignPlatform.UserControls
 				items.Add(string.Format("{0} - {1}", Data.mat[i].id, Data.mat[i].name));
 		}
 
-		private void dataGridView1_Paint(object sender, PaintEventArgs e)
+		public void dataGridView1_Paint(object sender, PaintEventArgs e)
 		{
 			// 待求解变量的突出显示。20240318，由M添加
 			foreach (DataGridViewRow row in dataGridView1.Rows)

@@ -5,7 +5,7 @@
         /// <summary> 
         /// 必需的设计器变量。
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        public System.ComponentModel.IContainer components = null;
 
         /// <summary> 
         /// 清理所有正在使用的资源。
@@ -26,7 +26,7 @@
         /// 设计器支持所需的方法 - 不要修改
         /// 使用代码编辑器修改此方法的内容。
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -221,17 +221,17 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.DataGridView dataGridView4;
-        private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.DataGridView dataGridView5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.BindingSource dataBindingSource;
+        public System.Windows.Forms.Panel panel4;
+        public System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.Panel panel5;
+        public System.Windows.Forms.DataGridView dataGridView4;
+        public System.Windows.Forms.DataGridView dataGridView3;
+        public System.Windows.Forms.DataGridView dataGridView2;
+        public System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Panel panel6;
+        public System.Windows.Forms.DataGridView dataGridView5;
+        public System.Windows.Forms.Label label6;
+        public System.Windows.Forms.BindingSource dataBindingSource;
     }
 }

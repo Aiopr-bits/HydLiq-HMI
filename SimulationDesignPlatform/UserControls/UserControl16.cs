@@ -14,8 +14,8 @@ namespace SimulationDesignPlatform.UserControls
 {
     public partial class UserControl16 : UserControl
     {
-        private readonly float x;//定义当前窗体的宽度
-        private readonly float y;//定义当前窗体的高度
+        public readonly float x;//定义当前窗体的宽度
+        public readonly float y;//定义当前窗体的高度
         public UserControl16()
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace SimulationDesignPlatform.UserControls
             #endregion
         }
 
-        private void setTag(Control cons)
+        public void setTag(Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -36,7 +36,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void setControls(float newx, float newy, Control cons)
+        public void setControls(float newx, float newy, Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -60,14 +60,14 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void ReWinformLayout()
+        public void ReWinformLayout()
         {
             var newx = Width / x;
             var newy = Height / y;
             setControls(newx, newy, this);
         }
 
-        private void Show_Chart()
+        public void Show_Chart()
         {
             if (Data.data11.Count == 0)
             {
@@ -275,7 +275,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void UserControl16_Resize(object sender, EventArgs e)
+        public void UserControl16_Resize(object sender, EventArgs e)
         {
             //重置窗口布局
             ReWinformLayout();

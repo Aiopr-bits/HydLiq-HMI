@@ -16,8 +16,8 @@ namespace SimulationDesignPlatform.Forms
 {
 	public partial class Form8_3 : Form
 	{
-		private readonly float x;//定义当前窗体的宽度
-		private readonly float y;//定义当前窗体的高度
+		public readonly float x;//定义当前窗体的宽度
+		public readonly float y;//定义当前窗体的高度
 
 		public Form8_3()
 		{
@@ -25,7 +25,7 @@ namespace SimulationDesignPlatform.Forms
 			GetDatabase();
 		}
 
-		private void setTag(Control cons)
+		public void setTag(Control cons)
 		{
 			foreach (Control con in cons.Controls)
 			{
@@ -34,7 +34,7 @@ namespace SimulationDesignPlatform.Forms
 			}
 		}
 
-		private void setControls(float newx, float newy, Control cons)
+		public void setControls(float newx, float newy, Control cons)
 		{
 			foreach (Control con in cons.Controls)
 			{
@@ -58,37 +58,38 @@ namespace SimulationDesignPlatform.Forms
 			}
 		}
 
-		private void ReWinformLayout()
+		public void ReWinformLayout()
 		{
 			var newx = Width / x;
 			var newy = Height / y;
 			setControls(newx, newy, this);
 		}
 
-		private void Form8_Resize(object sender, EventArgs e)
+		public void Form8_Resize(object sender, EventArgs e)
 		{
 			//重置窗口布局
 			ReWinformLayout();
 		}
 
-		private void GetDatabase()
+		public void GetDatabase()
 		{
 			dataGridView1.AutoGenerateColumns = false;
 
 			//清空列勾选框的所有选项
 			checkedListBox1.Items.Clear();
-			// 添加列勾选项
-			if (Data.data16.Count > 0)
+			Data.data17.Clear();
+            // 添加列勾选项
+            if (Data.data17.Count > 0)
 			{
-				dataGridView1.ColumnCount = Data.data16[0].Count;
+				dataGridView1.ColumnCount = Data.data17[0].Count;
 				for (int i = 0; i < dataGridView1.ColumnCount; i++)
 				{
 					dataGridView1.Columns[i].Width = dataGridView1.Width / dataGridView1.ColumnCount;
 				}
 				dataGridView1.Columns[0].Width = 80; 
-                for (int k = 0; k < Data.data16[0].Count; k++)
+                for (int k = 0; k < Data.data17[0].Count; k++)
                 {
-                    switch (Data.data16[0][k].ToUpper().Trim())
+                    switch (Data.data17[0][k].ToUpper().Trim())
                     {
                         case "NUM":
                             dataGridView1.Columns[k].Name = "流股序号";
@@ -129,26 +130,26 @@ namespace SimulationDesignPlatform.Forms
                     }
                 }
 
-				if (Data.data16_check != null)
+				if (Data.data17_check != null)
 				{
-					for (int i = 0; i < Data.data16_check.Length; i++)
+					for (int i = 0; i < Data.data17_check.Length; i++)
 					{
-						if (Data.data16_check[i] == "true")
+						if (Data.data17_check[i] == "true")
 						{
 							checkedListBox1.SetItemChecked(i, true);
 						}
 					}
 				}
-				for (int i = 1; i < Data.data16.Count; i++)
+				for (int i = 1; i < Data.data17.Count; i++)
 				{
-					dataGridView1.Rows.Add(Data.data16[i].ToArray());
+					dataGridView1.Rows.Add(Data.data17[i].ToArray());
 				}
 				//显示设置的阈值
 				textBox1.Text = Data.yz_num[13].ToString();
 			}
 			else
 			{
-				String filepath = Path.Combine(Data.caseUsePath, "output.data", "line_1.csv");
+				String filepath = Path.Combine(Data.caseUsePath, "output.data", "deltaT.csv");
 				using (TextFieldParser parser = new TextFieldParser(filepath))
 				{
 					parser.TextFieldType = FieldType.Delimited;
@@ -164,70 +165,50 @@ namespace SimulationDesignPlatform.Forms
 							{ rfields.Add(fields[i].Trim()); }
 						}
 						List<string> row = new List<string>(rfields);
-						Data.data16.Add(row);
+						Data.data17.Add(row);
 					}
 				}
 
-				if (Data.data16.Count > 0)
+				if (Data.data17.Count > 0)
 				{
-					dataGridView1.ColumnCount = Data.data16[0].Count;
+					dataGridView1.ColumnCount = Data.data17[0].Count;
                     for (int i = 0; i < dataGridView1.ColumnCount; i++)
                     {						
                         dataGridView1.Columns[i].Width = dataGridView1.Width / dataGridView1.ColumnCount;
                     }
                     dataGridView1.Columns[0].Width = 80; 
-                    for (int k = 0; k < Data.data16[0].Count; k++)
+                    for (int k = 0; k < Data.data17[0].Count; k++)
 					{
-                        switch (Data.data16[0][k].ToUpper().Trim())
+                        switch (Data.data17[0][k].ToUpper().Trim())
                         {
                             case "NUM":
-                                dataGridView1.Columns[k].Name = "流股序号";
-                                checkedListBox1.Items.Add("流股序号");
+                                dataGridView1.Columns[k].Name = "序号";
+                                checkedListBox1.Items.Add("序号");
                                 break;
-                            case "T":
-                                dataGridView1.Columns[k].Name = "温度(K)";
-                                checkedListBox1.Items.Add("温度");
+                            case "INODE":
+                                dataGridView1.Columns[k].Name = "部件";
+                                checkedListBox1.Items.Add("部件");
                                 break;
-                            case "P":
-                                dataGridView1.Columns[k].Name = "压力(MPa)";
-                                checkedListBox1.Items.Add("压力");
+                            case "DELTAT_MIN":
+                                dataGridView1.Columns[k].Name = "最小温差";
+                                checkedListBox1.Items.Add("最小温差");
                                 break;
-                            case "PARA":
-                                dataGridView1.Columns[k].Name = "仲氢浓度";
-                                checkedListBox1.Items.Add("仲氢浓度");
-                                break;
-                            case "M":
-                                dataGridView1.Columns[k].Name = "质量流量(kg/s)";
-                                checkedListBox1.Items.Add("质量流量");
-                                break;
-                            case "W":
-                                dataGridView1.Columns[k].Name = "功(kW)";
-                                checkedListBox1.Items.Add("功");
-                                break;
-                            case "Q":
-                                dataGridView1.Columns[k].Name = "热(kW)";
-                                checkedListBox1.Items.Add("热");
-                                break;
-                            case "H":
-                                dataGridView1.Columns[k].Name = "比焓(kJ/kg)";
-                                checkedListBox1.Items.Add("比焓");
-                                break;
-                            case "S":
-                                dataGridView1.Columns[k].Name = "比熵(kJ/(kg·K))";
-                                checkedListBox1.Items.Add("比熵");
+                            case "DELTAT_AVERAGE":
+                                dataGridView1.Columns[k].Name = "平均温差";
+                                checkedListBox1.Items.Add("平均温差");
                                 break;
                         }
                     }
 
-                    for (int i = 1; i < Data.data16.Count; i++)
+                    for (int i = 1; i < Data.data17.Count; i++)
                     {
-                        dataGridView1.Rows.Add(Data.data16[i].ToArray());
+                        dataGridView1.Rows.Add(Data.data17[i].ToArray());
                     }
                 }
 			}
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		public void button1_Click(object sender, EventArgs e)
 		{
 			if (textBox1.Text == null || textBox1.Text == "")
 			{
@@ -238,23 +219,23 @@ namespace SimulationDesignPlatform.Forms
 				Data.yz_num[13] = int.Parse(textBox1.Text);
 			}
 
-			Data.data16_check = new string[Data.data16[0].Count];
-			for (int i = 0; i < Data.data16_check.Length; i++)
+			Data.data17_check = new string[Data.data17[0].Count];
+			for (int i = 0; i < Data.data17_check.Length; i++)
 			{
 				if (checkedListBox1.GetItemChecked(i))
 				{
-					Data.data16_check[i] = "true";
+					Data.data17_check[i] = "true";
 				}
 				else
 				{
-					Data.data16_check[i] = "false";
+					Data.data17_check[i] = "false";
 				}
 			}
 
 			this.Close();
 		}
 
-		private void button2_Click(object sender, EventArgs e)
+		public void button2_Click(object sender, EventArgs e)
 		{
 			this.Close();
 		}

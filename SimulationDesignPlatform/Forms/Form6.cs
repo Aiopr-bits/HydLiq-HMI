@@ -14,8 +14,8 @@ namespace SimulationDesignPlatform.Forms
 {
     public partial class Form6 : Form
     {
-        private readonly float x;//定义当前窗体的宽度
-        private readonly float y;//定义当前窗体的高度
+        public readonly float x;//定义当前窗体的宽度
+        public readonly float y;//定义当前窗体的高度
         public Form6()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace SimulationDesignPlatform.Forms
             #endregion
         }
 
-        private void setTag(Control cons)
+        public void setTag(Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -35,7 +35,7 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void setControls(float newx, float newy, Control cons)
+        public void setControls(float newx, float newy, Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -59,14 +59,14 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void ReWinformLayout()
+        public void ReWinformLayout()
         {
             var newx = Width / x;
             var newy = Height / y;
             setControls(newx, newy, this);
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // 获取选择的选项
             string selectedOption = comboBox1.SelectedItem.ToString();
@@ -182,7 +182,7 @@ namespace SimulationDesignPlatform.Forms
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             string selectedOption = comboBox1.SelectedItem.ToString();
             if (selectedOption == "图表-1")
@@ -268,12 +268,12 @@ namespace SimulationDesignPlatform.Forms
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        public void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        public void button3_Click(object sender, EventArgs e)
         {
             object selectedOption = comboBox1.SelectedItem;
             if (selectedOption == null)
@@ -384,7 +384,7 @@ namespace SimulationDesignPlatform.Forms
             
         }
 
-        private void Form6_Resize(object sender, EventArgs e)
+        public void Form6_Resize(object sender, EventArgs e)
         {
             //重置窗口布局
             ReWinformLayout();

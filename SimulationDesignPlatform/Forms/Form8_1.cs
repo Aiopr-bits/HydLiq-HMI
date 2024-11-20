@@ -14,8 +14,8 @@ namespace SimulationDesignPlatform.Forms
 {
 	public partial class Form8_1 : Form
 	{
-		private readonly float x;//定义当前窗体的宽度
-		private readonly float y;//定义当前窗体的高度
+		public readonly float x;//定义当前窗体的宽度
+		public readonly float y;//定义当前窗体的高度
 
 		public Form8_1()
 		{
@@ -23,7 +23,7 @@ namespace SimulationDesignPlatform.Forms
 			GetDatabase();
 		}
 
-		private void setTag(Control cons)
+		public void setTag(Control cons)
 		{
 			foreach (Control con in cons.Controls)
 			{
@@ -32,7 +32,7 @@ namespace SimulationDesignPlatform.Forms
 			}
 		}
 
-		private void setControls(float newx, float newy, Control cons)
+		public void setControls(float newx, float newy, Control cons)
 		{
 			foreach (Control con in cons.Controls)
 			{
@@ -56,36 +56,36 @@ namespace SimulationDesignPlatform.Forms
 			}
 		}
 
-		private void ReWinformLayout()
+		public void ReWinformLayout()
 		{
 			var newx = Width / x;
 			var newy = Height / y;
 			setControls(newx, newy, this);
 		}
 
-		private void Form8_Resize(object sender, EventArgs e)
+		public void Form8_Resize(object sender, EventArgs e)
 		{
 			//重置窗口布局
 			ReWinformLayout();
 		}
 
-		private void GetDatabase()
+		public void GetDatabase()
 		{
 			dataGridView1.AutoGenerateColumns = false;
-
-			//清空列勾选框的所有选项
 			checkedListBox1.Items.Clear();
-			// 添加列勾选项
-			if (Data.data15.Count > 0)
+            Data.data15.Clear();
+
+            // 添加列勾选项
+            if (Data.data15.Count > 0)
 			{
 				dataGridView1.ColumnCount = Data.data15[0].Count;
-                for (int i = 0; i < dataGridView1.ColumnCount; i++)
-                {
-                    dataGridView1.Columns[i].Width = dataGridView1.Width / dataGridView1.ColumnCount;
-                }
-                dataGridView1.Columns[0].Width = 80;
+				for (int i = 0; i < dataGridView1.ColumnCount; i++)
+				{
+					dataGridView1.Columns[i].Width = dataGridView1.Width / dataGridView1.ColumnCount;
+				}
+				dataGridView1.Columns[0].Width = 80;
 
-                for (int k = 0; k < Data.data15[0].Count; k++)
+				for (int k = 0; k < Data.data15[0].Count; k++)
 				{
 					switch (Data.data15[0][k].ToUpper().Trim())
 					{
@@ -101,11 +101,11 @@ namespace SimulationDesignPlatform.Forms
 							dataGridView1.Columns[k].Name = "压力(MPa)";
 							checkedListBox1.Items.Add("压力");
 							break;
-                        case "PARA":
-                            dataGridView1.Columns[k].Name = "仲氢浓度";
-                            checkedListBox1.Items.Add("仲氢浓度");
-                            break;
-                        case "M":
+						case "PARA":
+							dataGridView1.Columns[k].Name = "仲氢浓度";
+							checkedListBox1.Items.Add("仲氢浓度");
+							break;
+						case "M":
 							dataGridView1.Columns[k].Name = "质量流量(kg/s)";
 							checkedListBox1.Items.Add("质量流量");
 							break;
@@ -227,7 +227,7 @@ namespace SimulationDesignPlatform.Forms
 			}
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		public void button1_Click(object sender, EventArgs e)
 		{
 			if (textBox1.Text == null || textBox1.Text == "")
 			{
@@ -254,7 +254,7 @@ namespace SimulationDesignPlatform.Forms
 			this.Close();
 		}
 
-		private void button2_Click(object sender, EventArgs e)
+		public void button2_Click(object sender, EventArgs e)
 		{
 			this.Close();
 		}

@@ -13,8 +13,8 @@ namespace SimulationDesignPlatform.UserControls
 {
     public partial class UserControl12 : UserControl
     {
-        private readonly float x;//定义当前窗体的宽度
-        private readonly float y;//定义当前窗体的高度
+        public readonly float x;//定义当前窗体的宽度
+        public readonly float y;//定义当前窗体的高度
         public UserControl12()
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace SimulationDesignPlatform.UserControls
             #endregion
         }
 
-        private void setTag(Control cons)
+        public void setTag(Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -45,7 +45,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void setControls(float newx, float newy, Control cons)
+        public void setControls(float newx, float newy, Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -69,19 +69,19 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void ReWinformLayout()
+        public void ReWinformLayout()
         {
             var newx = Width / x;
             var newy = Height / y;
             setControls(newx, newy, this);
         }
 
-        private void UserControl12_Resize(object sender, EventArgs e)
+        public void UserControl12_Resize(object sender, EventArgs e)
         {
             ReWinformLayout();
         }
 
-        private void GetDatabase()
+        public void GetDatabase()
         {
             DataTable dataTable01 = new DataTable();
             dataTable01.Columns.Add("计算流股参数个数");
@@ -157,7 +157,7 @@ namespace SimulationDesignPlatform.UserControls
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             // 更新 Data.autoTest.n_line 和 Data.autoTest.n_node
             if (dataGridView1.Rows.Count > 0)

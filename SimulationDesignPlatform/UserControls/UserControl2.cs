@@ -22,7 +22,7 @@ namespace SimulationDesignPlatform.UserControls
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             // 获取 textBox1 内的文本内容  
             Data.fzxt_name = textBox1.Text;
@@ -63,7 +63,7 @@ namespace SimulationDesignPlatform.UserControls
         }
 
         // csv文件 转为 dp.input
-        private void CSV2Data(string fn)
+        public void CSV2Data(string fn)
         {
 
             bool flag = true;
@@ -356,7 +356,7 @@ namespace SimulationDesignPlatform.UserControls
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        public void button2_Click(object sender, EventArgs e)
         {
             this.Parent.Controls.Clear();
         }

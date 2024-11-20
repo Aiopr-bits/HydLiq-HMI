@@ -14,8 +14,8 @@ namespace SimulationDesignPlatform.Forms
 {
     public partial class Form1 : Form
     {
-        private readonly float x;//定义当前窗体的宽度
-        private readonly float y;//定义当前窗体的高度
+        public readonly float x;//定义当前窗体的宽度
+        public readonly float y;//定义当前窗体的高度
         public Form1()
         {
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace SimulationDesignPlatform.Forms
             #endregion
         }
 
-        private void setTag(Control cons)
+        public void setTag(Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -40,7 +40,7 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void setControls(float newx, float newy, Control cons)
+        public void setControls(float newx, float newy, Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -64,7 +64,7 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void ReWinformLayout()
+        public void ReWinformLayout()
         {
             var newx = Width / x;
             var newy = Height / y;
@@ -73,7 +73,7 @@ namespace SimulationDesignPlatform.Forms
 
         Form2 form2 = new Form2();
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             //string username = txtName.Text;
             //String password = txtPassword.Text;
@@ -102,13 +102,13 @@ namespace SimulationDesignPlatform.Forms
             }
         }
 
-        private void Form1_Resize(object sender, EventArgs e)
+        public void Form1_Resize(object sender, EventArgs e)
         {
             //重置窗口布局
             ReWinformLayout();
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        public void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }

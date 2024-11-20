@@ -14,8 +14,8 @@ namespace SimulationDesignPlatform.UserControls
 {
     public partial class UserControl1 : UserControl
     {
-        private readonly float x;//定义当前窗体的宽度
-        private readonly float y;//定义当前窗体的高度
+        public readonly float x;//定义当前窗体的宽度
+        public readonly float y;//定义当前窗体的高度
         public UserControl1()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace SimulationDesignPlatform.UserControls
             #endregion
         }
 
-        private void Show_pic()
+        public void Show_pic()
         {
             PictureBox pictureBox1 = new PictureBox();
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -42,7 +42,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void setTag(Control cons)
+        public void setTag(Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -51,7 +51,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void setControls(float newx, float newy, Control cons)
+        public void setControls(float newx, float newy, Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -75,14 +75,14 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void ReWinformLayout()
+        public void ReWinformLayout()
         {
             var newx = Width / x;
             var newy = Height / y;
             setControls(newx, newy, this);
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        public void button5_Click(object sender, EventArgs e)
         {
             // 打开图片文件对话框来选择文件  
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -108,7 +108,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void ShowChart()
+        public void ShowChart()
         {
             if (Data.data7.Count == 0)
             {
@@ -359,7 +359,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void UserControl1_Resize(object sender, EventArgs e)
+        public void UserControl1_Resize(object sender, EventArgs e)
         {
             //重置窗口布局
             ReWinformLayout();

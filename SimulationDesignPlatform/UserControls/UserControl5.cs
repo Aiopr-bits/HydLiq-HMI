@@ -17,19 +17,19 @@ namespace SimulationDesignPlatform.UserControls
 {
 	public partial class UserControl5 : UserControl
 	{
-		private readonly float x;//定义当前窗体的宽度
-		private readonly float y;//定义当前窗体的高度
+		public readonly float x;//定义当前窗体的宽度
+		public readonly float y;//定义当前窗体的高度
 
-		private DataTable dataTable02= new DataTable();
-        private DataTable dataTable01 = new DataTable();
+		public DataTable dataTable02= new DataTable();
+        public DataTable dataTable01 = new DataTable();
 
         // 一些可能用到的单元格样式
-        private readonly DataGridViewCellStyle sDefault = new DataGridViewCellStyle();  // 默认单元格样式
-		private readonly DataGridViewCellStyle sReadOnly = new DataGridViewCellStyle()
+        public readonly DataGridViewCellStyle sDefault = new DataGridViewCellStyle();  // 默认单元格样式
+		public readonly DataGridViewCellStyle sReadOnly = new DataGridViewCellStyle()
 		{
 			BackColor = Color.Gainsboro,
 		};  // 不可编辑的单元格样式
-		private readonly DataGridViewCellStyle sIgnore = new DataGridViewCellStyle()
+		public readonly DataGridViewCellStyle sIgnore = new DataGridViewCellStyle()
 		{
 			BackColor = Color.Gainsboro,
 			ForeColor = Color.Gray,
@@ -49,7 +49,7 @@ namespace SimulationDesignPlatform.UserControls
 			#endregion
 		}
 
-		private void setTag(Control cons)
+		public void setTag(Control cons)
 		{
 			foreach (Control con in cons.Controls)
 			{
@@ -58,7 +58,7 @@ namespace SimulationDesignPlatform.UserControls
 			}
 		}
 
-		private void setControls(float newx, float newy, Control cons)
+		public void setControls(float newx, float newy, Control cons)
 		{
 			foreach (Control con in cons.Controls)
 			{
@@ -82,14 +82,14 @@ namespace SimulationDesignPlatform.UserControls
 			}
 		}
 
-		private void ReWinformLayout()
+		public void ReWinformLayout()
 		{
 			var newx = Width / x;
 			var newy = Height / y;
 			setControls(newx, newy, this);
 		}
 
-		private void GetDatabase01()
+		public void GetDatabase01()
 		{
 
 			this.dataTable01 = new DataTable();
@@ -232,7 +232,7 @@ namespace SimulationDesignPlatform.UserControls
         }
 
 
-        private void GetDatabase02()
+        public void GetDatabase02()
         {
             // 20240313，由M添加
             dataTable02 = new DataTable();
@@ -316,7 +316,7 @@ namespace SimulationDesignPlatform.UserControls
             this.dataGridView2.Columns[1].Visible = false;
         }
 
-		private void button1_Click(object sender, EventArgs e)
+		public void button1_Click(object sender, EventArgs e)
 		{
             int id = dataGridView1.Rows.Count;
             Data.n_node = id;
@@ -389,7 +389,7 @@ namespace SimulationDesignPlatform.UserControls
 			});
 		}
 
-		private void button2_Click(object sender, EventArgs e)
+		public void button2_Click(object sender, EventArgs e)
 		{
 			// 修改界面按钮：取消设备初值区域的保存及删除按钮，将功能并入部件参数区域的相应按钮中。20240318，由M修改
 			DialogResult dr = MessageBox.Show("确定要删除吗？", "Deleting", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -443,7 +443,7 @@ namespace SimulationDesignPlatform.UserControls
 			}
 		}
 
-        private void button3_Click(object sender, EventArgs e)
+        public void button3_Click(object sender, EventArgs e)
         {
 
 			int id = dataGridView2.Rows.Count;
@@ -483,13 +483,13 @@ namespace SimulationDesignPlatform.UserControls
             });
         }
 
-        private void UserControl5_Resize(object sender, EventArgs e)
+        public void UserControl5_Resize(object sender, EventArgs e)
 		{
 			//重置窗口布局
 			ReWinformLayout();
 		}
 
-		private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+		public void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
 		{
 			// 基于设备类型的数据可写性控制，20240315，由M修改
 			if (dataGridView1["type", e.RowIndex].Value == DBNull.Value) return;
@@ -526,7 +526,7 @@ namespace SimulationDesignPlatform.UserControls
 			}
 		}
 
-		private void dataGridView2_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+		public void dataGridView2_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
 		{
 			// 基于设备类型的数据可写性控制，20240318，由M添加
 			int type = Convert.ToInt32(((string)dataGridView1["type", e.RowIndex].Value).Split('-')[0]);
@@ -558,17 +558,17 @@ namespace SimulationDesignPlatform.UserControls
 			}
 		}
 
-		private void dataGridView1_Paint(object sender, PaintEventArgs e)
+		public void dataGridView1_Paint(object sender, PaintEventArgs e)
 		{
 			UpdateCellStyle();
 		}
 
-		private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		public void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			UpdateData();
 		}
 
-		private void UpdateCellStyle()
+		public void UpdateCellStyle()
 		{
 			//// 设置更新各单元格的显示状态。20240315，由M修改添加
 			//for (int i = 0; i < dataGridView1.Rows.Count; i++)
@@ -668,7 +668,7 @@ namespace SimulationDesignPlatform.UserControls
 			//	}
 			//}
 		}
-		private void UpdateData()
+		public void UpdateData()
 		{
 
 			//// 更新各数据依赖的单元格的值。20240315，由M修改添加

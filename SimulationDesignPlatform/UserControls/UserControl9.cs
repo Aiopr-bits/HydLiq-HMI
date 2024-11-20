@@ -15,8 +15,8 @@ namespace SimulationDesignPlatform.UserControls
 {
     public partial class UserControl9 : UserControl
     {
-        private readonly float x;//定义当前窗体的宽度
-        private readonly float y;//定义当前窗体的高度
+        public readonly float x;//定义当前窗体的宽度
+        public readonly float y;//定义当前窗体的高度
         public UserControl9()
         {
             InitializeComponent();
@@ -31,7 +31,7 @@ namespace SimulationDesignPlatform.UserControls
             treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
         }
 
-        private void setTag(Control cons)
+        public void setTag(Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -40,7 +40,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void setControls(float newx, float newy, Control cons)
+        public void setControls(float newx, float newy, Control cons)
         {
             foreach (Control con in cons.Controls)
             {
@@ -64,14 +64,14 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void ReWinformLayout()
+        public void ReWinformLayout()
         {
             var newx = Width / x;
             var newy = Height / y;
             setControls(newx, newy, this);
         }
 
-        private void Show_TreeView()
+        public void Show_TreeView()
         {
             TreeNode tn1 = new TreeNode(Data.fzxt_name);
             treeView1.Nodes.Add(tn1);
@@ -82,7 +82,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void treeView1_AfterSelect_1(object sender, TreeViewEventArgs e)
+        public void treeView1_AfterSelect_1(object sender, TreeViewEventArgs e)
         {
             TreeNode sn1 = treeView1.SelectedNode; 
 
@@ -96,7 +96,7 @@ namespace SimulationDesignPlatform.UserControls
         }
 
 
-        private void Show_NodeData(int id)
+        public void Show_NodeData(int id)
         {
 
             dataGridView1.AllowUserToAddRows = false;
@@ -150,7 +150,7 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        private void dataGridView1_CurrentCellChanged(object sender, EventArgs e)
+        public void dataGridView1_CurrentCellChanged(object sender, EventArgs e)
         {
            if( this.dataGridView1.CurrentRow==null)
                 return;
@@ -182,7 +182,7 @@ namespace SimulationDesignPlatform.UserControls
             this.dataGridView1.Rows[this.dataGridView1.CurrentRow.Index].Cells[3].Value = lineName;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
             // 获取当前选中的节点
             TreeNode selectedNode = treeView1.SelectedNode;
@@ -219,7 +219,7 @@ namespace SimulationDesignPlatform.UserControls
             });
         }
 
-        private void UserControl9_Resize(object sender, EventArgs e)
+        public void UserControl9_Resize(object sender, EventArgs e)
         {
             //重置窗口布局
             ReWinformLayout();
