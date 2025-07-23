@@ -94,8 +94,8 @@ namespace SimulationDesignPlatform.UserControls
 			// 设置列名  
 			dataGridView3.Columns["part_name"].HeaderText = "部件名称";
 			dataGridView3.Columns["calculate_type"].HeaderText = "计算类型";
-			dataGridView3.Columns["cal_i"].HeaderText = "cal_i";
-            dataGridView3.Columns["cal_j"].HeaderText = "cal_j";
+			dataGridView3.Columns["cal_i"].HeaderText = "待求解变量流股号";
+            dataGridView3.Columns["cal_j"].HeaderText = "输入端/输出端";
 
             for (int i = 0; i < Data.n_calSeq; i++)
 			{
