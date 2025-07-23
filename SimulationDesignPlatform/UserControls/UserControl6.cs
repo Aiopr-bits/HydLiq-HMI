@@ -117,12 +117,6 @@ namespace SimulationDesignPlatform.UserControls
 				HeaderText = "仲氢浓度",
 				DataPropertyName = "s_h_con",
 			});
-			this.dataGridView1.Columns.Add(new DataGridViewTextBoxColumn()
-			{
-				Name = "l_n_ratio",
-				HeaderText = "液氮浓度",
-				DataPropertyName = "l_n_ratio",
-			});
 			this.dataGridView1.Columns.Add(new DataGridViewComboBoxColumn()
 			{
 				Name = "medium",
@@ -143,7 +137,6 @@ namespace SimulationDesignPlatform.UserControls
 			dataTable01.Columns.Add("pressure", typeof(double));
 			dataTable01.Columns.Add("flow", typeof(double));
 			dataTable01.Columns.Add("s_h_con", typeof(double));
-			dataTable01.Columns.Add("l_n_ratio", typeof(double));
 			dataTable01.Columns.Add("medium", typeof(string));
 			dataTable01.Columns.Add("h2_type", typeof(bool));
 
@@ -160,7 +153,6 @@ namespace SimulationDesignPlatform.UserControls
 				row["pressure"] = Data.line[i].p;
 				row["flow"] = Data.line[i].m;
 				row["s_h_con"] = Data.line[i].para;
-				row["l_n_ratio"] = Data.line[i].n2;
 				int mediumInx = Data.line[i].mat - 1;
 				row["medium"] = mediumInx < 0 || mediumInx >= Data.n_mat ?
 					null : ((DataGridViewComboBoxColumn)dataGridView1.Columns["medium"]).Items[mediumInx];
