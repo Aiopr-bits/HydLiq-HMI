@@ -154,7 +154,6 @@
             this.dataGridView2.RowTemplate.Height = 30;
             this.dataGridView2.Size = new System.Drawing.Size(983, 300);
             this.dataGridView2.TabIndex = 0;
-            this.dataGridView2.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView2_CellBeginEdit);
             // 
             // UserControl5
             // 

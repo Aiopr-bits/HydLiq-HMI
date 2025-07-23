@@ -46,8 +46,10 @@ namespace SimulationDesignPlatform.UserControls
 			x = Width;
 			y = Height;
 			setTag(this);
-			#endregion
-		}
+            #endregion
+
+			this.dataGridView2.DataBindingComplete += dataGridView2_DataBindingComplete;
+        }
 
 		public void setTag(Control cons)
 		{
@@ -316,7 +318,20 @@ namespace SimulationDesignPlatform.UserControls
             this.dataGridView2.Columns[1].Visible = false;
         }
 
-		public void button1_Click(object sender, EventArgs e)
+        private void dataGridView2_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            for (int i = 0; i < dataGridView2.Rows.Count; i++)
+            {
+				if (Data.node[i].type != 3 && Data.node[i].type != 4)
+				{
+					DataGridViewCell cell = dataGridView2.Rows[i].Cells["eff"];
+					cell.Style.BackColor = Color.LightGray;
+					cell.ReadOnly = true;
+				}
+			}
+        }
+
+        public void button1_Click(object sender, EventArgs e)
 		{
             int id = dataGridView1.Rows.Count;
             Data.n_node = id;
@@ -519,38 +534,6 @@ namespace SimulationDesignPlatform.UserControls
 					 * 仅针对换热器node(i).type=2，其他类型不允许修改
 					 */
 					if (type != 2)
-						e.Cancel = true;
-					return;
-				default:
-					return;
-			}
-		}
-
-		public void dataGridView2_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-		{
-			// 基于设备类型的数据可写性控制，20240318，由M添加
-			int type = Convert.ToInt32(((string)dataGridView1["type", e.RowIndex].Value).Split('-')[0]);
-			switch (e.ColumnIndex)
-			{
-				case 0: // 表示选定单元格为部件序号所在列
-				case 1: // 表示选定单元格为部件类型所在列
-					e.Cancel = true;
-					break;
-				case 2: // 表示选定单元格为效率所在列dataGridView2.Columns["eff"]
-						// 效率eff，仅针对压缩机和膨胀机node[i].type = 3或node[i].type = 4
-					if (type != 3 && type != 4)
-						e.Cancel = true;
-					return;
-				case 3: // 表示选定单元格为计算流股号所在列dataGridView2.Columns["cal_i"]
-				case 4: // 表示选定单元格为计算端口所在列dataGridView2.Columns["cal_j"]
-						// cal_i，仅针对换热器node[i].type = 2，第几个流股有未知数
-						// cal_j，仅针对换热器node[i].type = 2，1：输入端为未知数，2：输出端为未知数
-					if (type != 2)
-						e.Cancel = true;
-					return;
-				case 5: // 表示选定单元格为膨胀机方向所在列dataGridView2.Columns["direction"]
-						// 膨胀机方向，仅针对膨胀机node[i].type = 4
-					if (type != 4)
 						e.Cancel = true;
 					return;
 				default:
