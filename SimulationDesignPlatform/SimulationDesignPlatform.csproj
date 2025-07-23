@@ -137,12 +137,6 @@
     <Compile Include="UserControls\UserControl1.Designer.cs">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UserControl10.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\UserControl10.Designer.cs">
-      <DependentUpon>UserControl10.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\UserControl11.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -220,12 +214,6 @@
     </Compile>
     <Compile Include="UserControls\UserControl2.Designer.cs">
       <DependentUpon>UserControl2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UserControl4.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\UserControl4.Designer.cs">
-      <DependentUpon>UserControl4.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UserControl5.cs">
       <SubType>UserControl</SubType>
@@ -319,9 +307,6 @@
     <EmbeddedResource Include="UserControls\UserControl1.resx">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UserControl10.resx">
-      <DependentUpon>UserControl10.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControl11.resx">
       <DependentUpon>UserControl11.cs</DependentUpon>
     </EmbeddedResource>
@@ -360,9 +345,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControl2.resx">
       <DependentUpon>UserControl2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UserControl4.resx">
-      <DependentUpon>UserControl4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UserControl5.resx">
       <DependentUpon>UserControl5.cs</DependentUpon>

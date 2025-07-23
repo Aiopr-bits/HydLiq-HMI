@@ -28,39 +28,35 @@
         /// </summary>
         public void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("主页面");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("仿真模型信息汇总");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("部件参数配置");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("流股参数配置");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("物性参数配置");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("信号路由");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("计算顺序");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("自动测试&优化模型");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("模型仿真", new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8});
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("部件仿真结果");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("流股仿真结果");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("换热器最小温差结果");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("仿真结果", new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12});
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("变量清单");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("自动测试结果");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("优化模型结果");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("氢液化仿真计算平台", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode9,
-            treeNode13,
-            treeNode14,
-            treeNode15,
-            treeNode16});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("主页面");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("部件参数配置");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("流股参数配置");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("物性参数配置");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("信号路由");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("计算顺序");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("自动测试&优化模型");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("模型仿真", new System.Windows.Forms.TreeNode[] {
+            treeNode17,
+            treeNode18,
+            treeNode19,
+            treeNode20,
+            treeNode21,
+            treeNode22});
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("部件仿真结果");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("流股仿真结果");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("换热器最小温差结果");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("仿真结果", new System.Windows.Forms.TreeNode[] {
+            treeNode24,
+            treeNode25,
+            treeNode26});
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("自动测试结果");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("优化模型结果");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("氢液化仿真计算平台", new System.Windows.Forms.TreeNode[] {
+            treeNode16,
+            treeNode23,
+            treeNode27,
+            treeNode28,
+            treeNode29});
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -117,6 +113,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.ForeColor = System.Drawing.Color.White;
@@ -153,43 +150,39 @@
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Margin = new System.Windows.Forms.Padding(2);
             this.treeView1.Name = "treeView1";
-            treeNode1.Checked = true;
-            treeNode1.Name = "节点1";
-            treeNode1.Text = "主页面";
-            treeNode2.Name = "节点10";
-            treeNode2.Text = "仿真模型信息汇总";
-            treeNode3.Name = "节点11";
-            treeNode3.Text = "部件参数配置";
-            treeNode4.Name = "节点12";
-            treeNode4.Text = "流股参数配置";
-            treeNode5.Name = "节点13";
-            treeNode5.Text = "物性参数配置";
-            treeNode6.Name = "节点3";
-            treeNode6.Text = "信号路由";
-            treeNode7.Name = "计算顺序";
-            treeNode7.Text = "计算顺序";
-            treeNode8.Name = "自动测试&优化模型";
-            treeNode8.Text = "自动测试&优化模型";
-            treeNode9.Name = "节点2";
-            treeNode9.Text = "模型仿真";
-            treeNode10.Name = "部件仿真结果";
-            treeNode10.Text = "部件仿真结果";
-            treeNode11.Name = "流股仿真结果";
-            treeNode11.Text = "流股仿真结果";
-            treeNode12.Name = "换热器最小温差结果";
-            treeNode12.Text = "换热器最小温差结果";
-            treeNode13.Name = "节点0";
-            treeNode13.Text = "仿真结果";
-            treeNode14.Name = "节点4";
-            treeNode14.Text = "变量清单";
-            treeNode15.Name = "自动测试结果";
-            treeNode15.Text = "自动测试结果";
-            treeNode16.Name = "优化模型结果";
-            treeNode16.Text = "优化模型结果";
-            treeNode17.Name = "节点0";
-            treeNode17.Text = "氢液化仿真计算平台";
+            treeNode16.Checked = true;
+            treeNode16.Name = "节点1";
+            treeNode16.Text = "主页面";
+            treeNode17.Name = "节点11";
+            treeNode17.Text = "部件参数配置";
+            treeNode18.Name = "节点12";
+            treeNode18.Text = "流股参数配置";
+            treeNode19.Name = "节点13";
+            treeNode19.Text = "物性参数配置";
+            treeNode20.Name = "节点3";
+            treeNode20.Text = "信号路由";
+            treeNode21.Name = "计算顺序";
+            treeNode21.Text = "计算顺序";
+            treeNode22.Name = "自动测试&优化模型";
+            treeNode22.Text = "自动测试&优化模型";
+            treeNode23.Name = "节点2";
+            treeNode23.Text = "模型仿真";
+            treeNode24.Name = "部件仿真结果";
+            treeNode24.Text = "部件仿真结果";
+            treeNode25.Name = "流股仿真结果";
+            treeNode25.Text = "流股仿真结果";
+            treeNode26.Name = "换热器最小温差结果";
+            treeNode26.Text = "换热器最小温差结果";
+            treeNode27.Name = "节点0";
+            treeNode27.Text = "仿真结果";
+            treeNode28.Name = "自动测试结果";
+            treeNode28.Text = "自动测试结果";
+            treeNode29.Name = "优化模型结果";
+            treeNode29.Text = "优化模型结果";
+            treeNode30.Name = "节点0";
+            treeNode30.Text = "氢液化仿真计算平台";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode17});
+            treeNode30});
             this.treeView1.Size = new System.Drawing.Size(196, 746);
             this.treeView1.TabIndex = 1;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);

@@ -20,7 +20,6 @@ namespace SimulationDesignPlatform.Forms
     {
         public UserControl1 ucd;
         public UserControl2 ucd2;
-        public UserControl4 ucd4;
         public UserControl5 ucd5;
         public UserControl6 ucd6;
         public UserControl7 ucd7;
@@ -28,7 +27,6 @@ namespace SimulationDesignPlatform.Forms
         public UserControl8_2 ucd8_2;
         public UserControl8_3 ucd8_3;
         public UserControl9 ucd9;
-        public UserControl10 ucd10;
         public UserControl11 ucd11;
         public UserControl12 ucd12;
         public UserControl13 ucd13;
@@ -46,6 +44,10 @@ namespace SimulationDesignPlatform.Forms
         {
             InitializeComponent();
             showShouye();
+
+            splitContainer2.SplitterDistance = 200; 
+            splitContainer2.IsSplitterFixed = true; 
+
             Rectangle ScreenArea = Screen.GetWorkingArea(this);
             if (ScreenArea.Height < this.Height)
             {
@@ -86,19 +88,6 @@ namespace SimulationDesignPlatform.Forms
                     button4.Visible = false;
                     label2.Text = "主页面图表数据加载完毕";
                     label3.Text = "主页面";
-                    break;
-                case "仿真模型信息汇总":
-                    splitContainer4.Panel2.Controls.Clear();
-                    ucd4 = new UserControl4();
-                    ucd4.Dock = DockStyle.Fill;
-                    ucd4.Parent = this.splitContainer4.Panel2;
-                    splitContainer4.Panel2.Controls.Add(ucd4);
-                    comboBox1.Visible = false;
-                    button2.Visible = false;
-                    button1.Visible = false;
-                    button4.Visible = false;
-                    label2.Text = "仿真模型信息汇总数据加载完毕";
-                    label3.Text = "仿真模型信息汇总";
                     break;
                 case "部件参数配置":
                     splitContainer4.Panel2.Controls.Clear();
@@ -206,19 +195,6 @@ namespace SimulationDesignPlatform.Forms
                     button4.Visible = false;
                     label2.Text = "信号路由数据加载完毕";
                     label3.Text = "信号路由";
-                    break;
-                case "变量清单":
-                    splitContainer4.Panel2.Controls.Clear();
-                    ucd10 = new UserControl10();
-                    ucd10.Dock = DockStyle.Fill;
-                    ucd10.Parent = this.splitContainer4.Panel2;
-                    splitContainer4.Panel2.Controls.Add(ucd10);
-                    comboBox1.Visible = false;
-                    button2.Visible = false;
-                    button1.Visible = false;
-                    button4.Visible = false;
-                    label2.Text = "变量清单数据加载完毕";
-                    label3.Text = "变量清单";
                     break;
                 case "自动测试&优化模型":
                     splitContainer4.Panel2.Controls.Clear();
