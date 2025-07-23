@@ -90,8 +90,11 @@ namespace SimulationDesignPlatform.UserControls
 			Console.WriteLine("01 = {0} ,02 = {1}, 03 = {2} ", Data.gas_const, Data.t_ref, Data.p_ref);
 			dataTable01.Rows.Add(row);
 
-			// ------表2-------
-			DataTable dataTable02 = new DataTable();
+			dataGridView1.Columns["gas_constant"].ReadOnly = true;
+			dataGridView1.Columns["gas_constant"].DefaultCellStyle.BackColor = Color.LightGray;
+
+            // ------表2-------
+            DataTable dataTable02 = new DataTable();
 			dataTable02.Columns.Add("material_num", typeof(int));
 			// 设置DataGridView的DataSource  
 			dataGridView2.DataSource = dataTable02;
