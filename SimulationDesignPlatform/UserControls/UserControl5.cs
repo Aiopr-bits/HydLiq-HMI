@@ -135,7 +135,7 @@ namespace SimulationDesignPlatform.UserControls
             this.dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn()
 			{
 				Name = "n2_heat",
-				HeaderText = "含氮换热器",
+				HeaderText = "非纯氢换热器",
 				DataPropertyName = "n2_heat",
 			});
 
@@ -514,8 +514,8 @@ namespace SimulationDesignPlatform.UserControls
 					if (type != 1 && type != 2)
 						e.Cancel = true;
 					return;
-				case 5: //表示选定单元格为含氮换热器所在列dataGridView1.Columns["n2_heat"]
-					/* 含氮换热器
+				case 5: //表示选定单元格为非纯氢换热器所在列dataGridView1.Columns["n2_heat"]
+					/* 非纯氢换热器
 					 * 仅针对换热器node(i).type=2，其他类型不允许修改
 					 */
 					if (type != 2)
@@ -603,7 +603,7 @@ namespace SimulationDesignPlatform.UserControls
 			//				else
 			//					cell.Style = sIgnore;
 			//				break;
-			//			/* 含氮换热器
+			//			/* 非纯氢换热器
 			//			 * 仅针对换热器node(i).type=2，其他类型不允许修改
 			//			 */
 			//			case 5:
@@ -700,7 +700,7 @@ namespace SimulationDesignPlatform.UserControls
 			//				if (type != 1 && type != 2)
 			//					cell.Value = null;
 			//				break;
-			//			/* 含氮换热器
+			//			/* 非纯氢换热器
 			//			 * 仅针对换热器node(i).type=2，其他类型不允许修改
 			//			 */
 			//			case 5:
