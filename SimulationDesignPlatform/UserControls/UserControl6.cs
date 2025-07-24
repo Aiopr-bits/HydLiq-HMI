@@ -252,22 +252,22 @@ namespace SimulationDesignPlatform.UserControls
 
 		public void dataGridView1_Paint(object sender, PaintEventArgs e)
 		{
-			// 待求解变量的突出显示。20240318，由M添加
-			foreach (DataGridViewRow row in dataGridView1.Rows)
-			{
-				DataGridViewCell t = row.Cells["temperature"];
-				if (t == null || t.Value == null) continue;
-				if ((double)t.Value == 0)
-					t.Style = sToBeSolved;
-				else
-					t.Style = sDefault;
-				DataGridViewCell f = row.Cells["flow"];
-				if (f == null || f.Value == null) continue;
-				if ((double)f.Value == 0)
-					f.Style = sToBeSolved;
-				else
-					f.Style = sDefault;
-			}
+			//// 待求解变量的突出显示。20240318，由M添加
+			//foreach (DataGridViewRow row in dataGridView1.Rows)
+			//{
+			//	DataGridViewCell t = row.Cells["temperature"];
+			//	if (t == null || t.Value == null) continue;
+			//	if ((double)t.Value == 0)
+			//		t.Style = sToBeSolved;
+			//	else
+			//		t.Style = sDefault;
+			//	DataGridViewCell f = row.Cells["flow"];
+			//	if (f == null || f.Value == null) continue;
+			//	if ((double)f.Value == 0)
+			//		f.Style = sToBeSolved;
+			//	else
+			//		f.Style = sDefault;
+			//}
 		}
 	}
 }
