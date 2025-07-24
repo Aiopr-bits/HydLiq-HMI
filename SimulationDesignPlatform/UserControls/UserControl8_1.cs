@@ -104,7 +104,7 @@ namespace SimulationDesignPlatform.UserControls
                             switch (series1.Name.ToUpper().Trim())
                             {
                                 case "NUM":
-                                    lineName = "流股序号";
+                                    lineName = "部件序号";
                                     break;
                                 case "T":
                                     lineName = "温度(K)";
@@ -140,52 +140,76 @@ namespace SimulationDesignPlatform.UserControls
                         }
                     }
                 }
-                    dataGridView1.AllowUserToAddRows = false;
+                dataGridView1.AllowUserToAddRows = false;
 
-                    if (Data.data15.Count > 0)
+                if (Data.data15.Count > 0)
+                {
+                    dataGridView1.ColumnCount = Data.data15[0].Count;
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                    for (int k = 0; k < Data.data15[0].Count; k++)
                     {
-                        dataGridView1.ColumnCount = Data.data15[0].Count;
-                        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-                        for (int k = 0; k < Data.data15[0].Count; k++)
+                        switch (Data.data15[0][k].ToUpper().Trim())
                         {
-                            switch (Data.data15[0][k].ToUpper().Trim())
+                            case "NUM":
+                                dataGridView1.Columns[k].Name = "部件序号";
+                                break;
+                            case "T":
+                                dataGridView1.Columns[k].Name = "温度(K)";
+                                break;
+                            case "P":
+                                dataGridView1.Columns[k].Name = "压力(MPa)";
+                                break;
+                            case "PARA":
+                                dataGridView1.Columns[k].Name = "仲氢浓度";
+                                break;
+                            case "M":
+                                dataGridView1.Columns[k].Name = "质量流量(kg/s)";
+                                break;
+                            case "W":
+                                dataGridView1.Columns[k].Name = "功(kW)";
+                                break;
+                            case "Q":
+                                dataGridView1.Columns[k].Name = "热(kW)";
+                                break;
+                            case "H":
+                                dataGridView1.Columns[k].Name = "比焓(kJ/kg)";
+                                break;
+                            case "S":
+                                dataGridView1.Columns[k].Name = "比熵(kJ/(kg·K))";
+                                break;
+                        }
+                    }
+                }
+
+                for (int i = 1; i < Data.data15.Count; i++)
+                {
+                    dataGridView1.Rows.Add(Data.data15[i].ToArray());
+                }
+
+                // 在dataGridView1的"部件序号"列后面添加一列“部件名称”，默认值全部为“未命名”
+                if (!dataGridView1.Columns.Contains("部件名称"))
+                {
+                    int index = dataGridView1.Columns["部件序号"].Index;
+                    dataGridView1.Columns.Insert(index + 1, new DataGridViewTextBoxColumn()
+                    {
+                        Name = "部件名称",
+                        HeaderText = "部件名称"
+                    });
+
+                    for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                    {
+                        dataGridView1.Rows[i].Cells["部件名称"].Value = "未知部件";
+                        for (int j = 0; j < Data.n_node; j++)
+                        {
+                            if (Data.node[j].id == Convert.ToInt32(dataGridView1.Rows[i].Cells["部件序号"].Value))
                             {
-                                case "NUM":
-                                    dataGridView1.Columns[k].Name = "流股序号";
-                                    break;
-                                case "T":
-                                    dataGridView1.Columns[k].Name = "温度(K)";
-                                    break;
-                                case "P":
-                                    dataGridView1.Columns[k].Name = "压力(MPa)";
-                                    break;
-                                case "PARA":
-                                    dataGridView1.Columns[k].Name = "仲氢浓度";
-                                    break;
-                                case "M":
-                                    dataGridView1.Columns[k].Name = "质量流量(kg/s)";
-                                    break;
-                                case "W":
-                                    dataGridView1.Columns[k].Name = "功(kW)";
-                                    break;
-                                case "Q":
-                                    dataGridView1.Columns[k].Name = "热(kW)";
-                                    break;
-                                case "H":
-                                    dataGridView1.Columns[k].Name = "比焓(kJ/kg)";
-                                    break;
-                                case "S":
-                                    dataGridView1.Columns[k].Name = "比熵(kJ/(kg·K))";
-                                    break;
+                                dataGridView1.Rows[i].Cells["部件名称"].Value = Data.node[j].name;
+                                break;
                             }
                         }
                     }
-
-                    for (int i = 1; i < Data.data15.Count; i++)
-                    {
-                        dataGridView1.Rows.Add(Data.data15[i].ToArray());
-                    }          
+                }
             }
             else
             {
@@ -212,17 +236,14 @@ namespace SimulationDesignPlatform.UserControls
                 if (Data.data15.Count > 0)
                 {
                     dataGridView1.ColumnCount = Data.data15[0].Count;
-                    for (int i = 0; i < dataGridView1.ColumnCount; i++)
-                    {
-                        dataGridView1.Columns[i].Width = dataGridView1.Width / dataGridView1.ColumnCount;
-                    }
-                    dataGridView1.Columns[0].Width = 80;
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
                     for (int k = 0; k < Data.data15[0].Count; k++)
                     {
                         switch (Data.data15[0][k].ToUpper().Trim())
                         {
                             case "NUM":
-                                dataGridView1.Columns[k].Name = "流股序号";
+                                dataGridView1.Columns[k].Name = "部件序号";
                                 break;
                             case "T":
                                 dataGridView1.Columns[k].Name = "温度(K)";
@@ -254,6 +275,30 @@ namespace SimulationDesignPlatform.UserControls
                     for (int i = 1; i < Data.data15.Count; i++)
                     {
                         dataGridView1.Rows.Add(Data.data15[i].ToArray());
+                    }
+
+                    // 在dataGridView1的"部件序号"列后面添加一列“部件名称”，默认值全部为“未命名”
+                    if (!dataGridView1.Columns.Contains("部件名称"))
+                    {
+                        int index = dataGridView1.Columns["部件序号"].Index;
+                        dataGridView1.Columns.Insert(index + 1, new DataGridViewTextBoxColumn()
+                        {
+                            Name = "部件名称",
+                            HeaderText = "部件名称"
+                        });
+
+                        for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                        {
+                            dataGridView1.Rows[i].Cells["部件名称"].Value = "未知部件";
+                            for (int j = 0; j < Data.n_node; j++)
+                            {
+                                if (Data.node[j].id == Convert.ToInt32(dataGridView1.Rows[i].Cells["部件序号"].Value))
+                                {
+                                    dataGridView1.Rows[i].Cells["部件名称"].Value = Data.node[j].name;
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
             }
