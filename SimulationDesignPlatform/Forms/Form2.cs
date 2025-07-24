@@ -648,7 +648,6 @@ namespace SimulationDesignPlatform.Forms
 
                 if (fileExists)
                 {
-                    MessageBox.Show("工作目录指定成功！指定的工况为：" + case_name);
                     // 储存为历史工作路径，方便下次启动（20240311，由M添加）
                     File.WriteAllText(historypath, selectedFolder);
                 }
@@ -703,7 +702,8 @@ namespace SimulationDesignPlatform.Forms
             }
             catch (Exception myException)
             {
-                //MessageBox.Show("请检查工况文件是否为打开状态或不存在！", "提示");
+                MessageBox.Show("请检查工况文件是否为打开状态或不存在！", "提示");
+                return;
             }
 
             MessageBox.Show("导入成功！");
@@ -712,7 +712,6 @@ namespace SimulationDesignPlatform.Forms
 
             treeView1.ExpandAll();
             treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
-
         }
 
         public void RemoveDataGridViewColumnHeaders(Control parent)
