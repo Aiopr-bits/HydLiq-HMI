@@ -248,7 +248,7 @@ namespace SimulationDesignPlatform.UserControls
             this.dataGridView2.Columns.Add(new DataGridViewTextBoxColumn()
             {
                 Name = "name",
-                HeaderText = "部件类型",
+                HeaderText = "部件名称",
                 DataPropertyName = "name",
             });
             this.dataGridView2.Columns.Add(new DataGridViewTextBoxColumn()
@@ -295,7 +295,7 @@ namespace SimulationDesignPlatform.UserControls
                 if (Data.nodepara[i] == null) break;
                 DataRow row = dataTable02.NewRow();
                 row["ip"] = Data.nodepara[i].ip;
-                row["name"] = Data.nodepara[i].name;
+                row["name"] = Data.node[i].name;
                 row["eff"] = Data.nodepara[i].eff;
                 row["cal_i"] = Data.nodepara[i].cal_i;
                 switch (Data.nodepara[i].cal_j)
@@ -313,9 +313,6 @@ namespace SimulationDesignPlatform.UserControls
                 row["direction"] = Data.nodepara[i].direction;
                 dataTable02.Rows.Add(row);
             }
-
-            //隐藏第二列
-            this.dataGridView2.Columns[1].Visible = false;
         }
 
         private void dataGridView2_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
