@@ -101,13 +101,25 @@ namespace SimulationDesignPlatform.UserControls
             dataGridView2.DataSource = dataTable02;
 
             DataTable dataTable03 = new DataTable();
-            dataTable03.Columns.Add("部件", typeof(string));
+            dataTable03.Columns.Add("部件序号", typeof(string));
+            dataTable03.Columns.Add("部件名称", typeof(string));
             dataTable03.Columns.Add("起始效率", typeof(double));
             dataTable03.Columns.Add("结束效率", typeof(double));
             dataTable03.Columns.Add("计算点数", typeof(int));
             for (int i = 0; i < Data.autoTest.n_node; i++)
             {
-                dataTable03.Rows.Add(Data.autoTest.node[i][0], Data.autoTest.node[i][1], Data.autoTest.node[i][2], Data.autoTest.node[i][3]);
+                //获取部件名称
+                string nodeName = "未知部件";
+                for (int j = 0; j < Data.n_node; j++)
+                {
+                    if (Data.node[j].id == Data.autoTest.node[i][0])
+                    {
+                        nodeName = Data.node[j].name;
+                        break;
+                    }
+                }
+
+                dataTable03.Rows.Add(Data.autoTest.node[i][0], nodeName, Data.autoTest.node[i][1], Data.autoTest.node[i][2], Data.autoTest.node[i][3]);
             }
             dataGridView3.DataSource = dataTable03;
 
@@ -138,10 +150,22 @@ namespace SimulationDesignPlatform.UserControls
             dataGridView7.DataSource = dataTable07;
 
             DataTable dataTable08 = new DataTable();
-            dataTable08.Columns.Add("部件", typeof(string));
+            dataTable08.Columns.Add("部件序号", typeof(string));
+            dataTable08.Columns.Add("部件名称", typeof(string));
             for (int i = 0; i < Data.optModel.n_node; i++)
             {
-                dataTable08.Rows.Add(Data.optModel.node[i]);
+                //获取部件名称
+                string nodeName = "未知部件";
+                for (int j = 0; j < Data.n_node; j++)
+                {
+                    if (Data.node[j].id == Data.autoTest.node[i][0])
+                    {
+                        nodeName = Data.node[j].name;
+                        break;
+                    }
+                }
+
+                dataTable08.Rows.Add(Data.optModel.node[i],nodeName);
             }
             dataGridView8.DataSource = dataTable08;
 
