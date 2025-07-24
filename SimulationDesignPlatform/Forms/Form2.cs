@@ -53,6 +53,8 @@ namespace SimulationDesignPlatform.Forms
             {
                 this.Height = ScreenArea.Height;
             }
+
+            this.Resize += Form2_Resize;
         }
 
         public void showShouye()
@@ -783,6 +785,7 @@ namespace SimulationDesignPlatform.Forms
 
         public void Form2_Resize(object sender, EventArgs e)
         {
+            splitContainer2.SplitterDistance = 200;
             label1.Parent = splitContainer1.Panel1;
             label1.Location = new Point((splitContainer1.Panel1.Width - label1.Width) / 2, (splitContainer1.Panel1.Height - label1.Height) / 2);
         }
