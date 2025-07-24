@@ -85,6 +85,7 @@ namespace SimulationDesignPlatform.UserControls
 			// --------表3---------
 			DataTable dataTable03 = new DataTable();
 			dataTable03.Columns.Add("part_name", typeof(int));
+			dataTable03.Columns.Add("part_mingcheng", typeof(string));
 			dataTable03.Columns.Add("calculate_type", typeof(int));
 			dataTable03.Columns.Add("cal_i", typeof(int));
             dataTable03.Columns.Add("cal_j", typeof(int));
@@ -92,7 +93,8 @@ namespace SimulationDesignPlatform.UserControls
             dataGridView3.DataSource = dataTable03;
 			dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			// 设置列名  
-			dataGridView3.Columns["part_name"].HeaderText = "部件名称";
+			dataGridView3.Columns["part_name"].HeaderText = "部件序号";
+			dataGridView3.Columns["part_mingcheng"].HeaderText = "部件名称";
 			dataGridView3.Columns["calculate_type"].HeaderText = "计算类型";
 			dataGridView3.Columns["cal_i"].HeaderText = "待求解变量流股号";
             dataGridView3.Columns["cal_j"].HeaderText = "输入端/输出端";
@@ -102,6 +104,16 @@ namespace SimulationDesignPlatform.UserControls
 				//添加行数据
 				DataRow row3 = dataTable03.NewRow();
 				if (Data.calSeq[i].part_name != -1) row3["part_name"] = Data.calSeq[i].part_name;
+
+				for (int j = 0; j < Data.n_node; j++)
+				{ 
+					if (Data.calSeq[i].part_name == Data.node[j].id)
+					{
+						row3["part_mingcheng"] = Data.node[j].name;
+						break;
+                    }
+                }
+
 				if(Data.calSeq[i].calculate_type != -1) row3["calculate_type"] = Data.calSeq[i].calculate_type;
                 if (Data.calSeq[i].cal_i != -1) row3["cal_i"] = Data.calSeq[i].cal_i;
                 if (Data.calSeq[i].cal_j != -1) row3["cal_j"] = Data.calSeq[i].cal_j;
