@@ -29,6 +29,8 @@ namespace SimulationDesignPlatform.UserControls
 
             treeView1.ExpandAll();
             treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
+
+            dataGridView1.CellEndEdit += dataGridView1_CellEndEdit;
         }
 
         public void setTag(Control cons)
@@ -150,36 +152,67 @@ namespace SimulationDesignPlatform.UserControls
             }
         }
 
-        public void dataGridView1_CurrentCellChanged(object sender, EventArgs e)
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-           if( this.dataGridView1.CurrentRow==null)
-                return;
+            // 获取当前编辑的列名
+            string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
 
-            int inNum = int.Parse(this.dataGridView1.Rows[this.dataGridView1.CurrentRow.Index].Cells[0].Value.ToString());
-            string lineName = String.Empty;
+            // 获取当前行
+            DataGridViewRow currentRow = dataGridView1.Rows[e.RowIndex];
 
-            for (int j = 0; j < Data.line.Length; j++)
+            // 根据列名处理逻辑
+            if (columnName == "in_id")
             {
-                if (inNum == Data.line[j].ip)
+                // 用户修改了 in_id，更新 in_name
+                int inId = Convert.ToInt32(currentRow.Cells["in_id"].Value);
+                string inName = GetNameById(inId);
+                currentRow.Cells["in_name"].Value = inName;
+            }
+            else if (columnName == "in_name")
+            {
+                // 用户修改了 in_name，更新 in_id
+                string inName = currentRow.Cells["in_name"].Value.ToString();
+                int inId = GetIdByName(inName);
+                currentRow.Cells["in_id"].Value = inId;
+            }
+            else if (columnName == "out_id")
+            {
+                // 用户修改了 out_id，更新 out_name
+                int outId = Convert.ToInt32(currentRow.Cells["out_id"].Value);
+                string outName = GetNameById(outId);
+                currentRow.Cells["out_name"].Value = outName;
+            }
+            else if (columnName == "out_name")
+            {
+                // 用户修改了 out_name，更新 out_id
+                string outName = currentRow.Cells["out_name"].Value.ToString();
+                int outId = GetIdByName(outName);
+                currentRow.Cells["out_id"].Value = outId;
+            }
+        }
+
+        private string GetNameById(int id)
+        {
+            foreach (var line in Data.line)
+            {
+                if (line.ip == id)
                 {
-                    lineName = Data.line[j].name;
-                    break;
+                    return line.name;
                 }
             }
-            this.dataGridView1.Rows[this.dataGridView1.CurrentRow.Index].Cells[1].Value = lineName;
+            return string.Empty; 
+        }
 
-            int outNum = int.Parse(this.dataGridView1.Rows[this.dataGridView1.CurrentRow.Index].Cells[2].Value.ToString());
-            lineName = String.Empty;
-
-            for (int j = 0; j < Data.line.Length; j++)
+        private int GetIdByName(string name)
+        {
+            foreach (var line in Data.line)
             {
-                if (outNum == Data.line[j].ip)
+                if (line.name == name)
                 {
-                    lineName = Data.line[j].name;
-                    break;
+                    return line.ip;
                 }
             }
-            this.dataGridView1.Rows[this.dataGridView1.CurrentRow.Index].Cells[3].Value = lineName;
+            return 0; 
         }
 
         public void button1_Click(object sender, EventArgs e)
