@@ -519,9 +519,38 @@ namespace SimulationDesignPlatform.UserControls
 					 * node[i].cal_type=0：求解温度；node[i].cal_type=1：求解流量
 					 * 其他部件，值为0，此处为灰色，不允许修改，显示为空
 					 */
-					if (type != 1 && type != 2)
-						e.Cancel = true;
-					return;
+                    var cell = (DataGridViewComboBoxCell)dataGridView1.Rows[e.RowIndex].Cells["cal_type"];
+                    cell.Items.Clear();
+                    if (type == 1)
+                    {
+                        cell.Items.AddRange(new object[] { "计算温度", "计算流量" });
+                    }
+                    else if (type == 2)
+                    {
+						bool n2_heat = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["n2_heat"].Value);
+						if (n2_heat)
+						{
+                            cell.Items.AddRange(new object[] { "计算温度", "计算流量", "赋值浓度", "反向赋值浓度" });
+                        }
+						else
+						{
+                            cell.Items.AddRange(new object[] { "计算温度", "计算流量" });
+                        }
+                    }
+                    else if (type == 11)
+                    {
+                        cell.Items.AddRange(new object[] { "赋值温度", "正向计算流量", "反向计算流量" });
+                    }
+                    else if (type == 12)
+                    {
+                        cell.Items.AddRange(new object[] { "赋值温度", "正向计算流量", "反向计算流量" });
+                    }
+                    else
+                    {
+                        cell.Items.AddRange(new object[] { "计算温度", "计算流量", "赋值浓度", "反向赋值浓度", "赋值流量", "赋值温度", "正向计算流量", "反向计算流量", "其他类型" });
+                        e.Cancel = true;
+                    }
+                    return;
 				case 5: //表示选定单元格为非纯氢换热器所在列dataGridView1.Columns["n2_heat"]
 					/* 非纯氢换热器
 					 * 仅针对换热器node(i).type=2，其他类型不允许修改
