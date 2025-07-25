@@ -214,6 +214,12 @@ namespace SimulationDesignPlatform.UserControls
             else
             {
                 String filepath = Path.Combine(Data.caseUsePath, "output.data", "node_1.csv");
+
+                if (!File.Exists(filepath))
+                {
+                    return;
+                }
+
                 using (TextFieldParser parser = new TextFieldParser(filepath))
                 {
                     parser.TextFieldType = FieldType.Delimited;

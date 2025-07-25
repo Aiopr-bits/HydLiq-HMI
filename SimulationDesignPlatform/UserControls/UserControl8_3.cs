@@ -161,6 +161,13 @@ namespace SimulationDesignPlatform.UserControls
 			else
              {
                 String filepath = Path.Combine(Data.caseUsePath, "output.data", "deltaT.csv");
+
+				//如果路径不存在则返回
+				if (!File.Exists(filepath))
+				{
+					return;
+				}
+
                 using (TextFieldParser parser = new TextFieldParser(filepath))
                 {
                     parser.TextFieldType = FieldType.Delimited;

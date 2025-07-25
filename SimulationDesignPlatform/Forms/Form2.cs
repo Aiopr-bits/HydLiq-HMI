@@ -45,8 +45,8 @@ namespace SimulationDesignPlatform.Forms
             InitializeComponent();
             showShouye();
 
-            splitContainer2.SplitterDistance = 200; 
-            splitContainer2.IsSplitterFixed = true; 
+            splitContainer2.SplitterDistance = 200;
+            splitContainer2.IsSplitterFixed = true;
 
             Rectangle ScreenArea = Screen.GetWorkingArea(this);
             if (ScreenArea.Height < this.Height)
@@ -500,12 +500,18 @@ namespace SimulationDesignPlatform.Forms
                 Data.CSV2Data(fileContent);
 
                 string autoTest_path = Path.Combine(Path.GetDirectoryName(datainput_path), "output.data", "autoTest.csv");
-                fileContent = File.ReadAllText(autoTest_path);
-                Data.CSVOutputdataAutoTest(fileContent);
+                if (File.Exists(autoTest_path))
+                {
+                    fileContent = File.ReadAllText(autoTest_path);
+                    Data.CSVOutputdataAutoTest(fileContent);
+                }
 
                 string optimResult_path = Path.Combine(Path.GetDirectoryName(datainput_path), "output.data", "optim.csv");
-                fileContent = File.ReadAllText(optimResult_path);
-                Data.CSVOutputdataOptimResult(fileContent);
+                if (File.Exists(optimResult_path))
+                {
+                    fileContent = File.ReadAllText(optimResult_path);
+                    Data.CSVOutputdataOptimResult(fileContent);
+                }
 
                 using (Form8_1 fs = new Form8_1())
                 {
@@ -694,12 +700,18 @@ namespace SimulationDesignPlatform.Forms
                 Data.CSV2Data(fileContent);
 
                 string autoTest_path = Path.Combine(Path.GetDirectoryName(datainput_path), "output.data", "autoTest.csv");
-                fileContent = File.ReadAllText(autoTest_path);
-                Data.CSVOutputdataAutoTest(fileContent);
+                if (File.Exists(autoTest_path))
+                {
+                    fileContent = File.ReadAllText(autoTest_path);
+                    Data.CSVOutputdataAutoTest(fileContent);
+                }
 
                 string optimResult_path = Path.Combine(Path.GetDirectoryName(datainput_path), "output.data", "optim.csv");
-                fileContent = File.ReadAllText(optimResult_path);
-                Data.CSVOutputdataOptimResult(fileContent);
+                if (File.Exists(optimResult_path))
+                {
+                    fileContent = File.ReadAllText(optimResult_path);
+                    Data.CSVOutputdataOptimResult(fileContent);
+                }
             }
             catch (Exception myException)
             {

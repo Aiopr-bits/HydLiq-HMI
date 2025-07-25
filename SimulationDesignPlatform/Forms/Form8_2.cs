@@ -150,7 +150,8 @@ namespace SimulationDesignPlatform.Forms
 			else
 			{
 				String filepath = Path.Combine(Data.caseUsePath, "output.data", "line_1.csv");
-				using (TextFieldParser parser = new TextFieldParser(filepath))
+                if (!File.Exists(filepath)) return;
+                using (TextFieldParser parser = new TextFieldParser(filepath))
 				{
 					parser.TextFieldType = FieldType.Delimited;
 					parser.SetDelimiters(",");
