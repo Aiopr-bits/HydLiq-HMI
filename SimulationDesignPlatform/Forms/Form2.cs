@@ -75,7 +75,6 @@ namespace SimulationDesignPlatform.Forms
 
         public void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
             switch (treeView1.SelectedNode.Text)
             {
                 case "主页面":
