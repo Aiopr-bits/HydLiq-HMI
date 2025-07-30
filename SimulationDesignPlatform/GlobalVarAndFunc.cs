@@ -28,12 +28,12 @@ namespace SimulationDesignPlatform
     public class NodeData
     {
         public const int line_per_node = 5;
-        
+
         public string name;
         public bool n2_heat;
-        public int type, n, ni, mi, li, lo, direction, n_cal, cal_i, cal_j, cal_type, id , ncal_seq;
+        public int type, n, ni, mi, li, lo, direction, n_cal, cal_i, cal_j, cal_type, id, ncal_seq;
         public int[] i, o = new int[line_per_node];
-        
+
         public double t, p, ma, mo, para, h, s, e, vf, heat, eff, W, n2_i;
 
     }
@@ -116,7 +116,7 @@ namespace SimulationDesignPlatform
         public static int n_mat, n_node, n_line, n_case, n_calSeq;//材料数  部件总数   流股总数   工况数    计算个数
         public static double gas_const, t_ref, p_ref;//气体常数	参考温度 参考压力
         public static string fzxt_name, user_name, user_password, case_name;//仿真系统名称, 用户登录用户名，密码, 指定目录文件夹名称
-        public static bool auto_test, cal_min_temp_diff, opt_model_cal;//自动测试,计算最小温差,优化模型计算
+        public static bool auto_test, cal_min_temp_diff, opt_model_cal, cal_order;//自动测试,计算最小温差,优化模型计算,计算顺序
 
         public static DateTime start_time = new DateTime(2024, 1, 17, 10, 00, 00);
         public static DateTime[] check_time = new DateTime[13];
@@ -164,7 +164,7 @@ namespace SimulationDesignPlatform
 
         public const int n_calSeq_max = 500;//计算顺序参数
         public static calSeqData[] calSeq = new calSeqData[n_calSeq_max]; //全局变量，存储
-  
+
         public static autoTestData autoTest = new autoTestData();//自动测试参数
 
         public static optModelData optModel = new optModelData();//优化模型参数
@@ -248,12 +248,12 @@ namespace SimulationDesignPlatform
                     }
 
                     //calSeq初始化
-                    for (int  i= 0; i<Data.n_calSeq_max; i++)
+                    for (int i = 0; i < Data.n_calSeq_max; i++)
                     {
                         Data.calSeq[i] = new calSeqData();
                         calSeq[i].part_name = -1;
                         calSeq[i].calculate_type = -1;
-                        calSeq[i].cal_i= -1;
+                        calSeq[i].cal_i = -1;
                         calSeq[i].cal_j = -1;
                     }
 
@@ -271,10 +271,9 @@ namespace SimulationDesignPlatform
                     {
                         string[] tmp = nextLine.Split(',');
                         flag = flag && bool.TryParse(tmp[0], out Data.auto_test);           //自动测试
-                        flag = flag && bool.TryParse(tmp[1], out Data.cal_min_temp_diff);       //优化模型计算
-                        flag = flag && bool.TryParse(tmp[2], out Data.opt_model_cal);           //最小温差
-
-
+                        flag = flag && bool.TryParse(tmp[1], out Data.cal_min_temp_diff);   //优化模型计算
+                        flag = flag && bool.TryParse(tmp[2], out Data.opt_model_cal);       //最小温差
+                        flag = flag && bool.TryParse(tmp[3], out Data.cal_order);           //计算顺序
                     }
 
                     nextLine = sR1.ReadLine(); //# 物性参数
@@ -441,124 +440,133 @@ namespace SimulationDesignPlatform
                     }
 
                     //-------------------------计算顺序------------------------
-                    nextLine = sR1.ReadLine(); //# 计算顺序
-                    nextLine = sR1.ReadLine(); //# 计算顺序
-                    nextLine = sR1.ReadLine(); //# 计算顺序
-                    nextLine = sR1.ReadLine(); //# 计算顺序
-                    nextLine = sR1.ReadLine(); 
+                    if (Data.cal_order)
                     {
-                        string[] tmp = nextLine.Split(',');
-                        Data.n_calSeq = int.Parse(tmp[0] == "" ? "0" : tmp[0]);//计算个数
-                    }
-                    nextLine = sR1.ReadLine(); //# 计算顺序
-
-                    for(int i = 0; i < Data.n_calSeq; i++)
-                    {
+                        nextLine = sR1.ReadLine(); //# 计算顺序
+                        nextLine = sR1.ReadLine(); //# 计算顺序
+                        nextLine = sR1.ReadLine(); //# 计算顺序
+                        nextLine = sR1.ReadLine(); //# 计算顺序
                         nextLine = sR1.ReadLine();
-                        string[] tmp = nextLine.Split(',');
-                        if (tmp.Length > 1)
                         {
-                            Data.calSeq[i].part_name = int.TryParse(tmp[0], out int partNameResult) ? partNameResult : 0;
+                            string[] tmp = nextLine.Split(',');
+                            Data.n_calSeq = int.Parse(tmp[0] == "" ? "0" : tmp[0]);//计算个数
                         }
+                        nextLine = sR1.ReadLine(); //# 计算顺序
 
-                        if (tmp.Length > 2)
+                        for (int i = 0; i < Data.n_calSeq; i++)
                         {
-                            Data.calSeq[i].calculate_type = int.TryParse(tmp[1], out int calculateTypeResult) ? calculateTypeResult : 0;
-                        }
+                            nextLine = sR1.ReadLine();
+                            string[] tmp = nextLine.Split(',');
+                            if (tmp.Length > 1)
+                            {
+                                Data.calSeq[i].part_name = int.TryParse(tmp[0], out int partNameResult) ? partNameResult : 0;
+                            }
 
-                        if (tmp.Length > 3)
-                        {
-                            Data.calSeq[i].cal_i = int.TryParse(tmp[2], out int calIResult) ? calIResult : 0;
-                        }
+                            if (tmp.Length > 2)
+                            {
+                                Data.calSeq[i].calculate_type = int.TryParse(tmp[1], out int calculateTypeResult) ? calculateTypeResult : 0;
+                            }
 
-                        if (tmp.Length > 4)
-                        {
-                            Data.calSeq[i].cal_j = int.TryParse(tmp[3], out int calJResult) ? calJResult : 0;
+                            if (tmp.Length > 3)
+                            {
+                                Data.calSeq[i].cal_i = int.TryParse(tmp[2], out int calIResult) ? calIResult : 0;
+                            }
+
+                            if (tmp.Length > 4)
+                            {
+                                Data.calSeq[i].cal_j = int.TryParse(tmp[3], out int calJResult) ? calJResult : 0;
+                            }
                         }
                     }
 
                     //-------------------------自动测试------------------------//
-                    nextLine = sR1.ReadLine(); //# 自动测试
-                    nextLine = sR1.ReadLine(); //# 自动测试
-                    nextLine = sR1.ReadLine(); //# 自动测试
-                    nextLine = sR1.ReadLine(); //# 自动测试
-                    nextLine = sR1.ReadLine();
+                    if (Data.auto_test)
                     {
-                        string[] tmp = nextLine.Split(',');
-                        Data.autoTest.n_line = int.Parse(tmp[0] == "" ? "0" : tmp[0]);
-                        Data.autoTest.n_node = int.Parse(tmp[1] == "" ? "0" : tmp[1]);
-                    }
-                    Data.autoTest.line=new double[Data.autoTest.n_line][];
-                    Data.autoTest.node = new double[Data.autoTest.n_node][];
-                    nextLine = sR1.ReadLine();
-                    for(int i=0;i< Data.autoTest.n_line; i++)
-                    {
+                        nextLine = sR1.ReadLine(); //# 自动测试
+                        nextLine = sR1.ReadLine(); //# 自动测试
+                        nextLine = sR1.ReadLine(); //# 自动测试
+                        nextLine = sR1.ReadLine(); //# 自动测试
                         nextLine = sR1.ReadLine();
-                        string[] tmp = nextLine.Split(',');
-                        Data.autoTest.line[i] = new double[tmp.Length];
-                        for (int j = 0; j < tmp.Length; j++)
                         {
-                            Data.autoTest.line[i][j] = double.Parse(tmp[j] == "" ? "0" : tmp[j]);
+                            string[] tmp = nextLine.Split(',');
+                            Data.autoTest.n_line = int.Parse(tmp[0] == "" ? "0" : tmp[0]);
+                            Data.autoTest.n_node = int.Parse(tmp[1] == "" ? "0" : tmp[1]);
                         }
-                    }
-                    nextLine = sR1.ReadLine();
-                    for (int i = 0; i < Data.autoTest.n_node; i++)
-                    {
+                        Data.autoTest.line = new double[Data.autoTest.n_line][];
+                        Data.autoTest.node = new double[Data.autoTest.n_node][];
                         nextLine = sR1.ReadLine();
-                        string[] tmp = nextLine.Split(',');
-                        Data.autoTest.node[i] = new double[tmp.Length];
-                        for (int j = 0; j < tmp.Length; j++)
+                        for (int i = 0; i < Data.autoTest.n_line; i++)
                         {
-                            Data.autoTest.node[i][j] = double.Parse(tmp[j] == "" ? "0" : tmp[j]);
+                            nextLine = sR1.ReadLine();
+                            string[] tmp = nextLine.Split(',');
+                            Data.autoTest.line[i] = new double[tmp.Length];
+                            for (int j = 0; j < tmp.Length; j++)
+                            {
+                                Data.autoTest.line[i][j] = double.Parse(tmp[j] == "" ? "0" : tmp[j]);
+                            }
                         }
-                    }
-                    nextLine = sR1.ReadLine();
-                    nextLine = sR1.ReadLine();
-                    {
-                        string[] tmp = nextLine.Split(',');
-                        Data.autoTest.n_h2_node = int.Parse(tmp[0] == "" ? "0" : tmp[0]);
-                        Data.autoTest.n_h2_line = int.Parse(tmp[1] == "" ? "0" : tmp[1]);
+                        nextLine = sR1.ReadLine();
+                        for (int i = 0; i < Data.autoTest.n_node; i++)
+                        {
+                            nextLine = sR1.ReadLine();
+                            string[] tmp = nextLine.Split(',');
+                            Data.autoTest.node[i] = new double[tmp.Length];
+                            for (int j = 0; j < tmp.Length; j++)
+                            {
+                                Data.autoTest.node[i][j] = double.Parse(tmp[j] == "" ? "0" : tmp[j]);
+                            }
+                        }
+                        nextLine = sR1.ReadLine();
+                        nextLine = sR1.ReadLine();
+                        {
+                            string[] tmp = nextLine.Split(',');
+                            Data.autoTest.n_h2_node = int.Parse(tmp[0] == "" ? "0" : tmp[0]);
+                            Data.autoTest.n_h2_line = int.Parse(tmp[1] == "" ? "0" : tmp[1]);
+                        }
                     }
 
                     //-------------------------优化模型------------------------//
-                    nextLine = sR1.ReadLine(); //# 优化模型
-                    nextLine = sR1.ReadLine(); //# 优化模型
-                    nextLine = sR1.ReadLine(); //# 优化模型
-                    nextLine = sR1.ReadLine(); //# 优化模型
-                    nextLine = sR1.ReadLine();
+                    if (Data.opt_model_cal)
                     {
-                        string[] tmp = nextLine.Split(',');
-                        Data.optModel.n_line = int.Parse(tmp[0] == "" ? "0" : tmp[0]);
-                        Data.optModel.n_node = int.Parse(tmp[1] == "" ? "0" : tmp[1]);
-                    }
-                    Data.optModel.line = new double[Data.optModel.n_line];
-                    Data.optModel.node = new double[Data.optModel.n_node];
-                    nextLine = sR1.ReadLine();
-                    nextLine = sR1.ReadLine();
-                    {
-                        for(int i = 0; i< Data.optModel.n_line; i++)
+                        nextLine = sR1.ReadLine(); //# 优化模型
+                        nextLine = sR1.ReadLine(); //# 优化模型
+                        nextLine = sR1.ReadLine(); //# 优化模型
+                        nextLine = sR1.ReadLine(); //# 优化模型
+                        nextLine = sR1.ReadLine();
                         {
                             string[] tmp = nextLine.Split(',');
-                            Data.optModel.line[i] = double.Parse(tmp[i] == "" ? "0" : tmp[i]);
+                            Data.optModel.n_line = int.Parse(tmp[0] == "" ? "0" : tmp[0]);
+                            Data.optModel.n_node = int.Parse(tmp[1] == "" ? "0" : tmp[1]);
                         }
-                    }
-                    nextLine = sR1.ReadLine();
-                    nextLine = sR1.ReadLine();
-                    {
-                        for (int i = 0; i < Data.optModel.n_node; i++)
+                        Data.optModel.line = new double[Data.optModel.n_line];
+                        Data.optModel.node = new double[Data.optModel.n_node];
+                        nextLine = sR1.ReadLine();
+                        nextLine = sR1.ReadLine();
+                        {
+                            for (int i = 0; i < Data.optModel.n_line; i++)
+                            {
+                                string[] tmp = nextLine.Split(',');
+                                Data.optModel.line[i] = double.Parse(tmp[i] == "" ? "0" : tmp[i]);
+                            }
+                        }
+                        nextLine = sR1.ReadLine();
+                        nextLine = sR1.ReadLine();
+                        {
+                            for (int i = 0; i < Data.optModel.n_node; i++)
+                            {
+                                string[] tmp = nextLine.Split(',');
+                                Data.optModel.node[i] = double.Parse(tmp[i] == "" ? "0" : tmp[i]);
+                            }
+                        }
+                        nextLine = sR1.ReadLine();
+                        nextLine = sR1.ReadLine();
                         {
                             string[] tmp = nextLine.Split(',');
-                            Data.optModel.node[i] = double.Parse(tmp[i] == "" ? "0" : tmp[i]);
-                        }
-                    }
-                    nextLine = sR1.ReadLine();
-                    nextLine = sR1.ReadLine();
-                    {
-                        string[] tmp = nextLine.Split(',');
-                        Data.optModel.initialValue = new double[tmp.Length];
-                        for (int i = 0; i < Data.optModel.n_line + Data.optModel.n_node; i++)
-                        {
-                            Data.optModel.initialValue[i] = double.Parse(tmp[i] == "" ? "0" : tmp[i]);
+                            Data.optModel.initialValue = new double[tmp.Length];
+                            for (int i = 0; i < Data.optModel.n_line + Data.optModel.n_node; i++)
+                            {
+                                Data.optModel.initialValue[i] = double.Parse(tmp[i] == "" ? "0" : tmp[i]);
+                            }
                         }
                     }
 
@@ -580,8 +588,8 @@ namespace SimulationDesignPlatform
                     nextLine = sR1.ReadLine();
 
                     Data.autoTest_result.nrow = 0;
-                    for (int i=0; nextLine != null; i++)
-                    {           
+                    for (int i = 0; nextLine != null; i++)
+                    {
                         string[] tmp = nextLine.Split(',');
                         Data.autoTest_result.nrow++;
                         Data.autoTest_result.auto_test_result[i] = new double[34];
@@ -635,7 +643,7 @@ namespace SimulationDesignPlatform
                 file.WriteLine("# 控制参数,,,,,,,,");
                 file.WriteLine("###########################,,,,,,,,");
                 file.WriteLine("自动测试,计算最小温差,优化模型计算,,,,,,");
-                file.WriteLine(Data.auto_test.ToString() + ',' + Data.cal_min_temp_diff.ToString() + ',' + Data.opt_model_cal.ToString() + ",,,,,,");
+                file.WriteLine(Data.auto_test.ToString() + ',' + Data.cal_min_temp_diff.ToString() + ',' + Data.opt_model_cal.ToString() + ',' + Data.cal_order.ToString() + ",,,,,,");
                 file.WriteLine("###########################,,,,,,,,");
                 file.WriteLine("# 物性参数,,,,,,,,");
                 file.WriteLine("###########################,,,,,,,,");
@@ -669,9 +677,9 @@ namespace SimulationDesignPlatform
                         tmp = tmp + Data.node[i].i[j].ToString() + ",";
                         tmp2 = tmp2 + Data.node[i].o[j].ToString() + ",";
                     }
-                    file.WriteLine(tmp+ ",,,,,");
+                    file.WriteLine(tmp + ",,,,,");
                     file.WriteLine("输出流股,,,,,,,,");
-                    file.WriteLine(tmp2+ ",,,,,");
+                    file.WriteLine(tmp2 + ",,,,,");
                 }
                 file.WriteLine("###########################,,,,,,,,");
                 file.WriteLine("# 流股初值,,,,,,,,");
@@ -683,7 +691,7 @@ namespace SimulationDesignPlatform
                                    + Data.line[i].t.ToString() + ','
                                    + Data.line[i].p.ToString() + ',' + Data.line[i].m.ToString() + ','
                                    + Data.line[i].para.ToString() + ',' + Data.line[i].n2.ToString() + ','
-                                   + Data.line[i].mat.ToString() + ',' + Data.line[i].h2_type.ToString() );
+                                   + Data.line[i].mat.ToString() + ',' + Data.line[i].h2_type.ToString());
                 }
                 file.WriteLine("###########################,,,,,,,,");
                 file.WriteLine("# 设备初值,,,,,,,,");
@@ -695,72 +703,82 @@ namespace SimulationDesignPlatform
                                    + Data.nodepara[i].cal_i.ToString() + ',' + Data.nodepara[i].cal_j.ToString() + ','
                                    + Data.nodepara[i].direction.ToString() + ',' + Data.nodepara[i].name + ",,,");
                 }
-                file.WriteLine("###########################,,,,,,,,");
-                file.WriteLine("# 计算顺序,,,,,,,,");
-                file.WriteLine("###########################,,,,,,,,");
-                file.WriteLine("计算个数,,,,,,,,");
-                file.WriteLine(Data.n_calSeq.ToString() + ",,,,,,,,");
-                file.WriteLine("部件名称,计算类型,cal_i,cal_j,,,,,");
-                for (int i = 0; i < Data.n_calSeq; i++)
+
+                if (Data.cal_order == true)
                 {
-                    string partName = Data.calSeq[i].part_name != -1 ? Data.calSeq[i].part_name.ToString() : "";
-                    string calculateType = Data.calSeq[i].calculate_type != -1 ? Data.calSeq[i].calculate_type.ToString() : "";
-                    string calI = Data.calSeq[i].cal_i != -1 ? Data.calSeq[i].cal_i.ToString() : "";
-                    string calJ = Data.calSeq[i].cal_j != -1 ? Data.calSeq[i].cal_j.ToString() : "";
-                    file.WriteLine(partName + ',' + calculateType + ',' + calI + ',' + calJ + ",,,,");
-                }
-                file.WriteLine("###########################,,,,,,,,");
-                file.WriteLine("# 自动测试,,,,,,,,");
-                file.WriteLine("###########################,,,,,,,,");
-                file.WriteLine("计算流股参数个数,计算部件参数个数,,,,,,,");
-                file.WriteLine(Data.autoTest.n_line.ToString() + ',' + Data.autoTest.n_node.ToString() + ",,,,,,,");
-                file.WriteLine("流股,起始温度,结束温度,计算点数,,,,");
-                for (int i = 0; i < Data.autoTest.n_line; i++)
-                {
-                    file.Write(Data.autoTest.line[i][0].ToString() + ',');
-                    for (int j = 1; j < 4; j++)
+                    file.WriteLine("###########################,,,,,,,,");
+                    file.WriteLine("# 计算顺序,,,,,,,,");
+                    file.WriteLine("###########################,,,,,,,,");
+                    file.WriteLine("计算个数,,,,,,,,");
+                    file.WriteLine(Data.n_calSeq.ToString() + ",,,,,,,,");
+                    file.WriteLine("部件名称,计算类型,cal_i,cal_j,,,,,");
+                    for (int i = 0; i < Data.n_calSeq; i++)
                     {
-                        file.Write(Data.autoTest.line[i][j].ToString() + ',');
+                        string partName = Data.calSeq[i].part_name != -1 ? Data.calSeq[i].part_name.ToString() : "";
+                        string calculateType = Data.calSeq[i].calculate_type != -1 ? Data.calSeq[i].calculate_type.ToString() : "";
+                        string calI = Data.calSeq[i].cal_i != -1 ? Data.calSeq[i].cal_i.ToString() : "";
+                        string calJ = Data.calSeq[i].cal_j != -1 ? Data.calSeq[i].cal_j.ToString() : "";
+                        file.WriteLine(partName + ',' + calculateType + ',' + calI + ',' + calJ + ",,,,");
+                    }
+                }
+
+                if (Data.auto_test == true)
+                {
+                    file.WriteLine("###########################,,,,,,,,");
+                    file.WriteLine("# 自动测试,,,,,,,,");
+                    file.WriteLine("###########################,,,,,,,,");
+                    file.WriteLine("计算流股参数个数,计算部件参数个数,,,,,,,");
+                    file.WriteLine(Data.autoTest.n_line.ToString() + ',' + Data.autoTest.n_node.ToString() + ",,,,,,,");
+                    file.WriteLine("流股,起始温度,结束温度,计算点数,,,,");
+                    for (int i = 0; i < Data.autoTest.n_line; i++)
+                    {
+                        file.Write(Data.autoTest.line[i][0].ToString() + ',');
+                        for (int j = 1; j < 4; j++)
+                        {
+                            file.Write(Data.autoTest.line[i][j].ToString() + ',');
+                        }
+                        file.WriteLine();
+                    }
+                    file.WriteLine("部件,起始效率,结束效率,计算点数,,,,");
+                    for (int i = 0; i < Data.autoTest.n_node; i++)
+                    {
+                        file.Write(Data.autoTest.node[i][0].ToString() + ',');
+                        for (int j = 1; j < 4; j++)
+                        {
+                            file.Write(Data.autoTest.node[i][j].ToString() + ',');
+                        }
+                        file.WriteLine();
+                    }
+                    file.WriteLine("氢流量部件,氢流量流股,,,,,,,");
+                    file.WriteLine(Data.autoTest.n_h2_node.ToString() + ',' + Data.autoTest.n_h2_line.ToString() + ",,,,,,,");
+                }
+
+                if (Data.opt_model_cal == true)
+                {
+                    file.WriteLine("###########################,,,,,,,,");
+                    file.WriteLine("# 优化模型,,,,,,,,");
+                    file.WriteLine("###########################,,,,,,,,");
+                    file.WriteLine("计算流股参数个数,计算部件参数个数,,,,,,,");
+                    file.WriteLine(Data.optModel.n_line.ToString() + ',' + Data.optModel.n_node.ToString() + ",,,,,,,");
+                    file.WriteLine("流股,,,,");
+                    for (int i = 0; i < Data.optModel.n_line; i++)
+                    {
+                        file.Write(Data.optModel.line[i].ToString() + ',');
+                    }
+                    file.WriteLine();
+                    file.WriteLine("部件,,,,");
+                    for (int i = 0; i < Data.optModel.n_node; i++)
+                    {
+                        file.Write(Data.optModel.node[i].ToString() + ',');
+                    }
+                    file.WriteLine();
+                    file.WriteLine("初值,,,,");
+                    for (int i = 0; i < Data.optModel.n_line + Data.optModel.n_node; i++)
+                    {
+                        file.Write(Data.optModel.initialValue[i].ToString() + ',');
                     }
                     file.WriteLine();
                 }
-                file.WriteLine("部件,起始效率,结束效率,计算点数,,,,");
-                for (int i = 0; i < Data.autoTest.n_node; i++)
-                {
-                    file.Write(Data.autoTest.node[i][0].ToString() + ',');
-                    for (int j = 1; j < 4; j++)
-                    {
-                        file.Write(Data.autoTest.node[i][j].ToString() + ',');
-                    }
-                    file.WriteLine();
-                }
-                file.WriteLine("氢流量部件,氢流量流股,,,,,,,");
-                file.WriteLine(Data.autoTest.n_h2_node.ToString() + ',' + Data.autoTest.n_h2_line.ToString() + ",,,,,,,");
-
-                file.WriteLine("###########################,,,,,,,,");
-                file.WriteLine("# 优化模型,,,,,,,,");
-                file.WriteLine("###########################,,,,,,,,");
-                file.WriteLine("计算流股参数个数,计算部件参数个数,,,,,,,");
-                file.WriteLine(Data.optModel.n_line.ToString() + ',' + Data.optModel.n_node.ToString() + ",,,,,,,");
-                file.WriteLine("流股,,,,");
-                for (int i = 0; i < Data.optModel.n_line; i++)
-                {
-                    file.Write(Data.optModel.line[i].ToString() + ',');
-                }
-                file.WriteLine();
-                file.WriteLine("部件,,,,");
-                for (int i = 0; i < Data.optModel.n_node; i++)
-                {
-                    file.Write(Data.optModel.node[i].ToString() + ',');
-                }
-                file.WriteLine();
-                file.WriteLine("初值,,,,");
-                for (int i = 0; i < Data.optModel.n_line + Data.optModel.n_node; i++)
-                {
-                    file.Write(Data.optModel.initialValue[i].ToString() + ',');
-                }
-                file.WriteLine();
-
             }
         }
 

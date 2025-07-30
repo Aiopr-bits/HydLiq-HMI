@@ -132,7 +132,8 @@ namespace SimulationDesignPlatform.UserControls
             dataTable05.Columns.Add("自动测试");
             dataTable05.Columns.Add("计算最小温差");
             dataTable05.Columns.Add("优化模型计算");
-            dataTable05.Rows.Add(Data.auto_test ? "开启" : "关闭", Data.cal_min_temp_diff ? "开启" : "关闭", Data.opt_model_cal ? "开启" : "关闭");
+            dataTable05.Columns.Add("计算顺序");
+            dataTable05.Rows.Add(Data.auto_test ? "开启" : "关闭", Data.cal_min_temp_diff ? "开启" : "关闭", Data.opt_model_cal ? "开启" : "关闭", Data.cal_order ? "开启" : "关闭");
             dataGridView5.DataSource = dataTable05;
 
             DataTable dataTable06 = new DataTable();
@@ -234,6 +235,7 @@ namespace SimulationDesignPlatform.UserControls
                 Data.auto_test = dataGridView5.Rows[0].Cells[0].Value.ToString() == "开启";
                 Data.cal_min_temp_diff = dataGridView5.Rows[0].Cells[1].Value.ToString() == "开启";
                 Data.opt_model_cal = dataGridView5.Rows[0].Cells[2].Value.ToString() == "开启";
+                Data.cal_order = dataGridView5.Rows[0].Cells[3].Value.ToString() == "开启";
             }
 
             // 更新 Data.optModel.n_line 和 Data.optModel.n_node
